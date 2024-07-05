@@ -1,0 +1,2 @@
+* PLib.dll 随便下载一个mod，里面的文件应该有这个
+* MixJadeFirstMod.dll 从代码生成的，是Mod的核心
