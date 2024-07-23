@@ -1,0 +1,190 @@
+BEGIN Object     
+    Name                 Guard  
+    MoveSpeedFactor      1.500000  
+    Toughness            2000.0000  
+    Price                -5  
+	Upkeep				 -1
+    RenderDepth          2  
+    ViewRange            22
+    BlockedBy            Wall  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Sprite               Guard
+    SpriteVariants       4  
+    Properties           Entity
+    Properties           Staff
+    Properties           Guard
+    Equipment            Baton
+    ZombieTier           Medium
+END
+
+BEGIN Object     
+    Name                 Workman  
+    MoveSpeedFactor      1.500000
+    Toughness            500.0000
+    Price                -5  
+	Upkeep				 -1
+    RenderDepth          2  
+    ViewRange            3
+    BlockedBy            Wall  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Sprite               Workman  
+    SpriteVariants       4  
+    Properties           Entity
+    Properties           Staff
+    ZombieTier           Low
+END
+
+BEGIN Object     
+    Name                 ArmedGuard
+    MoveSpeedFactor      1.500000  
+    Toughness            1500.0000  
+    Price                -15  
+	Upkeep				 -5
+    RenderDepth          2  
+    ViewRange            22
+    BlockedBy            Wall
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Research             Armoury
+    Sprite               ArmedGuard
+    SpriteVariants       4
+    Properties           Entity
+    Properties           Staff
+    Properties           Guard
+    Equipment            Shotgun
+    ZombieTier           High
+END
+
+BEGIN Object     
+    Name                 DogHandler  
+    MoveSpeedFactor      1.500000  
+    Toughness            1500.0000
+    Price                -5  
+	Upkeep				 -1
+    RenderDepth          2  
+    ViewRange            22
+    BlockedBy            Wall  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Research             Dogs
+    Sprite               DogHandler  
+    SpriteVariants       4  
+    Properties           Entity
+    Properties           Staff
+    Properties           Guard
+    Properties           DoesNotTire
+    Equipment            DogLeash
+        Equipment            Baton
+    ZombieTier           Medium
+END
+
+BEGIN Object     
+    Name                 Dog  
+    MoveSpeedFactor      1.50000  
+    Toughness            2000.0000  
+    RenderDepth          2  
+    ViewRange            22
+    BlockedBy            Wall  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Research             Dogs
+    Sprite               GuardDog
+    Properties           Entity
+    Properties           Staff
+    Properties           DoesNotTire
+    ZombieTier           Medium
+END
+
+BEGIN Object     
+    Name                 Sniper  
+    MoveSpeedFactor      0.500000  
+    Toughness            2000.0000  
+    Price                -20  
+	Upkeep				 -5
+    RenderDepth          5  
+    ViewRange            22
+    BlockedBy            Wall  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Sprite               Sniper
+    SpriteVariants       4  
+    Properties           Entity
+    Properties           Guard
+    Properties           Staff
+    Equipment            Rifle
+    Research             GuardTowers
+    ZombieTier           High
+END
+
+BEGIN Object     
+    Name                 Gardener  
+    Price                -5  
+	Upkeep				 -1
+    Toughness            50
+    RenderDepth          2  
+    BlockedBy            Wall  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Research             GroundsKeeping
+    Sprite               Gardener  
+    SpriteVariants       4  
+    Properties           Entity
+    Properties           Staff
+    ZombieTier           Low
+END
+
+BEGIN Object     
+    Name                 Janitor  
+    Price                -5  
+	Upkeep				 -1
+    Toughness            50
+    RenderDepth          2  
+    BlockedBy            Wall  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Research             Cleaning
+    Sprite               Janitor  
+    SpriteVariants       4  
+    Properties           Entity
+    Properties           Staff
+    ZombieTier           Low
+END
+
+BEGIN Object     
+    Name                 Cook  
+    Price                -5
+	Upkeep			     -1
+    Toughness            50
+    RenderDepth          2  
+    BlockedBy            Wall  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Sprite               Chef  
+    SpriteVariants       4  
+    ViewRange            3    
+    Properties           Entity
+    Properties           Staff
+    ZombieTier           Low
+END
+
+BEGIN Object     
+    Name                 Doctor  
+    Toughness            100.0000  
+    Price                -10
+	Upkeep				 -1
+    Toughness            5
+    RenderDepth          2  
+    ViewRange            3
+    BlockedBy            Wall  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Research             Health
+    Sprite               Doctor  
+    SpriteVariants       4  
+    Properties           Entity
+    Properties           Staff
+    Equipment            Needle
+    ZombieTier           Low
+END

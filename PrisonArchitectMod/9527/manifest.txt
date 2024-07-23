@@ -1,0 +1,5 @@
+
+Name                 "My Mod"  
+Description          "我的MOD."  
+IsTranslation        false  
+Author               MixJade
