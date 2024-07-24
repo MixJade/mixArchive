@@ -1,5 +1,6 @@
 
-Name                 "My Mod"  
-Description          "我的MOD."  
+Name                 "MyCheapMod"  
+Description          "自用MOD,警卫、武装警、警犬、狙击手、工人、清洁工、厨师、园丁的雇佣价格变便宜，且永不疲劳。清洁橱柜去除违禁品"  
 IsTranslation        false  
 Author               MixJade
+UpdateTime           1721834771

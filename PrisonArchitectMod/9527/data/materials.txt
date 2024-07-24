@@ -196,3 +196,18 @@ BEGIN Object
     Equipment            Needle
     ZombieTier           Low
 END
+
+BEGIN Room       
+    Name                 CleaningCupboard
+    Research             Cleaning
+    Properties           PrisonersCanWork
+    BEGIN Requirement Type Indoor  END
+    BEGIN Requirement Type MinimumSize  x 3  y 3  END
+	
+	BEGIN LikelyObject	Id		Bucket	END
+    BEGIN LikelyObject	Id		Table	END
+    BEGIN LikelyObject	Id		SmallTable	END
+	
+	WorkExperience		WorkCleaner
+	WorkExperienceRate	0.01
+END
