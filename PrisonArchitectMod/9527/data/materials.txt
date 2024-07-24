@@ -14,6 +14,7 @@ BEGIN Object
     Properties           Entity
     Properties           Staff
     Properties           Guard
+    Properties           DoesNotTire
     Equipment            Baton
     ZombieTier           Medium
 END
@@ -33,6 +34,7 @@ BEGIN Object
     SpriteVariants       4  
     Properties           Entity
     Properties           Staff
+    Properties           DoesNotTire
     ZombieTier           Low
 END
 
@@ -53,6 +55,7 @@ BEGIN Object
     Properties           Entity
     Properties           Staff
     Properties           Guard
+    Properties           DoesNotTire
     Equipment            Shotgun
     ZombieTier           High
 END
@@ -113,6 +116,7 @@ BEGIN Object
     Properties           Entity
     Properties           Guard
     Properties           Staff
+    Properties           DoesNotTire
     Equipment            Rifle
     Research             GuardTowers
     ZombieTier           High
@@ -132,6 +136,7 @@ BEGIN Object
     SpriteVariants       4  
     Properties           Entity
     Properties           Staff
+    Properties           DoesNotTire
     ZombieTier           Low
 END
 
@@ -149,6 +154,7 @@ BEGIN Object
     SpriteVariants       4  
     Properties           Entity
     Properties           Staff
+    Properties           DoesNotTire
     ZombieTier           Low
 END
 
@@ -166,6 +172,7 @@ BEGIN Object
     ViewRange            3    
     Properties           Entity
     Properties           Staff
+    Properties           DoesNotTire
     ZombieTier           Low
 END
 
@@ -185,6 +192,7 @@ BEGIN Object
     SpriteVariants       4  
     Properties           Entity
     Properties           Staff
+    Properties           DoesNotTire
     Equipment            Needle
     ZombieTier           Low
 END
