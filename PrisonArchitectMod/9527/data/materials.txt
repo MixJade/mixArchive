@@ -211,3 +211,59 @@ BEGIN Room
 	WorkExperience		WorkCleaner
 	WorkExperienceRate	0.01
 END
+
+BEGIN Room       
+    Name                 Kitchen  
+    BEGIN Requirement Type Object  Id Cooker  END
+    BEGIN Requirement Type Object  Id Fridge  Alt	TallFridge	END
+    BEGIN Requirement Type Object  Id Sink END
+    BEGIN LikelyObject	Id		Bin				END
+    BEGIN LikelyObject	Id		StaffDoor	    END
+	BEGIN LikelyObject	Id		Sprinkler		END
+	BEGIN LikelyObject	Id		RecyclingBin	END
+    BEGIN LikelyObject  Id      TrayDispenser   END
+
+    Properties           PrisonersCanWork
+    Properties           RequiresSector
+    Properties           BlockMaterialTransfer
+    Qualification        KitchenInduction
+	QualificationAlternativeWorkExperienceType	WorkCook
+    BEGIN Contraband    Id 	ProducedNarcotics END
+	WorkExperience		WorkCook
+	WorkExperienceRate	0.05
+
+END
+
+BEGIN Room       
+    Name                 Workshop 
+    Research             PrisonLabour 
+    Properties           PrisonersCanWork    
+    Qualification        WorkshopInduction
+	QualificationAlternativeWorkExperienceType	WorkCraftsman
+	BEGIN Requirement Type Enclosed END
+    BEGIN Requirement Type MinimumSize  x 5  y 5  END
+    BEGIN Requirement Type Object   Id WorkshopSaw   	  END
+    BEGIN Requirement Type Object   Id WorkshopPress 	  END
+    BEGIN Requirement Type Object   Id Table Alt SmallTable,OakTable,JungleTable END
+    BEGIN LikelyObject  Id      CarpenterTable  END
+	BEGIN LikelyObject  Id 		PracticeSolarPanel 	END
+	WorkExperience		WorkCraftsman
+	WorkExperienceRate	0.05
+    Properties                  RequiresSector
+
+END
+
+BEGIN Room       
+    Name                 MedicalWard  
+    Research             Health  
+    BEGIN Requirement Type Indoor  END
+    BEGIN Requirement Type Object  Id MedicalBed  END
+    BEGIN LikelyObject	Id		FirstAidStation	END
+    BEGIN LikelyObject	Id		MedicalBox	END
+    BEGIN LikelyObject	Id		HealthMonitor	END
+    BEGIN LikelyObject	Id		Router	END
+    BEGIN LikelyObject	Id		OfficeDesk	END
+    BEGIN LikelyObject	Id		FancyDesk	END
+    BEGIN LikelyObject	Id		FilingCabinet	END
+    BEGIN LikelyObject	Id		FilingCabinetFancy	END
+END
