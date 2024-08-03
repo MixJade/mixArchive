@@ -16,6 +16,7 @@ BEGIN Object
     Properties           Guard
     Properties           DoesNotTire
     Equipment            Baton
+    Equipment            Gun
     ZombieTier           Medium
 END
 
@@ -58,46 +59,6 @@ BEGIN Object
     Properties           DoesNotTire
     Equipment            Shotgun
     ZombieTier           High
-END
-
-BEGIN Object     
-    Name                 DogHandler  
-    MoveSpeedFactor      1.500000  
-    Toughness            1500.0000
-    Price                -5  
-	Upkeep				 -1
-    RenderDepth          2  
-    ViewRange            22
-    BlockedBy            Wall  
-    BlockedBy            StaticObject  
-    BlockedBy            UtilityStation  
-    Research             Dogs
-    Sprite               DogHandler  
-    SpriteVariants       4  
-    Properties           Entity
-    Properties           Staff
-    Properties           Guard
-    Properties           DoesNotTire
-    Equipment            DogLeash
-        Equipment            Baton
-    ZombieTier           Medium
-END
-
-BEGIN Object     
-    Name                 Dog  
-    MoveSpeedFactor      1.50000  
-    Toughness            2000.0000  
-    RenderDepth          2  
-    ViewRange            22
-    BlockedBy            Wall  
-    BlockedBy            StaticObject  
-    BlockedBy            UtilityStation  
-    Research             Dogs
-    Sprite               GuardDog
-    Properties           Entity
-    Properties           Staff
-    Properties           DoesNotTire
-    ZombieTier           Medium
 END
 
 BEGIN Object     
@@ -228,7 +189,6 @@ BEGIN Room
     Properties           BlockMaterialTransfer
     Qualification        KitchenInduction
 	QualificationAlternativeWorkExperienceType	WorkCook
-    BEGIN Contraband    Id 	ProducedNarcotics END
 	WorkExperience		WorkCook
 	WorkExperienceRate	0.05
 
@@ -267,3 +227,61 @@ BEGIN Room
     BEGIN LikelyObject	Id		FilingCabinet	END
     BEGIN LikelyObject	Id		FilingCabinetFancy	END
 END
+
+BEGIN Room       
+    Name                 Library  
+    BEGIN Requirement Type MinimumSize  x 5  y 5  END
+    BEGIN Requirement Type Indoor END
+    BEGIN Requirement Type Object  Id LibraryBookshelf END
+    BEGIN Requirement Type Object Id SortingTable END
+	BEGIN LikelyObject	Id		WoodenTable	END
+	BEGIN LikelyObject	Id		ChestOfDrawers	END
+    BEGIN LikelyObject  Id      ShortBookcase   END
+	BEGIN LikelyObject	Id		ChessTable		END
+	BEGIN LikelyObject	Id		ComputerStation	END
+	Properties           PrisonerRelax
+    Properties           PrisonersCanWork
+    Properties           RequiresSector
+    Qualification        Academic
+    WorkGroup            Library
+    Research             PrisonLabour
+	WorkExperience		WorkLabourer
+	WorkExperienceRate	0.01
+END
+
+BEGIN Room       
+    Name                 Morgue  
+    Research             Health  
+    BEGIN Requirement Type Indoor  END
+    BEGIN Requirement Type Object  Id MorgueSlab  END
+END
+
+BEGIN Object     
+    Name                 StaffDoor
+    ConstructionTime     7.00000  
+    Toughness            4000.0000  
+    Teleportable         true  
+    Price                -100  
+    RenderDepth          2  
+    Group                StaticObject  
+    BlockedBy            StaticObject  
+    BlockedBy            UtilityStation  
+    Sprite               StaffDoor
+    MadeOf               Wood
+    Properties           StaticObject
+    Properties           Door
+END
+
+
+BEGIN Object     
+    Name                 killer    
+    Price                60000  
+    MadeOf               SolidMetal
+    Properties           Entity
+    Properties           StaticObject
+    Properties           Scripted 
+    Sprite               Knife
+    ToolbarSprite        Knife
+END
+
+

@@ -126,6 +126,12 @@ END
 
 ## 二、寻找参照物教程
 
+* 游戏目录
+
+```url
+C:\Program Files (x86)\Steam\steamapps\common\Prison Architect
+```
+
 1. 打开游戏目录(可通过Steam打开)
 2. 找到`main.dat`，选择“用RAR打开文件”。
 3. 在里面慢慢找，找到`materials.txt`。
@@ -182,13 +188,13 @@ END
 
 ## 三、推荐Mod
 
-| 名称                    | 描述                       |
-| ----------------------- | -------------------------- |
-| Death Row Letter        | 允许将囚犯变成死刑犯       |
-| Strong Guare            | 强壮的警卫(建议改它的文件) |
-| [轻松学习]Easy Learning | 让课程更容易通过           |
-| Super Radio             | 收音机满足一切需求         |
-| Money Spawner           | 可以随时获得一千万         |
+| 名称             | 描述                       |
+| ---------------- | -------------------------- |
+| Death Row Letter | 允许将囚犯变成死刑犯       |
+| Kill Prisoner    | 可以杀死囚犯               |
+| Strong Guare     | 强壮的警卫(建议改它的文件) |
+| Super Radio      | 收音机满足一切需求         |
+| Money Spawner    | 可以随时获得一千万         |
 
 ## 四、游戏小细节
 

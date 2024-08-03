@@ -1,0 +1,3 @@
+object_killer                       干掉囚犯
+buildtoolbar_popup_obj_killer       干掉一个囚犯
+
