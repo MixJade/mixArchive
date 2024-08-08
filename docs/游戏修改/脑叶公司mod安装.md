@@ -2,6 +2,10 @@
 
 > 2024-8-8 20:16:59
 
+在前面先推荐Wiki[脑叶公司 Wiki | Fandom](https://lobotomycorp.fandom.com/zh/wiki/脑叶公司_Wiki)
+
+这个Wiki一般是在玩的时候查的，建议放在手机上查看
+
 ## 一、N网下载
 
 * 网址：[N网脑叶公司Mod](https://www.nexusmods.com/lobotomycorporation/mods/popularalltime/)
