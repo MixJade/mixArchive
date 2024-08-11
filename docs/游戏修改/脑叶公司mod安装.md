@@ -33,3 +33,10 @@ C:\Program Files (x86)\Steam\steamapps\common\LobotomyCorp\LobotomyCorp_Data
 * 不要将其放在 `\LobotomyCorp_Data\BaseMod`
   中，而是放在 `\LobotomyCorp_Data\Managed\BaseMod`中。
 * 这个会覆盖一个原有的同名文件，注意备份。
+
+## 四、自动工作宏的使用
+
+Shift + Click”：按住 shift 键并单击异常的工作类型，然后单击员工;您将设置它们以自动处理该异常。这将把他们正在处理的异常情况的肖像放在他们的头顶上，只有当被告知做其他事情或无法工作时，他们才会停下来。
+“Shift”：选择任何员工并按 shift 键以阻止他们自动工作。这不会取消他们目前的工作，只会取消任何未来的工作。
+“V”：按 V 停止任何和所有宏。
+“B”：选择任何员工并按 B 键，让他们完成他们所做的最后一项工作。或者，打开异常的工作窗口，然后按 B 发送处理异常的最后一名人员。此键绑定还与按住 shift 一起使用，以自动为他们所做的上一个工作创建巨集。
