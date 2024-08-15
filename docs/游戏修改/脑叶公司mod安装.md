@@ -15,6 +15,7 @@
 * 还有加强武器防具的[Super Agents](https://www.nexusmods.com/lobotomycorporation/mods/19)(这个要下载以后自己把数值调小一点，不然会有bug)
 * 重回第一天保留员工：[Permanent Agents](https://www.nexusmods.com/lobotomycorporation/mods/79)
 * 自动连续工作：[Automatic Work Macro](https://www.nexusmods.com/lobotomycorporation/mods/107)
+* 无限重选异想体: [InfiReExtract](https://www.nexusmods.com/lobotomycorporation/mods/77)
 
 ## 二、mod安装
 
