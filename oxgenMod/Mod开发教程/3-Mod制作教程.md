@@ -1,4 +1,4 @@
-# Mod制作教程
+# 3-Mod制作教程
 
 > 上一集我们完成了基本的配置，并改了c#文件的类名，获得了PLib.dll与mod.yaml、mod_info.yaml文件
 
