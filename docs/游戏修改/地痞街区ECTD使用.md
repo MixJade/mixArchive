@@ -94,9 +94,36 @@ Laptop（笔记本电脑）, ChloroformHankie（氯仿手套，这玩意要用�
 **HitObjectsNoNoise
 **MapFilled
 **StatusEffectsLonger2
-**NoOwnCheckOnBreak
 **TechExpert
 **DontHitOwnKind
 **GenericAgentsAligned
 %%Laptop
 ```
+
+### 6.3 巨大的万人敌
+
+* 500钱、9000棒球棒、巨人药水
+* 身强体壮
+* 万人嫌、我恨动物、科学家杀手、行迹可疑、通缉犯、面目曾玲、痛殴血帮、痛殴瘸帮
+* 全球定位、延长状态
+
+```python
+++Money+500
+++BaseballBat+90000
+++Giantizer+900
+&&Strength=900
+&&End=900
+&&Speed=15
+&&Acc=900
+**NoFollowers
+**HatesGorilla
+**HatesScientist
+**Suspicious
+**Wanted
+**ScareEnemiesEasier2 
+**HatesBlahds
+**HatesCrepes
+**MapFilled
+**StatusEffectsLonger2
+```
+
