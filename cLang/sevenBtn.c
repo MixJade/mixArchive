@@ -55,8 +55,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                        WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 
                        0, i * 30, 200, 30,
                        hWnd,
-                       (HMENU) i + 1,
+                       (HMENU) i,
                        NULL, NULL);
+        break;
+      case WM_COMMAND:
+        if (HIWORD(wParam)==BN_CLICKED)
+        {
+        	switch (LOWORD(wParam))
+            {
+            case 0:
+                MessageBox(NULL, "Button 1 clicked", "Notification", MB_OK);
+                break;
+            case 1:
+                MessageBox(NULL, "Button 2 clicked", "Notification", MB_OK);
+                break;
+            default:
+            	MessageBox(NULL, "xx", "Button", MB_ICONINFORMATION | MB_OK);
+                break;
+            }
+        }
         break;
       case WM_DESTROY:
         PostQuitMessage(0);
