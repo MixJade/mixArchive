@@ -211,3 +211,18 @@ C:\Program Files (x86)\Steam\steamapps\common\Prison Architect
 ```
 
 * 注意Mod文件夹需用数字命名
+
+## 六、存档修改教程
+
+打开存档文件夹，修改里面的`autosave.prison`文件
+
+```
+%localappdata%\Introversion\Prison Architect\saves
+```
+
+* 在游戏里，有些设置打开后不可关闭，比如员工需求
+  如果打开了又想关闭怎么办呢？
+  那只需要找到对应的英文，比如员工需求-`StaffNeeds`，只需删除这行，保存，然后**读档**即可。
+
+* 修改殉职人数：搜索`StaffDeaths`，将它的value改成0
+* 修改逃脱人数：`PrisonersEscaped`

@@ -16,7 +16,6 @@ BEGIN Object
     Properties           Guard
     Properties           DoesNotTire
     Equipment            Baton
-    Equipment            Gun
     ZombieTier           Medium
 END
 
