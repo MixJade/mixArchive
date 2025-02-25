@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
 #include <string>
 
 using namespace std;
@@ -45,27 +44,27 @@ public:
         tempD = D;
         strlength = 0;
     }
-    // Få‡½æ•°
+    // Fº¯Êı
     unsigned int F(unsigned int b, unsigned int c, unsigned int d) {
         return (b & c) | ((~b) & d);
     }
-    // Gå‡½æ•°
+    // Gº¯Êı
     unsigned int G(unsigned int b, unsigned int c, unsigned int d) {
         return (b & d) | (c & (~d));
     }
-    // Hå‡½æ•°
+    // Hº¯Êı
     unsigned int H(unsigned int b, unsigned int c, unsigned int d) {
         return b ^ c ^ d;
     }
-    // Iå‡½æ•°
+    // Iº¯Êı
     unsigned int I(unsigned int b, unsigned int c, unsigned int d) {
         return c ^ (b | (~d));
     }
-    // ç§»ä½æ“ä½œå‡½æ•°
+    // ÒÆÎ»²Ù×÷º¯Êı
     unsigned int shift(unsigned int a, unsigned int n) {
         return (a << n) | (a >> (32 - n));
     }
-    // ç¼–ç å‡½æ•°
+    // ±àÂëº¯Êı
     string encode(string src) {
         vector<unsigned int> rec = padding(src);
         for (unsigned int i = 0; i < strlength / 16; i++) {
@@ -77,7 +76,7 @@ public:
         }
         return format(tempA) + format(tempB) + format(tempC) + format(tempD);
     }
-    // å¾ªç¯å‹ç¼©
+    // Ñ­»·Ñ¹Ëõ
     void iterateFunc(unsigned int* X, int size = 16) {
         unsigned int a = tempA,
             b = tempB,
@@ -87,22 +86,22 @@ public:
             g, k;
         for (int i = 0; i < 64; i++) {
             if (i < 16) {
-                // Fè¿­ä»£
+                // Fµü´ú
                 g = F(b, c, d);
                 k = i;
             }
             else if (i < 32) {
-                // Gè¿­ä»£
+                // Gµü´ú
                 g = G(b, c, d);
                 k = (1 + 5 * i) % 16;
             }
             else if (i < 48) {
-                // Hè¿­ä»£
+                // Hµü´ú
                 g = H(b, c, d);
                 k = (5 + 3 * i) % 16;
             }
             else {
-                // Iè¿­ä»£
+                // Iµü´ú
                 g = I(b, c, d);
                 k = (7 * i) % 16;
             }
@@ -117,23 +116,23 @@ public:
         tempC += c;
         tempD += d;
     }
-    // å¡«å……å­—ç¬¦ä¸²
+    // Ìî³ä×Ö·û´®
     vector<unsigned int> padding(string src) {
-        // ä»¥512ä½,64ä¸ªå­—èŠ‚ä¸ºä¸€ç»„
+        // ÒÔ512Î»,64¸ö×Ö½ÚÎªÒ»×é
         unsigned int num = ((src.length() + 8) / 64) + 1;
         vector<unsigned int> rec(num * 16);
         strlength = num * 16;
         for (unsigned int i = 0; i < src.length(); i++) {
-            // ä¸€ä¸ªunsigned intå¯¹åº”4ä¸ªå­—èŠ‚ï¼Œä¿å­˜4ä¸ªå­—ç¬¦ä¿¡æ¯
+            // Ò»¸öunsigned int¶ÔÓ¦4¸ö×Ö½Ú£¬±£´æ4¸ö×Ö·ûĞÅÏ¢
             rec[i >> 2] |= (int)(src[i]) << ((i % 4) * 8);
         }
-        // è¡¥å……1000...000
+        // ²¹³ä1000...000
         rec[src.length() >> 2] |= (0x80 << ((src.length() % 4) * 8));
-        // å¡«å……åŸæ–‡é•¿åº¦
+        // Ìî³äÔ­ÎÄ³¤¶È
         rec[rec.size() - 2] = (src.length() << 3);
         return rec;
     }
-    // æ•´ç†è¾“å‡º
+    // ÕûÀíÊä³ö
     string format(unsigned int num) {
         string res = "";
         unsigned int base = 1 << 8;

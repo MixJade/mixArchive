@@ -1,8 +1,10 @@
 #include <stdio.h>
-int main()
-{
-   // printf() 中字符串需要引号
-   printf("Hello, World!\n");
-   system("pause");
-   return 0;
+#include <stdlib.h>
+
+int main() {
+    // 测试输出
+    printf("Hello, World!你好世界\n");
+    // 等待用户输入
+    system("pause");
+    return 0;
 }

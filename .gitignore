@@ -5,3 +5,4 @@
 *.ipr
 ### no exe
 *.exe
+cmake-build-debug

@@ -2,11 +2,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <time.h>
-#include<math.h>
+
 char text[100];
 int result[100];
 int count = 0;
-int getNi(int e, int n)//æ±‚é€†
+int getNi(int e, int n)//ÇóÄæ
 {
 	int d;
 	for (d = 0; d < n; d++) {
@@ -14,14 +14,14 @@ int getNi(int e, int n)//æ±‚é€†
 			return d;
 	}
 }
-int Gcd(int a, int b)//æ±‚æœ€å¤§å…¬å› æ•°
+int Gcd(int a, int b)//Çó×î´ó¹«ÒòÊý
 {
 	if (a % b == 0)
 		return b;
 	else;
 	return Gcd(b, a % b);
 }
-int getrand(int p, int q) {//äº§ç”Ÿéšæœºæ•°e
+int getrand(int p, int q) {//²úÉúËæ»úÊýe
 	int m = (p - 1) * (q - 1);
 	int e, c;
 	while (1) {
@@ -34,9 +34,9 @@ int getrand(int p, int q) {//äº§ç”Ÿéšæœºæ•°e
 	return e;
 }
 
-//åŠ å¯†
+//¼ÓÃÜ
 void Encode(int e, int n) {
-	printf("è¯·è¾“å…¥æ˜Žæ–‡ï¼š");
+	printf("ÇëÊäÈëÃ÷ÎÄ£º");
 	int c = getchar();
 	while (1) {
 		if (c == '\n')break;
@@ -52,16 +52,15 @@ void Encode(int e, int n) {
 		result[i] = flag;
 		flag = 1;
 	}
-	printf("\nåŠ å¯†å¯†æ–‡ä¸ºï¼š\n");
+	printf("\n¼ÓÃÜÃÜÎÄÎª£º\n");
 	for (int i = 0; i < count; i++) {
 		printf("%d", result[i]);
 	}
 
 }
-//è§£å¯†
+//½âÃÜ
 void Decode(int d, int n) {
-	printf("è¯·è¾“å…¥ç§é’¥ï¼š");
-	int dl1 = getchar();
+	printf("ÇëÊäÈëË½Ô¿£º");
 	int flag = 1;
 	int m[100];
 	for (int i = 0; i < count; i++) {
@@ -71,30 +70,30 @@ void Decode(int d, int n) {
 		m[i] = flag;
 		flag = 1;
 	}
-	printf("\nè§£å¯†æ˜Žæ–‡ä¸ºï¼š\n");
+	printf("\n½âÃÜÃ÷ÎÄÎª£º\n");
 	for (int i = 0; i < count; i++)
 		printf("%c", m[i]);
 }
 int main() {
 	int p, q, n;
-	printf("è¯·è¾“å…¥ä¸¤ä¸ªç´ æ•°p,q(è¦æ±‚p,qçš„ä¹˜ç§¯è¦å¤§äºŽ127)ï¼š");//ASCIIç æœ€å¤§ä¸º127
+	printf("ÇëÊäÈëÁ½¸öËØÊýp,q(ÒªÇóp,qµÄ³Ë»ýÒª´óÓÚ127)£º");//ASCIIÂë×î´óÎª127
 	scanf("%d %d", &p, &q);
 	n = p * q;
 	int m = (p - 1) * (q - 1);
 	printf("n=%d", n);
 	int e;
 	e = getrand(p, q);
-	printf("\nå…¬é’¥e=%d", e);
+	printf("\n¹«Ô¿e=%d", e);
 	int d;
 	d = getNi(e, m);
-	printf("\nç§é’¥d=%d", d);
+	printf("\nË½Ô¿d=%d", d);
 	int func = 0;
 	while (func != 3) {
 		printf("\n------------------------------------------");
-		printf("\nè¯·é€‰æ‹©åŠŸèƒ½ï¼š\n");
-		printf("1ã€åŠ å¯†\n");
-		printf("2ã€è§£å¯†\n");
-		printf("3ã€é€€å‡º\n");
+		printf("\nÇëÑ¡Ôñ¹¦ÄÜ£º\n");
+		printf("1¡¢¼ÓÃÜ\n");
+		printf("2¡¢½âÃÜ\n");
+		printf("3¡¢ÍË³ö\n");
 		printf("------------------------------------------\n");
 		scanf("%d", &func);
 		getchar();
