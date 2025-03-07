@@ -65,7 +65,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     if (!RegisterClass(&wc)) return 0;
 
-    int window_width = 190 + 2 * GetSystemMetrics(SM_CXFRAME);
+    int window_width = 160 + 2 * GetSystemMetrics(SM_CXFRAME);
     int window_height = 29 * 8 + GetSystemMetrics(SM_CYCAPTION) + 2 * GetSystemMetrics(SM_CYFRAME);
 
     // 修改窗口样式，去掉 WS_THICKFRAME 和 WS_MAXIMIZEBOX
@@ -103,7 +103,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             for (int i = 0; i < 8; i++) {
                 CreateWindow(TEXT("BUTTON"), buttonLabels[i],
                              WS_VISIBLE | WS_CHILD | BS_OWNERDRAW,
-                             0, i * 30, 200, 30,
+                             0, i * 30, 170, 30, // 按钮宽度也相应减少30像素
                              hWnd,
                              (HMENU) i,
                              ((LPCREATESTRUCT) lParam)->hInstance,
