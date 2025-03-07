@@ -4,8 +4,8 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 TCHAR WinName[] = TEXT("MyWin");
 
-// 预定义按钮颜色和文本颜色
-static HBRUSH hButtonBrushes[7];
+// 预定义按钮颜色和文字颜色
+static HBRUSH hButtonBrushes[8];
 static COLORREF buttonColors[] = {
         RGB(255, 0, 0),    // 红色
         RGB(0, 255, 0),    // 绿色
@@ -13,7 +13,8 @@ static COLORREF buttonColors[] = {
         RGB(255, 255, 0),  // 黄色
         RGB(255, 0, 255),  // 品红
         RGB(0, 255, 255),  // 青色
-        RGB(192, 192, 192) // 浅灰色
+        RGB(192, 192, 192), // 银色
+        RGB(128, 128, 128)  // 灰色
 };
 
 static COLORREF textColors[] = {
@@ -23,7 +24,27 @@ static COLORREF textColors[] = {
         RGB(0, 0, 0),       // 黑色
         RGB(255, 255, 255), // 白色
         RGB(0, 0, 0),       // 黑色
-        RGB(0, 0, 0)        // 黑色
+        RGB(0, 0, 0),       // 黑色
+        RGB(255, 255, 255)  // 白色
+};
+
+// 按钮名称
+const TCHAR *buttonLabels[] = {
+        TEXT("Python脚本"), TEXT("Python笔记"), TEXT("前端笔记"),
+        TEXT("Java工具"), TEXT("Java笔记"), TEXT("图片文件"),
+        TEXT("备份存档"), TEXT("无用快捷")
+};
+
+// 按钮对应的文件夹路径
+const TCHAR *btnDir[] = {
+        "PythonLearn\\Normal\\utils\\pyCmd",
+        "PythonLearn\\docs",
+        "TsLearn\\docs",
+        "selfTool",
+        "JavaLearn\\docs\\2023",
+        "MyPicture\\public",
+        "mixArchive",
+        "unusedFile"
 };
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -45,7 +66,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     if (!RegisterClass(&wc)) return 0;
 
     int window_width = 190 + 2 * GetSystemMetrics(SM_CXFRAME);
-    int window_height = 29 * 7 + GetSystemMetrics(SM_CYCAPTION) + 2 * GetSystemMetrics(SM_CYFRAME);
+    int window_height = 29 * 8 + GetSystemMetrics(SM_CYCAPTION) + 2 * GetSystemMetrics(SM_CYFRAME);
 
     // 修改窗口样式，去掉 WS_THICKFRAME 和 WS_MAXIMIZEBOX
     hWnd = CreateWindow(WinName,
@@ -74,18 +95,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     switch (message) {
         case WM_CREATE: {
             // 创建颜色画刷
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 8; i++) {
                 hButtonBrushes[i] = CreateSolidBrush(buttonColors[i]);
             }
 
-            // 创建自绘按钮
-            const TCHAR *buttonLabels[] = {
-                    TEXT("Button 1"), TEXT("Button 2"), TEXT("Button 3"),
-                    TEXT("Button 4"), TEXT("Button 5"), TEXT("Button 6"),
-                    TEXT("Button 7")
-            };
-
-            for (int i = 0; i < 7; i++) {
+            // 创建自定义按钮
+            for (int i = 0; i < 8; i++) {
                 CreateWindow(TEXT("BUTTON"), buttonLabels[i],
                              WS_VISIBLE | WS_CHILD | BS_OWNERDRAW,
                              0, i * 30, 200, 30,
@@ -101,15 +116,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             LPDRAWITEMSTRUCT pDis = (LPDRAWITEMSTRUCT) lParam;
             if (pDis->CtlType == ODT_BUTTON) {
                 int btnId = pDis->CtlID;
-                if (btnId >= 0 && btnId < 7) {
+                if (btnId >= 0 && btnId < 8) {
                     // 填充背景
                     FillRect(pDis->hDC, &pDis->rcItem, hButtonBrushes[btnId]);
 
-                    // 设置文本颜色
+                    // 设置文字颜色
                     SetTextColor(pDis->hDC, textColors[btnId]);
                     SetBkMode(pDis->hDC, TRANSPARENT);
 
-                    // 绘制按钮文本
+                    // 绘制按钮文字
                     TCHAR btnText[256];
                     GetWindowText(pDis->hwndItem, btnText, 256);
                     DrawText(pDis->hDC, btnText, -1, &pDis->rcItem,
@@ -130,16 +145,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
         case WM_COMMAND: {
             if (HIWORD(wParam) == BN_CLICKED) {
                 int btnId = LOWORD(wParam);
-                TCHAR msgText[256];
-                wsprintf(msgText, TEXT("Button %d clicked"), btnId + 1);
-                MessageBox(hWnd, msgText, TEXT("Notification"), MB_OK);
+                // 打开对应的文件夹路径
+                HINSTANCE result = ShellExecute(NULL, "open", btnDir[btnId], NULL, NULL, SW_SHOWNORMAL);
+                if ((int) result < 32) {
+                    MessageBox(hWnd, btnDir[btnId], TEXT("Err"), MB_OK);
+                }
             }
             break;
         }
 
         case WM_DESTROY: {
-            // 清理画刷资源
-            for (int i = 0; i < 7; i++) {
+            // 释放画刷资源
+            for (int i = 0; i < 8; i++) {
                 DeleteObject(hButtonBrushes[i]);
             }
             PostQuitMessage(0);
