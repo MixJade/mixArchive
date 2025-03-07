@@ -103,7 +103,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             for (int i = 0; i < 8; i++) {
                 CreateWindow(TEXT("BUTTON"), buttonLabels[i],
                              WS_VISIBLE | WS_CHILD | BS_OWNERDRAW,
-                             0, i * 30, 170, 30, // 按钮宽度也相应减少30像素
+                             0, i * 30, 170, 30, // 170是按钮宽度
                              hWnd,
                              (HMENU) i,
                              ((LPCREATESTRUCT) lParam)->hInstance,
