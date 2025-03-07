@@ -7,7 +7,7 @@ set(CMAKE_C_STANDARD 11)
 add_executable(hello hello.c)
 
 # 设置WIN32标志,以去除黑框
-add_executable(S WIN32 sevenBtn/sevenBtn.c)
+add_executable(S WIN32 sevenBtn/sevenBtn.c resource.rc)
 
 
 #DES加密
