@@ -17,7 +17,7 @@
 	"tips_text": [
 		"将物品放入槽位就可以出售",
 		"可以回收装备、书籍、情报等",
-		"无论品级统一5块钱"
+		"无论品级通通9块钱"
 	],
 	"open_conditions": [],
 	"random_text": {},
@@ -33,11 +33,9 @@
 			"result_text": "出售成功",
 			"result": {
 				"clean.s1": 1,
-				"金币": 5
+				"金币": 9
 			},
-			"action": {
-				"rite": 95000109
-			}
+			"action": {}
 		},
 		{
 			"condition": {
@@ -47,11 +45,9 @@
 			"result_text": "出售成功",
 			"result": {
 				"clean.s2": 1,
-				"金币": 5
+				"金币": 9
 			},
-			"action": {
-				"rite": 95000109
-			}
+			"action": {}
 		},
 		{
 			"condition": {
@@ -61,8 +57,21 @@
 			"result_text": "出售成功",
 			"result": {
 				"clean.s3": 1,
-				"金币": 5
+				"金币": 9
 			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"any": {
+					"s1": 1,
+					"s2": 1,
+					"s3": 1
+				}
+			},
+			"result_title": "",
+			"result_text": "欢迎下次再来",
+			"result": {},
 			"action": {
 				"rite": 95000109
 			}
@@ -77,7 +86,7 @@
 					"读物": 1,
 					"情报": 1
 				},
-				"!rare=":4,
+				"!rare=": 4,
 				"已拥有": 1
 			},
 			"open_adsorb": 0,
@@ -94,7 +103,7 @@
 					"读物": 1,
 					"情报": 1
 				},
-				"!rare=":4,
+				"!rare=": 4,
 				"已拥有": 1
 			},
 			"open_adsorb": 0,
@@ -111,7 +120,7 @@
 					"读物": 1,
 					"情报": 1
 				},
-				"!rare=":4,
+				"!rare=": 4,
 				"已拥有": 1
 			},
 			"open_adsorb": 0,
