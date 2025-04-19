@@ -1,0 +1,260 @@
+{
+	"id": 95001865,
+	"name": "回收站",
+	"text": "这里是回收物品的地方",
+	"tips": "",
+	"once_new": 1,
+	"round_number": 0,
+	"waiting_round": 0,
+	"waiting_round_end_action": [],
+	"method_settlement": "",
+	"auto_begin": 0,
+	"auto_result": 0,
+	"location": "商业区:7",
+	"icon": "rite_6",
+	"tag_tips": [],
+	"tag_tips_up": {},
+	"tips_text": [
+		"将物品放入槽位就可以出售",
+		"可以回收装备、书籍、情报等",
+		"无论品级通通9块钱",
+		"也可拜请赤杯之力,实现你的欲望",
+		"放入追随者、猜忌、装备、主角、罪证、金币、生命、理性,以拜请赤杯之力"
+	],
+	"open_conditions": [],
+	"random_text": {},
+	"random_text_up": {},
+	"settlement_prior": [],
+	"settlement": [],
+	"settlement_extre": [
+		{
+			"condition": {
+				"s1": 1
+			},
+			"result_title": "",
+			"result_text": "出售成功",
+			"result": {
+				"clean.s1": 1,
+				"金币": 9
+			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"s2": 1
+			},
+			"result_title": "",
+			"result_text": "出售成功",
+			"result": {
+				"clean.s2": 1,
+				"金币": 9
+			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"s3": 1
+			},
+			"result_title": "",
+			"result_text": "出售成功",
+			"result": {
+				"clean.s3": 1,
+				"金币": 9
+			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"s4": 1,
+				"s4.type": "char",
+				"!s4.主角": 1
+			},
+			"result_title": "",
+			"result_text": "[s4.name]受赤杯之力影响,从心底出现一股无法抑制的欲望",
+			"result": {
+				"s4+激情": 1
+			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"s4": 1,
+				"s4.type": "char",
+				"s4.主角": 1
+			},
+			"result_title": "",
+			"result_text": "赤杯看了你一眼,有什么发生了变化",
+			"result": {
+				"counter+7100003": 6,
+				"counter+7100001": 6,
+				"counter+7100004": 6,
+				"counter+7100005": 1
+			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"s4": 1,
+				"is": 2000680
+			},
+			"result_title": "",
+			"result_text": "苏丹那可笑的猜忌成功取悦了赤杯，它决定开始一场宴会",
+			"result": {
+			},
+			"action": {
+				"rite": 95001866
+			}
+		},
+		{
+			"condition": {
+				"s4": 1,
+				"is": 2000558
+			},
+			"result_title": "",
+			"result_text": "赤杯认为你的罪业很美味,特赏你魅魔",
+			"result": {
+				"clean.s4": 1,
+				"card": [
+					2001111,
+					"追随者+1",
+					"贵族+1",
+					"女性+1"
+				]
+			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"s4": 1,
+				"s4.装备": 1
+			},
+			"result_title": "",
+			"result_text": "赤杯看了一眼这件装备,这件装备变得美艳地起来",
+			"result": {
+				"s4+魅力": 6
+			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"s4": 1,
+				"s4.金币": 1
+			},
+			"result_title": "",
+			"result_text": "赤杯赐予了你3点生命力",
+			"result": {
+				"card": [2000382, "已拥有+1"],
+				"card": [2000382, "已拥有+1"],
+				"card": [2000382, "已拥有+1"]
+			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"s4": 1,
+				"is": 2000382
+			},
+			"result_title": "",
+			"result_text": "赤杯将你献上的生命力化为理性",
+			"result": {
+				"card": 2000723,
+				"card": 2000723,
+				"card": 2000723
+			},
+			"action": {}
+		},
+		{
+			"condition": {
+				"s4": 1,
+				"is": 2000723
+			},
+			"result_title": "开启杯之宴",
+			"result_text": "赤杯开启了宴席，你可使用理性、怪物、猜忌作为主菜",
+			"result": {
+				"card": 2000723
+			},
+			"action": {
+				"rite": 95001866
+			}
+		},
+		{
+			"condition": {},
+			"result_title": "",
+			"result_text": "欢迎下次再来",
+			"result": {},
+			"action": {
+				"rite": 95001865
+			}
+		}
+	],
+	"cards_slot": {
+		"s1": {
+			"condition": {
+				"type": "item",
+				"any": {
+					"装备": 1,
+					"读物": 1,
+					"情报": 1
+				},
+				"!rare=": 4,
+				"已拥有": 1
+			},
+			"open_adsorb": 0,
+			"is_key": 0,
+			"is_empty": 1,
+			"is_enemy": 0,
+			"text": "需要出售的物品"
+		},
+		"s2": {
+			"condition": {
+				"type": "item",
+				"any": {
+					"装备": 1,
+					"读物": 1,
+					"情报": 1
+				},
+				"!rare=": 4,
+				"已拥有": 1
+			},
+			"open_adsorb": 0,
+			"is_key": 0,
+			"is_empty": 1,
+			"is_enemy": 0,
+			"text": "需要出售的物品"
+		},
+		"s3": {
+			"condition": {
+				"type": "item",
+				"any": {
+					"装备": 1,
+					"读物": 1,
+					"情报": 1
+				},
+				"已拥有": 1
+			},
+			"open_adsorb": 0,
+			"is_key": 0,
+			"is_empty": 1,
+			"is_enemy": 0,
+			"text": "需要出售的物品"
+		},
+		"s4": {
+			"condition": {
+				"any": {
+					"type": "char",
+					"装备": 1,
+					"金币": 1,
+					"is": 2000680,
+					"is": 2000558,
+					"is": 2000382,
+					"is": 2000723
+				}
+			},
+			"open_adsorb": 0,
+			"is_key": 0,
+			"is_empty": 1,
+			"is_enemy": 0,
+			"text": "拜请赤杯,满足欲望"
+		}
+	}
+}
