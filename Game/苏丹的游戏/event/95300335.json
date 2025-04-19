@@ -1,0 +1,25 @@
+{
+    "id": 95300335,
+    "text": "回收站",     
+    "is_replay": 1, //是否可以重复触发
+    "auto_start_init": [1],
+    "start_trigger": false, // 是否启动就立即开始校验条件
+    "on":{   //时机
+        "round_begin_ba":1
+    },
+    "condition":{  //条件
+    },
+    "settlement": [    //效果 
+        {
+            "tips_resource":"", 
+            "tips_text":"",
+            "action":{
+                "rite":95000109,
+                "success":{
+                    "event_off":95300335
+                }
+            }
+        }
+
+    ]
+}
