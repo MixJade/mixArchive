@@ -1,137 +1,137 @@
 {
-    "id": 95001866,
-    "name": "赤杯之宴",
-    "text": "宴席弥漫着杯之影响，你准备好主菜了吗",
-    "tips": "",
-    "mapping_id":8001153,
-    "once_new": 0,
-    "round_number": 0,
-    "waiting_round": 1,
-    "waiting_round_end_action": [],
-    "method_settlement": "",
-    "auto_begin": 0,
-    "auto_result": 0,
-    "location": "商业区:8",
-    "icon": "rite_18",
-    "tag_tips": [],
-    "tag_tips_up": {},
-    "tips_text": [],
-    "open_conditions": [
-        {
-            "condition": {
-                "any": {
-                    "s2": 1,
-                    "s3": 1,
-                    "s4": 1,
-                    "s5": 1
-                }
-            },
-            "tips": "总得有人来吃吧？"
+  "id": 95001866,
+  "name": "赤杯之宴",
+  "text": "宴席弥漫着杯之影响，你准备好主菜了吗",
+  "tips": "",
+  "mapping_id": 8001153,
+  "once_new": 0,
+  "round_number": 0,
+  "waiting_round": 1,
+  "waiting_round_end_action": [],
+  "method_settlement": "",
+  "auto_begin": 0,
+  "auto_result": 0,
+  "location": "商业区:8",
+  "icon": "rite_18",
+  "tag_tips": [],
+  "tag_tips_up": {},
+  "tips_text": [],
+  "open_conditions": [
+    {
+      "condition": {
+        "any": {
+          "s2": 1,
+          "s3": 1,
+          "s4": 1,
+          "s5": 1
         }
-    ],
-    "random_text": {},
-    "random_text_up": {},
-    "settlement_prior": [],
-    "settlement": [
-        {
-            "condition": {
-                "s1": 1
-            },
-            "result_title": "杯之盛宴",
-            "result_text": "空中弥漫着至甜至鲜至甘三味，树木开裂流出甘美的牛奶，你和你追随者们都十分满意。",
-            "result": {
-                "clean.s1": 1,
-                "s2+体魄": 6,
-                "s3+体魄": 6,
-                "s4+体魄": 6,
-                "s5+体魄": 6,
-                "s2+魅力": 6,
-                "s3+魅力": 6,
-                "s4+魅力": 6,
-                "s5+魅力": 6,
-                "s2+社交": 6,
-                "s3+社交": 6,
-                "s4+社交": 6,
-                "s5+社交": 6,
-                "s2+智慧": 6,
-                "s3+智慧": 6,
-                "s4+智慧": 6,
-                "s5+智慧": 6,
-                "s2+生存": 6,
-                "s3+生存": 6,
-                "s4+生存": 6,
-                "s5+生存": 6,
-                "s2+隐匿": 6,
-                "s3+隐匿": 6,
-                "s4+隐匿": 6,
-                "s5+隐匿": 6,
-                "s2+魔力": 6,
-                "s3+魔力": 6,
-                "s4+魔力": 6,
-                "s5+魔力": 6,
-                "s2+战斗": 6,
-                "s3+战斗": 6,
-                "s4+战斗": 6,
-                "s5+战斗": 6
-            },
-            "action": {}
-        }
-    ],
-    "settlement_extre": [],
-    "cards_slot": {
-        "s1": {
-            "condition": {
-                "any": {
-                    "is": 2000723,
-                    "is": 2000680,
-                    "怪物": 1
-                }
-            },
-            "open_adsorb": 0,
-            "is_key": 0,
-            "is_empty": 0,
-            "is_enemy": 0,
-            "text": "主菜：理性、猜忌或者怪物"
-        },
-        "s2": {
-            "condition": {
-                "type": "char"
-            },
-            "open_adsorb": 0,
-            "is_key": 0,
-            "is_empty": 1,
-            "is_enemy": 0,
-            "text": "你可以亲自，或邀请追随者前来品尝"
-        },
-        "s3": {
-            "condition": {
-                "type": "char"
-            },
-            "open_adsorb": 0,
-            "is_key": 0,
-            "is_empty": 1,
-            "is_enemy": 0,
-            "text": "你可以亲自，或邀请追随者前来品尝"
-        },
-        "s4": {
-            "condition": {
-                "type": "char"
-            },
-            "open_adsorb": 0,
-            "is_key": 0,
-            "is_empty": 1,
-            "is_enemy": 0,
-            "text": "你可以亲自，或邀请追随者前来品尝"
-        },
-        "s5": {
-            "condition": {
-                "type": "char"
-            },
-            "open_adsorb": 0,
-            "is_key": 0,
-            "is_empty": 1,
-            "is_enemy": 0,
-            "text": "你可以亲自，或邀请追随者前来品尝"
-        }
+      },
+      "tips": "总得有人来吃吧？"
     }
+  ],
+  "random_text": {},
+  "random_text_up": {},
+  "settlement_prior": [],
+  "settlement": [
+    {
+      "condition": {
+        "s1": 1
+      },
+      "result_title": "杯之盛宴",
+      "result_text": "空中弥漫着至甜至鲜至甘三味，树木开裂流出甘美的牛奶，你和你追随者们都十分满意。",
+      "result": {
+        "clean.s1": 1,
+        "s2+体魄": 6,
+        "s3+体魄": 6,
+        "s4+体魄": 6,
+        "s5+体魄": 6,
+        "s2+魅力": 6,
+        "s3+魅力": 6,
+        "s4+魅力": 6,
+        "s5+魅力": 6,
+        "s2+社交": 6,
+        "s3+社交": 6,
+        "s4+社交": 6,
+        "s5+社交": 6,
+        "s2+智慧": 6,
+        "s3+智慧": 6,
+        "s4+智慧": 6,
+        "s5+智慧": 6,
+        "s2+生存": 6,
+        "s3+生存": 6,
+        "s4+生存": 6,
+        "s5+生存": 6,
+        "s2+隐匿": 6,
+        "s3+隐匿": 6,
+        "s4+隐匿": 6,
+        "s5+隐匿": 6,
+        "s2+魔力": 6,
+        "s3+魔力": 6,
+        "s4+魔力": 6,
+        "s5+魔力": 6,
+        "s2+战斗": 6,
+        "s3+战斗": 6,
+        "s4+战斗": 6,
+        "s5+战斗": 6
+      },
+      "action": {}
+    }
+  ],
+  "settlement_extre": [],
+  "cards_slot": {
+    "s1": {
+      "condition": {
+        "any": {
+          "is": 2000723,
+          "is": 2000680,
+          "怪物": 1
+        }
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 0,
+      "is_enemy": 0,
+      "text": "主菜：理性、猜忌、怪物"
+    },
+    "s2": {
+      "condition": {
+        "type": "char"
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "你可以亲自，或邀请追随者前来品尝"
+    },
+    "s3": {
+      "condition": {
+        "type": "char"
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "你可以亲自，或邀请追随者前来品尝"
+    },
+    "s4": {
+      "condition": {
+        "type": "char"
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "你可以亲自，或邀请追随者前来品尝"
+    },
+    "s5": {
+      "condition": {
+        "type": "char"
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "你可以亲自，或邀请追随者前来品尝"
+    }
+  }
 }
