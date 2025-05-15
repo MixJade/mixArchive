@@ -1,0 +1,140 @@
+{
+  "id": 95001867,
+  "name": "杯之召唤",
+  "text": "赤杯打开了某一重历史的通道，你从中看到了一个模糊的身影",
+  "tips": "",
+  "once_new": 0,
+  "round_number": 0,
+  "waiting_round": 1,
+  "waiting_round_end_action": [],
+  "method_settlement": "",
+  "auto_begin": 0,
+  "auto_result": 0,
+  "location": "商业区:9",
+  "icon": "rite_18",
+  "tag_tips": [],
+  "tag_tips_up": {},
+  "tips_text": [],
+  "open_conditions": [
+    {
+      "condition": {
+        "s1": 1,
+        "s2": 1
+      },
+      "tips": "总得有个媒介"
+    }
+  ],
+  "random_text": {},
+  "random_text_up": {},
+  "settlement_prior": [],
+  "settlement": [
+    {
+      "condition": {
+        "s1": 1,
+        "s2.type": "char"
+      },
+      "result_title": "赤杯召唤",
+      "result_text": "从另一重历史中，有什么东西降临了",
+      "result": {
+        "s1+追随者": 1,
+        "s2+魔力": 6
+      },
+      "action": {}
+    },
+    {
+      "condition": {
+        "s1": 1,
+        "s2.type": "sudan",
+        "s2.杀戮": 1
+      },
+      "result_title": "以杀戮为媒介",
+      "result_text": "你杀意高涨，无论过来的是什么，都要留下性命",
+      "result": {
+        "clean.s1": 1,
+        "clean.s2": 1
+      },
+      "action": {}
+    },
+    {
+      "condition": {
+        "s1": 1,
+        "s2.type": "sudan",
+        "s2.纵欲": 1
+      },
+      "result_title": "以纵欲为媒介",
+      "result_text": "召唤仪式被你的欲望扭曲，降临者的属性受到改变",
+      "result": {
+        "s1+女性": 1,
+        "s1-男性": 1,
+        "s1+魅力": 6,
+        "s1+追随者": 1
+      },
+      "action": {}
+    },
+    {
+      "condition": {
+        "s1": 1,
+        "s2.type": "sudan",
+        "s2.奢靡": 1
+      },
+      "result_title": "以奢靡为媒介",
+      "result_text": "显然降临者比你更富裕，他特地带来了大量金币，反向向你炫富",
+      "result": {
+        "s1+追随者": 1,
+        "金币": 90
+      },
+      "action": {}
+    },
+    {
+      "condition": {
+        "s1": 1,
+        "s2.type": "sudan",
+        "s2.征服": 1
+      },
+      "result_title": "维度征服",
+      "result_text": "你决定征服另一重历史，可惜虚无的历史承载不起你的野心",
+      "result": {
+        "clean.s1": 1,
+        "card": [
+          2001107,
+          "已拥有+1",
+          "部队+1",
+          "坐骑+1",
+          "战斗+6",
+          "魔力+6",
+          "魅力+6",
+          "生存+6",
+          "体魄+6"
+        ]
+      },
+      "action": {}
+    }
+  ],
+  "settlement_extre": [],
+  "cards_slot": {
+    "s1": {
+      "condition": {
+        "is": 2000503,
+        "!追随者": 1
+      },
+      "open_adsorb": 1,
+      "is_key": 0,
+      "is_empty": 0,
+      "is_enemy": 0,
+      "text": "降临者"
+    },
+    "s2": {
+      "condition": {
+        "any": {
+          "type": "char",
+          "type": "sudan"
+        }
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 0,
+      "is_enemy": 0,
+      "text": "仪式见证者，或者苏丹卡"
+    }
+  }
+}
