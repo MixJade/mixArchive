@@ -5,7 +5,7 @@
   "tips": "",
   "once_new": 0,
   "round_number": 0,
-  "waiting_round": 1,
+  "waiting_round": 0,
   "waiting_round_end_action": [],
   "method_settlement": "",
   "auto_begin": 0,
@@ -14,16 +14,11 @@
   "icon": "rite_18",
   "tag_tips": [],
   "tag_tips_up": {},
-  "tips_text": [],
-  "open_conditions": [
-    {
-      "condition": {
-        "s1": 1,
-        "s2": 1
-      },
-      "tips": "总得有个媒介"
-    }
+  "tips_text": [
+    "放入追随者以召唤随从",
+    "也可以在这里折断苏丹卡，但无法获得随从"
   ],
+  "open_conditions": [],
   "random_text": {},
   "random_text_up": {},
   "settlement_prior": [],
@@ -31,75 +26,82 @@
     {
       "condition": {
         "s1": 1,
-        "s2.type": "char"
+        "s3.type": "char"
       },
       "result_title": "赤杯召唤",
       "result_text": "从另一重历史中，有什么东西降临了",
       "result": {
         "s1+追随者": 1,
-        "s2+魔力": 6
+        "s3+魔力": 6
       },
       "action": {}
     },
     {
       "condition": {
         "s1": 1,
-        "s2.type": "sudan",
-        "s2.杀戮": 1
+        "s3.type": "sudan",
+        "s3.杀戮": 1
       },
       "result_title": "以杀戮为媒介",
-      "result_text": "你杀意高涨，无论过来的是什么，都要留下性命",
+      "result_text": "你杀意高涨，无论过来的是什么，都要留下性命\n你甚至连旁观的路人都一起干掉了",
       "result": {
         "clean.s1": 1,
-        "clean.s2": 1
+        "clean.s2": 1,
+        "clean.s3": 1
       },
       "action": {}
     },
     {
       "condition": {
         "s1": 1,
-        "s2.type": "sudan",
-        "s2.纵欲": 1
+        "s3.type": "sudan",
+        "s3.纵欲": 1,
+        "s2": 1
       },
       "result_title": "以纵欲为媒介",
-      "result_text": "召唤仪式被你的欲望扭曲，降临者的属性受到改变",
+      "result_text": "你选择[s2.name]进行交合，在赤杯的影响下，[s2.name]轻易的、多次的达到了快乐的巅峰。事后[s2.name]变得更加明艳动人了起来。\n但[s2.gender]本人对发生的一切毫不知情，只有在之后每晚的梦中才能回想起这一切。\n召唤仪式被你的欲望扭曲，降临者的属性受到改变",
+      "result": {
+        "s1+魅力": 6,
+        "s1+追随者": 1,
+        "s2+激情": 1,
+        "s2+魅力": 6,
+        "s2=反对": 0,
+        "s2+支持": 6,
+        "clean.s3": 1
+      },
+      "action": {}
+    },
+    {
+      "condition": {
+        "s1": 1,
+        "s3.type": "sudan",
+        "s3.奢靡": 1
+      },
+      "result_title": "以奢靡为媒介",
+      "result_text": "放生一位异界的存在如何不是奢靡呢？特别是先把他变性之后",
       "result": {
         "s1+女性": 1,
         "s1-男性": 1,
-        "s1+魅力": 6,
-        "s1+追随者": 1
+        "clean.s3": 1,
+        "金币": 66
       },
       "action": {}
     },
     {
       "condition": {
         "s1": 1,
-        "s2.type": "sudan",
-        "s2.奢靡": 1
-      },
-      "result_title": "以奢靡为媒介",
-      "result_text": "显然降临者比你更富裕，他特地带来了大量金币，反向向你炫富",
-      "result": {
-        "s1+追随者": 1,
-        "金币": 90
-      },
-      "action": {}
-    },
-    {
-      "condition": {
-        "s1": 1,
-        "s2.type": "sudan",
-        "s2.征服": 1
+        "s3.type": "sudan",
+        "s3.征服": 1
       },
       "result_title": "维度征服",
-      "result_text": "你决定征服另一重历史，可惜虚无的历史承载不起你的野心",
+      "result_text": "你决定征服另一重历史，可惜虚无的历史承载不起你的野心。\n在历史崩坏的最后，有什么东西留了下来",
       "result": {
         "clean.s1": 1,
+        "clean.s3": 1,
         "card": [
           2001107,
           "已拥有+1",
           "部队+1",
-          "坐骑+1",
           "战斗+6",
           "魔力+6",
           "魅力+6",
@@ -108,6 +110,17 @@
         ]
       },
       "action": {}
+    },
+    {
+      "condition": {
+        "!s3": 1
+      },
+      "result_title": "再看一眼",
+      "result_text": "可能是打开姿势不对",
+      "result": {},
+      "action": {
+        "rite": 95001867
+      }
     }
   ],
   "settlement_extre": [],
@@ -125,6 +138,18 @@
     },
     "s2": {
       "condition": {
+        "type": "char",
+        "!追随者": 1,
+        "女性": 1
+      },
+      "open_adsorb": 1,
+      "is_key": 0,
+      "is_empty": 0,
+      "is_enemy": 0,
+      "text": "被赤杯诱惑来此之人"
+    },
+    "s3": {
+      "condition": {
         "any": {
           "type": "char",
           "type": "sudan"
@@ -132,9 +157,9 @@
       },
       "open_adsorb": 0,
       "is_key": 0,
-      "is_empty": 0,
+      "is_empty": 1,
       "is_enemy": 0,
-      "text": "仪式见证者，或者苏丹卡"
+      "text": "仪式主持人，或者苏丹卡"
     }
   }
 }
