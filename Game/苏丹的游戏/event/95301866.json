@@ -1,0 +1,46 @@
+{
+  "id": 95301866,
+  "text": "镜中之人",
+  "is_replay": 0,
+  "auto_start_init": [
+    1
+  ],
+  "start_trigger": false,
+  "on": {
+    "round_begin_ba": 1
+  },
+  "condition": {},
+  "settlement": [
+    {
+      "tips_resource": "",
+      "tips_text": "",
+      "action": {
+        "card": [
+          2000861,
+          "支持+1",
+          "体魄+30",
+          "魅力+30",
+          "社交+30",
+          "智慧+30",
+          "生存+30",
+          "隐匿+30",
+          "魔力+30",
+          "战斗+30"
+        ],
+        "coin": 900,
+        "success": {
+          "card": [
+            2000416,
+            "数量+100"
+          ],
+          "event_off": 95301866
+        },
+        "prompt": {
+          "id": "95301866_prompt_01",
+          "text": "你有一个兄弟，石头里蹦出来的那种",
+          "icon": "cards/2000001"
+        }
+      }
+    }
+  ]
+}

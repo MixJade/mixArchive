@@ -1,7 +1,7 @@
 {
   "id": 95301865,
   "text": "回收站",
-  "is_replay": 1,
+  "is_replay": 0,
   "auto_start_init": [
     1
   ],
@@ -15,9 +15,18 @@
       "tips_resource": "",
       "tips_text": "",
       "action": {
+        "card": [
+          2000171,
+          "数量+5"
+        ],
         "rite": 95001865,
         "success": {
           "event_off": 95301865
+        },
+        "prompt": {
+          "id": "95301865_prompt_01",
+          "text": "你知道有个地方供奉着异神，是时候去拜访一下了",
+          "icon": "cards/2000001"
         }
       }
     }
