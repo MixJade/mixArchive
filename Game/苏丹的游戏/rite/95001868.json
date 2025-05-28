@@ -1,0 +1,67 @@
+{
+  "id": 95001868,
+  "name": "屠龙回想",
+  "text": "一段失败的屠龙回忆",
+  "tips": "",
+  "once_new": 0,
+  "round_number": 0,
+  "waiting_round": 0,
+  "waiting_round_end_action": [],
+  "method_settlement": "",
+  "auto_begin": 0,
+  "auto_result": 0,
+  "location": "商业区:9",
+  "icon": "rite_18",
+  "tag_tips": [],
+  "tag_tips_up": {},
+  "tips_text": [
+    "放入任意追随者开始回想",
+    "回忆时不能穿戴装备"
+  ],
+  "open_conditions": [],
+  "random_text": {},
+  "random_text_up": {},
+  "settlement_prior": [],
+  "settlement": [],
+  "settlement_extre": [
+    {
+      "condition": {
+        "s1": 1
+      },
+      "result_title": "另一重历史的屠龙",
+      "result_text": "那是一次失败的屠龙，除了一堆龙鳞装备以外，什么也没有得到",
+      "result": {
+        "no_show": {
+          "s1+魔力": 6,
+          "s1+生存": 6,
+          "s1+战斗": 6,
+          "s1+体魄": 6,
+          "s1+equip": 2001138
+        },
+        "s1+equip_slot": "accessory",
+        "s1+equip_slot": "weapon",
+        "s1+equip_slot": "animal_handling",
+        "s1+equip": 2000950,
+        "s1+equip": 2000951,
+        "s1+equip": 2000952,
+        "s1+equip": 2000953
+      },
+      "action": {}
+    }
+  ],
+  "cards_slot": {
+    "s1": {
+      "condition": {
+        "type": "char",
+        "!怪物": 1,
+        "!已装备": 1,
+        "追随者": 1
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 0,
+      "is_enemy": 0,
+      "text": "沉入回忆之人"
+    }
+  }
+}
