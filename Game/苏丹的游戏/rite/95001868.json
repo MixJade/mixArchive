@@ -26,7 +26,8 @@
   "settlement_extre": [
     {
       "condition": {
-        "s1": 1
+        "s1": 1,
+        "!s1.祝福": 1
       },
       "result_title": "另一重历史的屠龙",
       "result_text": "那是一次失败的屠龙，除了一堆龙鳞装备以外，什么也没有得到",
@@ -44,7 +45,23 @@
         "s1+equip": 2000950,
         "s1+equip": 2000951,
         "s1+equip": 2000952,
-        "s1+equip": 2000953
+        "s1+equip": 2000953,
+        "s1+祝福": 1
+      },
+      "action": {}
+    },
+    {
+      "condition": {
+        "s1": 1,
+        "s1.祝福": 1
+      },
+      "result_title": "沐浴龙血",
+      "result_text": "完整的沐浴龙血",
+      "result": {
+        "s1+魔力": 6,
+        "s1+生存": 6,
+        "s1+战斗": 6,
+        "s1+体魄": 6
       },
       "action": {}
     }

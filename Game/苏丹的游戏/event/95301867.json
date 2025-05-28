@@ -1,0 +1,58 @@
+{
+  "id": 95301867,
+  "text": "路线选择",
+  "is_replay": 0,
+  "auto_start_init": [
+    1
+  ],
+  "start_trigger": false,
+  "on": {
+    "round_begin_ba": 1
+  },
+  "condition": {},
+  "settlement": [
+    {
+      "tips_resource": "",
+      "tips_text": "",
+      "action": {
+        "option": {
+          "id": "95301867_option_1",
+          "text": "你想要那种援助？",
+          "icon": "cards/2000001",
+          "items": [
+            {
+              "text": "革命：一份计划",
+              "tag": "op1"
+            },
+            {
+              "text": "正教：神的乙太",
+              "tag": "op2"
+            },
+            {
+              "text": "密教：一份信仰",
+              "tag": "op3"
+            }
+          ]
+        },
+        "case:op1": {
+          "card": [
+            2000910,
+            "已拥有+1"
+          ]
+        },
+        "case:op2": {
+          "card": [
+            2000986,
+            "数量+30"
+          ],
+          "no_show": {
+            "table.clean.2001090|正教的乙太": 30
+          }
+        },
+        "case:op3": {
+          "card": 2000411
+        }
+      }
+    }
+  ]
+}
