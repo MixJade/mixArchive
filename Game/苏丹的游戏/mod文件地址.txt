@@ -1,0 +1,8 @@
+从创意工坊下载的保存路径
+C:\Program Files (x86)\Steam\steamapps\workshop\content\3117820
+
+本地mod保存路径
+【我的文档\DoubleCross\SultansGame\Mod】
+
+官方的mod开发教程
+https://docs.qq.com/aio/DSERiS21SaVhVSHBY

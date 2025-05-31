@@ -1,0 +1,256 @@
+{
+  "id": 95001869,
+  "name": "讨人嫌的警探",
+  "text": "因为你接触了无形之术，无穷无尽之神——道格拉斯决定对你展开抓捕。",
+  "tips": "",
+  "mapping_id": 8001061,
+  "once_new": 0,
+  "round_number": 1,
+  "waiting_round": 0,
+  "waiting_round_end_action": [],
+  "method_settlement": "",
+  "auto_begin": 0,
+  "auto_result": 1,
+  "location": "上城区:[1,7]",
+  "icon": "rite_17",
+  "tag_tips": [
+  ],
+  "tag_tips_up": {
+    "tips": [
+      "战斗",
+      "体魄"
+    ],
+    "type": "fight_result"
+  },
+  "tips_text": [
+    "因为你接触了无形之术，无穷无尽之神——道格拉斯决定对你展开抓捕。",
+    "你可以将无形之术交给他，或使用对他苏丹卡",
+    "否则他会不停的纠缠你"
+  ],
+  "open_conditions": [
+  ],
+  "random_text": {
+  },
+  "random_text_up": {
+    "r1": {
+      "text": "我也不是故意的",
+      "type": "fight_result",
+      "type_tips": "你的骰子数受道格拉斯的战斗和体魄的影响。",
+      "low_target": 1,
+      "low_target_tips": "你至少需要1点成功。"
+    }
+  },
+  "settlement_prior": [
+    {
+      "condition": {
+        "s3.is": 2000482
+      },
+      "result_title": "",
+      "result_text": "你用恶毒的语言直接将对方骂死了！你获得了胜利！",
+      "result": {
+        "clean.s1": 1
+      },
+      "action": {
+        "event_on": 95301869
+      }
+    },
+    {
+      "condition": {
+        "s3.is": 2000305
+      },
+      "result_title": "",
+      "result_text": "你用淬毒的武器轻易赢得了胜利……",
+      "result": {
+        "clean.s1": 1
+      },
+      "action": {
+        "event_on": 95301869
+      }
+    },
+    {
+      "condition": {
+        "s3.is": 2501867
+      },
+      "result_title": "你在找这个吧",
+      "result_text": "你载有无形之术的书籍交给他，他接过书就消失了",
+      "result": {
+        "clean.s1": 1,
+        "clean.s3": 1
+      },
+      "action": {
+      }
+    }
+  ],
+  "settlement": [
+    {
+      "condition": {
+        "r1:战斗+体魄-e(战斗+体魄)<": [
+          1,
+          5
+        ]
+      },
+      "result_title": "",
+      "result_text": "道格拉斯获得了胜利，割下了[s2.name]的头颅！",
+      "result": {
+        "clean.s2": 1
+      },
+      "action": {
+        "rite": 95001869
+      }
+    },
+    {
+      "condition": {
+        "r1:战斗+体魄-e(战斗+体魄)>=": [
+          1,
+          5
+        ],
+        "!s2.主角": 1
+      },
+      "result_title": "",
+      "result_text": "[s2.name]获得了胜利，将道格拉斯打趴在地！",
+      "result": {
+        "clean.s1": 1,
+        "card": 2501869
+      },
+      "action": {
+      }
+    },
+    {
+      "condition": {
+        "r1:战斗+体魄-e(战斗+体魄)>=": [
+          1,
+          5
+        ],
+        "s2.主角": 1
+      },
+      "result_title": "胜利",
+      "result_text": "你获得了胜利，将道格拉斯打趴在地！",
+      "result": {
+        "clean.s1": 1,
+        "card": 2501869
+      },
+      "action": {
+      }
+    }
+  ],
+  "settlement_extre": [
+    {
+      "condition": {
+        "r1:战斗+体魄-e(战斗+体魄)>=": [
+          1,
+          5
+        ],
+        "s4": 1
+      },
+      "result_title": "苏丹卡的魔力",
+      "result_text": "你折断了苏丹卡的一瞬间，这位警探真正的死去了",
+      "result": {
+        "clean.s4": 1
+      },
+      "action": {
+      }
+    },
+    {
+      "condition": {
+        "r1:战斗+体魄-e(战斗+体魄)>=": [
+          1,
+          5
+        ],
+        "!s4": 1
+      },
+      "result_title": "还没完",
+      "result_text": "即使你俘获了这位警探，他仍然会再次出现",
+      "result": {
+      },
+      "action": {
+        "event_on": 95301869
+      }
+    }
+  ],
+  "cards_slot": {
+    "s1": {
+      "condition": {
+        "type": "char",
+        "is": 2501868
+      },
+      "open_adsorb": 1,
+      "is_key": 0,
+      "is_empty": 0,
+      "is_enemy": 1,
+      "text": "无穷无尽之神"
+    },
+    "s2": {
+      "condition": {
+        "type": "char"
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 0,
+      "is_enemy": 0,
+      "text": "应战之人",
+      "pops": [
+        {
+          "condition": {
+            "f:s2.战斗+s2.体魄+s3.战斗+s3.体魄+s4.战斗+s4.体魄-s1.战斗-s1.体魄<": 1,
+            "!s3.is": 2000482,
+            "!s3.is": 2000305,
+            "!s3.is": 2501867
+          },
+          "action": {
+            "pop.95001869_s2_01.self": "我不想送死！"
+          }
+        },
+        {
+          "condition": {
+            "f:s2.战斗+s2.体魄+s3.战斗+s3.体魄+s4.战斗+s4.体魄-s1.战斗-s1.体魄>=": 1,
+            "!s3": 1
+          },
+          "action": {
+            "pop.95001869_s2_02.self": "稳了"
+          }
+        }
+      ]
+    },
+    "s3": {
+      "condition": {
+        "type": "item",
+        "!金币": 1,
+        "any": {
+          "cost.消耗品=": 1,
+          "is": 2501867
+        }
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "有些东西能让你更具战斗力",
+      "pops": [
+        {
+          "condition": {
+            "any": {
+              "f:s2.战斗+s2.体魄+s3.战斗+s3.体魄+s4.战斗+s4.体魄-s1.战斗-s1.体魄>=": 1,
+              "s3.is": 2000482,
+              "s3.is": 2000482,
+              "s3.is": 2501867
+            }
+          },
+          "action": {
+            "pop.95001869_s3_01.s2": "可以一战！"
+          }
+        }
+      ]
+    },
+    "s4": {
+      "condition": {
+        "type": "sudan",
+        "杀戮": 1
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "可以折断一张的杀戮卡来真正的杀死他"
+    }
+  }
+}

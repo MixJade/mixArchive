@@ -1,0 +1,23 @@
+{
+  "id": 95301869,
+  "text": "讨人嫌的警探",
+  "is_replay": 0,
+  "auto_start": false,
+  "start_trigger": true,
+  "on": {
+    "round_begin_ba": 2
+  },
+  "condition": {
+  },
+  "settlement": [
+    {
+      "action": {
+        "card": 2501868,
+        "rite": 95001869,
+        "success": {
+          "event_off": 95301869
+        }
+      }
+    }
+  ]
+}

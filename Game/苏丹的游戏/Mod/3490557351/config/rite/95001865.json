@@ -1,9 +1,10 @@
 {
   "id": 95001865,
-  "name": "回收站",
-  "text": "这里是回收物品的地方",
+  "name": "废旧仓库",
+  "text": "昏暗的仓库，这里弥漫着杯之影响",
   "tips": "",
   "once_new": 1,
+  "mapping_id": 8001024,
   "round_number": 0,
   "waiting_round": 0,
   "waiting_round_end_action": [],
@@ -16,11 +17,10 @@
   "tag_tips_up": {},
   "tips_text": [
     "将物品放入槽位就可以出售",
-    "可以回收装备、书籍、情报等",
-    "无论品级通通6块钱",
+    "可以回收装备、书籍、情报,无论品级通通6块钱",
     "也可拜请赤杯之力,实现你的欲望",
     "放入追随者、主角、食客、回忆角色,以拜请赤杯之力",
-    "放入猜忌、装备、罪证、金币、生命水、部队,以寻求赤杯的注视",
+    "放入猜忌、不满、装备、罪证、金币、生命水、部队,以寻求赤杯的注视",
     "放入军队开启屠龙回忆(军队会消耗)",
     "放入理性开启杯之宴会",
     "放入谋反意图开启召唤仪式"
@@ -33,57 +33,57 @@
   "settlement_extre": [
     {
       "condition": {
+        "s5": 1
+      },
+      "result_title": "",
+      "result_text": "出售成功",
+      "result": {
+        "clean.s5": 1,
+        "coin": 20
+      },
+      "action": {}
+    },
+    {
+      "condition": {
+        "s4": 1
+      },
+      "result_title": "",
+      "result_text": "出售成功",
+      "result": {
+        "clean.s4": 1,
+        "coin": 20
+      },
+      "action": {}
+    },
+    {
+      "condition": {
         "s1": 1
       },
       "result_title": "",
       "result_text": "出售成功",
       "result": {
         "clean.s1": 1,
-        "coin": 6
+        "coin": 20
       },
       "action": {}
     },
     {
       "condition": {
-        "s2": 1
+        "s2": 1,
+        "s2.女性": 1
       },
       "result_title": "",
-      "result_text": "出售成功",
+      "result_text": "[s2.name]受赤杯之力影响,从心底出现一股无法抑制的欲望",
       "result": {
-        "clean.s2": 1,
-        "coin": 6
+        "s2+激情": 1,
+        "s2+魅力": 6
       },
       "action": {}
     },
     {
       "condition": {
-        "s3": 1
-      },
-      "result_title": "",
-      "result_text": "出售成功",
-      "result": {
-        "clean.s3": 1,
-        "coin": 6
-      },
-      "action": {}
-    },
-    {
-      "condition": {
-        "s4": 1,
-        "s4.女性": 1
-      },
-      "result_title": "",
-      "result_text": "[s4.name]受赤杯之力影响,从心底出现一股无法抑制的欲望",
-      "result": {
-        "s4+激情": 1,
-        "s4+魅力": 6
-      },
-      "action": {}
-    },
-    {
-      "condition": {
-        "s4": 1,
-        "s4.主角": 1
+        "s2": 1,
+        "s2.主角": 1
       },
       "result_title": "",
       "result_text": "赤杯看了你一眼,有什么发生了变化",
@@ -97,13 +97,13 @@
     },
     {
       "condition": {
-        "s4": 1,
-        "s4.食客": 1
+        "s2": 1,
+        "s2.食客": 1
       },
       "result_title": "胎化易形",
-      "result_text": "赤杯看了眼[s4.name]，于是[s4.name]便产生了奇妙的畸变，最终化为了一件造物",
+      "result_text": "赤杯看了眼[s2.name]，于是[s2.name]便产生了奇妙的畸变，最终化为了一件造物",
       "result": {
-        "clean.s4": 1,
+        "clean.s2": 1,
         "card": [
           2001103,
           "已拥有+1",
@@ -118,30 +118,29 @@
     },
     {
       "condition": {
-        "s4": 1,
-        "s4.is": 2000503
+        "s2": 1,
+        "s2.is": 2000503
       },
       "result_title": "回炉重造",
-      "result_text": "赤杯看了眼[s4.name]，将这个不该出现的人物拆成金币和军队",
+      "result_text": "赤杯看了眼[s2.name]，将这个不该出现的人物拆成了军队",
       "result": {
-        "clean.s4": 1,
+        "clean.s2": 1,
         "card": [
           2001047,
           "已拥有+1"
-        ],
-        "coin": 100
+        ]
       },
       "action": {}
     },
     {
       "condition": {
-        "s5": 1,
+        "s3": 1,
         "is": 2000680
       },
       "result_title": "真龙之眼",
       "result_text": "苏丹那可笑的猜忌成功取悦了赤杯，它决定赏你一颗龙眼",
       "result": {
-        "clean.s5": 1,
+        "clean.s3": 1,
         "card": [
           2000668,
           "已拥有+1"
@@ -152,13 +151,13 @@
     },
     {
       "condition": {
-        "s5": 1,
+        "s3": 1,
         "is": 2000083
       },
       "result_title": "黄金大鸟",
       "result_text": "只要你拥有黄金大大大鸟，你的妻子就不会不不不满",
       "result": {
-        "clean.s5": 1,
+        "clean.s3": 1,
         "card": [
           2000540,
           "坐骑+1",
@@ -172,13 +171,13 @@
     },
     {
       "condition": {
-        "s5": 1,
+        "s3": 1,
         "is": 2000558
       },
       "result_title": "",
       "result_text": "赤杯认为你的罪业很美味,特赏你魅魔",
       "result": {
-        "clean.s5": 1,
+        "clean.s3": 1,
         "card": [
           2001111,
           "追随者+1",
@@ -190,20 +189,20 @@
     },
     {
       "condition": {
-        "s5": 1,
-        "s5.装备": 1
+        "s3": 1,
+        "s3.装备": 1
       },
       "result_title": "",
       "result_text": "赤杯看了一眼这件装备,这件装备变得美艳地起来",
       "result": {
-        "s5+魅力": 18
+        "s3+魅力": 18
       },
       "action": {}
     },
     {
       "condition": {
-        "s5": 1,
-        "s5.金币": 1
+        "s3": 1,
+        "s3.金币": 1
       },
       "result_title": "",
       "result_text": "赤杯赐予了你6瓶生命水",
@@ -218,7 +217,7 @@
     },
     {
       "condition": {
-        "s5": 1,
+        "s3": 1,
         "is": 2000382
       },
       "result_title": "",
@@ -232,13 +231,13 @@
     },
     {
       "condition": {
-        "s5": 1,
-        "s5.部队": 1
+        "s3": 1,
+        "s3.部队": 1
       },
       "result_title": "屠龙回想",
-      "result_text": "[s5.name]的征伐气息激发了另一重历史中，关于屠龙的回忆",
+      "result_text": "[s3.name]的征伐气息激发了另一重历史中，关于屠龙的回忆",
       "result": {
-        "clean.s5": 1
+        "clean.s3": 1
       },
       "action": {
         "rite": 95001868
@@ -246,7 +245,7 @@
     },
     {
       "condition": {
-        "s5": 1,
+        "s3": 1,
         "is": 2000723
       },
       "result_title": "开启杯之宴",
@@ -260,7 +259,7 @@
     },
     {
       "condition": {
-        "s5": 1,
+        "s3": 1,
         "思潮": 1,
         "is": 2000171
       },
@@ -309,38 +308,6 @@
     },
     "s2": {
       "condition": {
-        "type": "item",
-        "any": {
-          "装备": 1,
-          "读物": 1,
-          "情报": 1
-        },
-        "已拥有": 1
-      },
-      "open_adsorb": 0,
-      "is_key": 0,
-      "is_empty": 1,
-      "is_enemy": 0,
-      "text": "需要出售的物品"
-    },
-    "s3": {
-      "condition": {
-        "type": "item",
-        "any": {
-          "装备": 1,
-          "读物": 1,
-          "情报": 1
-        },
-        "已拥有": 1
-      },
-      "open_adsorb": 0,
-      "is_key": 0,
-      "is_empty": 1,
-      "is_enemy": 0,
-      "text": "需要出售的物品"
-    },
-    "s4": {
-      "condition": {
         "type": "char",
         "!激情": 1,
         "any": {
@@ -356,7 +323,7 @@
       "is_enemy": 0,
       "text": "拜请赤杯,满足欲望"
     },
-    "s5": {
+    "s3": {
       "condition": {
         "type": "item",
         "any": {
@@ -376,6 +343,38 @@
       "is_empty": 1,
       "is_enemy": 0,
       "text": "拜请赤杯的注视"
+    },
+    "s4": {
+      "condition": {
+        "type": "item",
+        "any": {
+          "装备": 1,
+          "读物": 1,
+          "情报": 1
+        },
+        "已拥有": 1
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "需要出售的物品"
+    },
+    "s5": {
+      "condition": {
+        "type": "item",
+        "any": {
+          "装备": 1,
+          "读物": 1,
+          "情报": 1
+        },
+        "已拥有": 1
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "需要出售的物品"
     }
   }
 }
