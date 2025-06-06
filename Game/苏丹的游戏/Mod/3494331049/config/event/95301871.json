@@ -1,0 +1,81 @@
+{
+  "id": 95301871,
+  "text": "购买乐行券",
+  "is_replay": 0,
+  "auto_start": false,
+  "start_trigger": true,
+  "on": {
+    "round_begin_ba": 1
+  },
+  "condition": {
+  },
+  "settlement": [
+    {
+      "action": {
+        "option": {
+          "id": "95301871_option_1",
+          "text": "你想要买什么乐行券",
+          "icon": "cards/2000001_2",
+          "items": [
+            {
+              "text": "杀戮",
+              "tag": "op1"
+            },
+            {
+              "text": "纵欲",
+              "tag": "op2"
+            },
+            {
+              "text": "奢靡",
+              "tag": "op3"
+            },
+            {
+              "text": "征服",
+              "tag": "op4"
+            }
+          ]
+        },
+        "case:op1": {
+          "rite": 95001870,
+          "failed": {
+            "prompt": {
+              "id": "95301871_prompt_2",
+              "text": "看来那位苏丹没空，等他空闲了再试试吧",
+              "icon": "cards/2000001_2"
+            }
+          }
+        },
+        "case:op2": {
+          "rite": 95001871,
+          "failed": {
+            "prompt": {
+              "id": "95301871_prompt_3",
+              "text": "看来那位苏丹没空，等他空闲了再试试吧",
+              "icon": "cards/2000001_2"
+            }
+          }
+        },
+        "case:op3": {
+          "rite": 95001872,
+          "failed": {
+            "prompt": {
+              "id": "95301871_prompt_4",
+              "text": "看来那位苏丹没空，等他空闲了再试试吧",
+              "icon": "cards/2000001_2"
+            }
+          }
+        },
+        "case:op4": {
+          "rite": 95001873,
+          "failed": {
+            "prompt": {
+              "id": "95301871_prompt_5",
+              "text": "看来那位苏丹没空，等他空闲了再试试吧",
+              "icon": "cards/2000001_2"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

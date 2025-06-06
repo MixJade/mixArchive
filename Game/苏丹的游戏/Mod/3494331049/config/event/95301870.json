@@ -1,0 +1,30 @@
+{
+  "id": 95301870,
+  "text": "游戏之国的援助",
+  "is_replay": 0,
+  "auto_start_init": [
+    1
+  ],
+  "start_trigger": true,
+  "on": {
+    "round_begin_ba": 1
+  },
+  "condition": {
+  },
+  "settlement": [
+    {
+      "action": {
+        "card": 2501870,
+        "success": {
+          "card": 2501871,
+          "event_off": 95301870
+        },
+        "prompt": {
+          "id": "95301870_prompt_01",
+          "text": "你从另一重历史中得到了援助",
+          "icon": "cards/2000001_2"
+        }
+      }
+    }
+  ]
+}

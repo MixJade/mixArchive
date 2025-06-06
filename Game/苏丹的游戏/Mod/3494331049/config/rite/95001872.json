@@ -1,0 +1,224 @@
+{
+  "id": 95001872,
+  "name": "奢靡乐行券",
+  "text": "你向另一位苏丹请求帮助。",
+  "tips": "",
+  "mapping_id": 8001265,
+  "once_new": 0,
+  "round_number": 0,
+  "waiting_round": 1,
+  "waiting_round_end_action": [],
+  "method_settlement": "",
+  "auto_begin": 0,
+  "auto_result": 0,
+  "location": "野外:10",
+  "icon": "rite_9",
+  "tag_tips": [
+  ],
+  "tag_tips_up": {
+  },
+  "tips_text": [
+    "苏丹来帮你了，但这苏丹看着有点眼熟",
+    "你可以花钱购买乐行券，但券的种类完全随机",
+    "或者让苏丹帮你折奢靡卡"
+  ],
+  "open_conditions": [
+  ],
+  "random_text": {
+  },
+  "random_text_up": {
+  },
+  "settlement_prior": [
+  ],
+  "settlement": [
+  ],
+  "settlement_extre": [
+    {
+      "condition": {
+        "s2": 1,
+        "s2.金币": 3
+      },
+      "result_title": "",
+      "result_text": "买一张岩石乐行券",
+      "result": {
+        "card": [
+          2501880,
+          "已拥有+1"
+        ]
+      },
+      "action": {
+      }
+    },
+    {
+      "condition": {
+        "s3": 1,
+        "s3.金币": 42
+      },
+      "result_title": "",
+      "result_text": "买一张青铜乐行券",
+      "result": {
+        "card": [
+          2501881,
+          "已拥有+1"
+        ]
+      },
+      "action": {
+      }
+    },
+    {
+      "condition": {
+        "s4": 1,
+        "s4.金币": 81
+      },
+      "result_title": "",
+      "result_text": "买一张白银乐行券",
+      "result": {
+        "card": [
+          2501882,
+          "已拥有+1"
+        ]
+      },
+      "action": {
+      }
+    },
+    {
+      "condition": {
+        "s5": 1,
+        "s5.金币": 120
+      },
+      "result_title": "",
+      "result_text": "买一张黄金乐行券",
+      "result": {
+        "card": [
+          2501883,
+          "已拥有+1"
+        ]
+      },
+      "action": {
+      }
+    },
+    {
+      "condition": {
+        "s6": 1,
+        "s6.rare<=": 3,
+        "!s6.可堆叠": 1
+      },
+      "result_title": "区区奢靡",
+      "result_text": "苏丹看着你的奢靡卡，兴致缺缺，当场给了你81个金币",
+      "result": {
+        "clean.s6": 1,
+        "coin": 81
+      },
+      "action": {
+      }
+    },
+    {
+      "condition": {
+        "s6": 1,
+        "s6.rare=": 4,
+        "!s6.可堆叠": 1
+      },
+      "result_title": "盛大的奢靡",
+      "result_text": "苏丹给你了很多很多钱，够你花天酒地一年了",
+      "result": {
+        "coin": 300,
+        "clean.s6": 1
+      },
+      "action": {
+      }
+    },
+    {
+      "condition": {
+        "s6": 1,
+        "s6.可堆叠": 1
+      },
+      "result_title": "退货不退款",
+      "result_text": "你不想要了吗？可以退货，但不会退款",
+      "result": {
+        "no_show": {
+          "clean.s6": 1
+        }
+      },
+      "action": {
+      }
+    },
+    {
+      "condition": {
+      },
+      "result_title": "",
+      "result_text": "欢迎再来",
+      "result": {
+      },
+      "action": {
+      }
+    }
+  ],
+  "cards_slot": {
+    "s1": {
+      "condition": {
+        "type": "char",
+        "is": 2501870
+      },
+      "open_adsorb": 1,
+      "is_key": 0,
+      "is_empty": 0,
+      "is_enemy": 0,
+      "text": "这是哪位苏丹？"
+    },
+    "s2": {
+      "condition": {
+        "type": "item",
+        "cost.金币": 3
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "买一张岩石乐行券"
+    },
+    "s3": {
+      "condition": {
+        "type": "item",
+        "cost.金币": 42
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "买一张青铜乐行券"
+    },
+    "s4": {
+      "condition": {
+        "type": "item",
+        "cost.金币": 81
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "买一张白银乐行券"
+    },
+    "s5": {
+      "condition": {
+        "type": "item",
+        "cost.金币": 120
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "买黄金品级的乐行券"
+    },
+    "s6": {
+      "condition": {
+        "type": "sudan",
+        "奢靡": 1
+      },
+      "open_adsorb": 0,
+      "is_key": 0,
+      "is_empty": 1,
+      "is_enemy": 0,
+      "text": "可以帮你折断一张奢靡卡"
+    }
+  }
+}

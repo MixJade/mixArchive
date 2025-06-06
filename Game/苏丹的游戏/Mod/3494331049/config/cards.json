@@ -1,0 +1,664 @@
+{
+  "2501870": {
+    "id": 2501870,
+    "name": "苏丹",
+    "title": "统治者",
+    "text": "游戏之国的统治者，他曾经是一位正直的大臣，不过现在变得残忍，疯狂，冷漠",
+    "pops": [],
+    "card_favour": "",
+    "type": "char",
+    "tips": "",
+    "rare": 4,
+    "resource": "cards/2000001_2",
+    "tag": {
+      "体魄": 3,
+      "魅力": 2,
+      "智慧": 1,
+      "战斗": 2,
+      "社交": 1,
+      "男性": 1,
+      "苏丹": 1,
+      "贵族": 1,
+      "银趴绝缘者": 1
+    },
+    "card_vanishing": 0,
+    "vanish": {},
+    "equips": [
+      "武器",
+      "服装",
+      "饰品"
+    ],
+    "is_only": 1
+  },
+  "2501871": {
+    "id": 2501871,
+    "name": "苏丹的斗篷",
+    "title": "书籍",
+    "text": "来自某位邪恶苏丹的斗篷。俺寻思可开启购买乐行券事件",
+    "pops": [],
+    "card_favour": "",
+    "type": "item",
+    "tips": "",
+    "rare": 4,
+    "resource": "cards/2000749",
+    "tag": {
+      "已拥有": 1,
+      "魔力": 10,
+      "社交": 10,
+      "魅力": 10,
+      "装备": 1,
+      "服装": 1,
+      "已装备": 1
+    },
+    "card_vanishing": 0,
+    "vanish": {},
+    "equips": [],
+    "is_only": 1,
+    "post_rite": [
+      {
+        "condition": {
+          "is_rite": 5000002
+        },
+        "result_text": "寻思这件衣服",
+        "result": {
+          "think_pop.5000002_result_1868": "游戏之国？乐行券？"
+        },
+        "action": {
+          "event_on": 95301871
+        }
+      }
+    ]
+  },
+  "2501872": {
+    "id": 2501872,
+    "name": "杀戮乐行券",
+    "title": "乐行券",
+    "text": "最低品级的杀戮乐行券，价值3金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 1,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_1",
+      "sudan_big/1_sudan_1_2",
+      "sudan_big/1_sudan_1_3",
+      "sudan_big/1_sudan_1_4",
+      "sudan_big/1_sudan_1_5",
+      "sudan_big/1_sudan_1_6",
+      "sudan_big/1_sudan_1_7"
+    ],
+    "tag": {
+      "杀戮": 1,
+      "战斗": 1,
+      "可堆叠": 1,
+      "命运点": 1,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501873": {
+    "id": 2501873,
+    "name": "杀戮乐行券",
+    "title": "乐行券",
+    "text": "第二级的杀戮乐行券，价值42金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 2,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_1",
+      "sudan_big/1_sudan_1_2",
+      "sudan_big/1_sudan_1_3",
+      "sudan_big/1_sudan_1_4",
+      "sudan_big/1_sudan_1_5",
+      "sudan_big/1_sudan_1_6",
+      "sudan_big/1_sudan_1_7"
+    ],
+    "tag": {
+      "杀戮": 1,
+      "战斗": 2,
+      "可堆叠": 1,
+      "命运点": 2,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501874": {
+    "id": 2501874,
+    "name": "杀戮乐行券",
+    "title": "乐行券",
+    "text": "第三级的杀戮乐行券，价值81金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 3,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_1",
+      "sudan_big/1_sudan_1_2",
+      "sudan_big/1_sudan_1_3",
+      "sudan_big/1_sudan_1_4",
+      "sudan_big/1_sudan_1_5",
+      "sudan_big/1_sudan_1_6",
+      "sudan_big/1_sudan_1_7"
+    ],
+    "tag": {
+      "杀戮": 1,
+      "战斗": 4,
+      "可堆叠": 1,
+      "命运点": 3,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501875": {
+    "id": 2501875,
+    "name": "杀戮乐行券",
+    "title": "乐行券",
+    "text": "最高品级的杀戮乐行券，价值足足120金币，可以在某些场合代替苏丹卡，在另一重历史中，它带来了很多悲剧。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 4,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_1",
+      "sudan_big/1_sudan_1_2",
+      "sudan_big/1_sudan_1_3",
+      "sudan_big/1_sudan_1_4",
+      "sudan_big/1_sudan_1_5",
+      "sudan_big/1_sudan_1_6",
+      "sudan_big/1_sudan_1_7"
+    ],
+    "tag": {
+      "杀戮": 1,
+      "战斗": 8,
+      "可堆叠": 1,
+      "命运点": 4,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501876": {
+    "id": 2501876,
+    "name": "纵欲乐行券",
+    "title": "乐行券",
+    "text": "最低品级的纵欲乐行券，价值3金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 1,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_4",
+      "sudan_big/1_sudan_4_2",
+      "sudan_big/1_sudan_4_3",
+      "sudan_big/1_sudan_4_4",
+      "sudan_big/1_sudan_4_5",
+      "sudan_big/1_sudan_4_6",
+      "sudan_big/1_sudan_4_7"
+    ],
+    "tag": {
+      "纵欲": 1,
+      "社交": 1,
+      "可堆叠": 1,
+      "命运点": 1,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501877": {
+    "id": 2501877,
+    "name": "纵欲乐行券",
+    "title": "乐行券",
+    "text": "第二级的纵欲乐行券，价值42金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 2,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_4",
+      "sudan_big/1_sudan_4_2",
+      "sudan_big/1_sudan_4_3",
+      "sudan_big/1_sudan_4_4",
+      "sudan_big/1_sudan_4_5",
+      "sudan_big/1_sudan_4_6",
+      "sudan_big/1_sudan_4_7"
+    ],
+    "tag": {
+      "纵欲": 1,
+      "社交": 2,
+      "可堆叠": 1,
+      "命运点": 2,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501878": {
+    "id": 2501878,
+    "name": "纵欲乐行券",
+    "title": "乐行券",
+    "text": "第三级的纵欲乐行券，价值81金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 3,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_4",
+      "sudan_big/1_sudan_4_2",
+      "sudan_big/1_sudan_4_3",
+      "sudan_big/1_sudan_4_4",
+      "sudan_big/1_sudan_4_5",
+      "sudan_big/1_sudan_4_6",
+      "sudan_big/1_sudan_4_7"
+    ],
+    "tag": {
+      "纵欲": 1,
+      "社交": 4,
+      "可堆叠": 1,
+      "命运点": 3,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501879": {
+    "id": 2501879,
+    "name": "纵欲乐行券",
+    "title": "乐行券",
+    "text": "最高品级的纵欲乐行券，价值足足120金币，可以在某些场合代替苏丹卡，在另一重历史中，它见证了一位金妃的末路。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 4,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_4",
+      "sudan_big/1_sudan_4_2",
+      "sudan_big/1_sudan_4_3",
+      "sudan_big/1_sudan_4_4",
+      "sudan_big/1_sudan_4_5",
+      "sudan_big/1_sudan_4_6",
+      "sudan_big/1_sudan_4_7"
+    ],
+    "tag": {
+      "纵欲": 1,
+      "社交": 8,
+      "可堆叠": 1,
+      "命运点": 4,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501880": {
+    "id": 2501880,
+    "name": "奢靡乐行券",
+    "title": "乐行券",
+    "text": "最低品级的奢靡乐行券，价值3金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 1,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_2",
+      "sudan_big/1_sudan_2_2",
+      "sudan_big/1_sudan_2_3",
+      "sudan_big/1_sudan_2_4",
+      "sudan_big/1_sudan_2_5",
+      "sudan_big/1_sudan_2_6",
+      "sudan_big/1_sudan_2_7"
+    ],
+    "tag": {
+      "奢靡": 1,
+      "社交": 1,
+      "可堆叠": 1,
+      "命运点": 1,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501881": {
+    "id": 2501881,
+    "name": "奢靡乐行券",
+    "title": "乐行券",
+    "text": "第二级的奢靡乐行券，价值42金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 2,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_2",
+      "sudan_big/1_sudan_2_2",
+      "sudan_big/1_sudan_2_3",
+      "sudan_big/1_sudan_2_4",
+      "sudan_big/1_sudan_2_5",
+      "sudan_big/1_sudan_2_6",
+      "sudan_big/1_sudan_2_7"
+    ],
+    "tag": {
+      "奢靡": 1,
+      "社交": 2,
+      "可堆叠": 1,
+      "命运点": 2,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501882": {
+    "id": 2501882,
+    "name": "奢靡乐行券",
+    "title": "乐行券",
+    "text": "第三级的奢靡乐行券，价值81金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 3,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_2",
+      "sudan_big/1_sudan_2_2",
+      "sudan_big/1_sudan_2_3",
+      "sudan_big/1_sudan_2_4",
+      "sudan_big/1_sudan_2_5",
+      "sudan_big/1_sudan_2_6",
+      "sudan_big/1_sudan_2_7"
+    ],
+    "tag": {
+      "奢靡": 1,
+      "社交": 4,
+      "可堆叠": 1,
+      "命运点": 3,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501883": {
+    "id": 2501883,
+    "name": "奢靡乐行券",
+    "title": "乐行券",
+    "text": "最高品级的奢靡乐行券，价值足足120金币，可以在某些场合代替苏丹卡，在另一重历史中，它是大兴土木的标志。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 4,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_2",
+      "sudan_big/1_sudan_2_2",
+      "sudan_big/1_sudan_2_3",
+      "sudan_big/1_sudan_2_4",
+      "sudan_big/1_sudan_2_5",
+      "sudan_big/1_sudan_2_6",
+      "sudan_big/1_sudan_2_7"
+    ],
+    "tag": {
+      "奢靡": 1,
+      "社交": 8,
+      "可堆叠": 1,
+      "命运点": 4,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501884": {
+    "id": 2501884,
+    "name": "征服乐行券",
+    "title": "乐行券",
+    "text": "最低品级的征服乐行券，价值3金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 1,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_3",
+      "sudan_big/1_sudan_3_2",
+      "sudan_big/1_sudan_3_3",
+      "sudan_big/1_sudan_3_4",
+      "sudan_big/1_sudan_3_5",
+      "sudan_big/1_sudan_3_6",
+      "sudan_big/1_sudan_3_7"
+    ],
+    "tag": {
+      "征服": 1,
+      "战斗": 1,
+      "可堆叠": 1,
+      "命运点": 1,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501885": {
+    "id": 2501885,
+    "name": "征服乐行券",
+    "title": "乐行券",
+    "text": "第二级的征服乐行券，价值42金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 2,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_3",
+      "sudan_big/1_sudan_3_2",
+      "sudan_big/1_sudan_3_3",
+      "sudan_big/1_sudan_3_4",
+      "sudan_big/1_sudan_3_5",
+      "sudan_big/1_sudan_3_6",
+      "sudan_big/1_sudan_3_7"
+    ],
+    "tag": {
+      "征服": 1,
+      "战斗": 2,
+      "可堆叠": 1,
+      "命运点": 2,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501886": {
+    "id": 2501886,
+    "name": "征服乐行券",
+    "title": "乐行券",
+    "text": "第三级的征服乐行券，价值81金币，可以在某些场合代替苏丹卡。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 3,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_3",
+      "sudan_big/1_sudan_3_2",
+      "sudan_big/1_sudan_3_3",
+      "sudan_big/1_sudan_3_4",
+      "sudan_big/1_sudan_3_5",
+      "sudan_big/1_sudan_3_6",
+      "sudan_big/1_sudan_3_7"
+    ],
+    "tag": {
+      "征服": 1,
+      "战斗": 4,
+      "可堆叠": 1,
+      "命运点": 3,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501887": {
+    "id": 2501887,
+    "name": "征服乐行券",
+    "title": "乐行券",
+    "text": "最高品级的征服乐行券，价值足足120金币，可以在某些场合代替苏丹卡，在另一重历史中，它见证了许多恶行。(不会过期)",
+    "pops": [],
+    "card_favour": "",
+    "type": "sudan",
+    "tips": "",
+    "rare": 4,
+    "resource": "cards/2000477",
+    "destroy_resources": [
+      "sudan_big/1_sudan_3",
+      "sudan_big/1_sudan_3_2",
+      "sudan_big/1_sudan_3_3",
+      "sudan_big/1_sudan_3_4",
+      "sudan_big/1_sudan_3_5",
+      "sudan_big/1_sudan_3_6",
+      "sudan_big/1_sudan_3_7"
+    ],
+    "tag": {
+      "征服": 1,
+      "战斗": 8,
+      "可堆叠": 1,
+      "命运点": 4,
+      "冻结": 1,
+      "苏丹卡": 1
+    },
+    "card_vanishing": 7,
+    "vanish": {
+    },
+    "equips": [],
+    "is_only": 1
+  },
+  "2501888": {
+    "id": 2501888,
+    "name": "乐行反对者",
+    "title": "军队",
+    "text": "由反对乐行卷的贤臣、妃子、人民组成的军队",
+    "pops": [],
+    "card_favour": "",
+    "type": "item",
+    "tips": "",
+    "rare": 3,
+    "resource": "cards/2000657",
+    "tag": {
+      "部队": 1,
+      "可堆叠": 1,
+      "战斗": 10,
+      "体魄": 10,
+      "生存": 10,
+      "纯色材质": 1
+    },
+    "card_vanishing": 0,
+    "vanish": {},
+    "equips": [],
+    "is_only": 1
+  },
+  "2501889": {
+    "id": 2501889,
+    "name": "乐行反抗军",
+    "title": "军队",
+    "text": "由反对乐行卷的贤臣、妃子、军队、人民组成的军队",
+    "pops": [],
+    "card_favour": "",
+    "type": "item",
+    "tips": "",
+    "rare": 4,
+    "resource": "cards/2000657",
+    "tag": {
+      "部队": 1,
+      "可堆叠": 1,
+      "战斗": 15,
+      "体魄": 15,
+      "生存": 15,
+      "纯色材质": 1
+    },
+    "card_vanishing": 0,
+    "vanish": {},
+    "equips": [],
+    "is_only": 1
+  }
+}
