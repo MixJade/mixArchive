@@ -1,0 +1,16 @@
+{
+    "$schema": "../schemas/blueprint.schema.json",
+    "id": "mixJade_blueprint_golden_berry",
+    "nameTerm": "mixJade_golden_berry_name",
+    "group": "Cooking",
+    "subprints": [
+      {
+        "RequiredCards": "stone, berry",
+        "ResultCard": "mixJade_golden_berry",
+
+        "ExtraResultCards": "mixJade_golden_berry",
+        "Time": 1,
+        "StatusTerm": "mixJade_idea_golden_berry_status"
+      }
+    ]
+  }
