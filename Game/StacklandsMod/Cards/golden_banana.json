@@ -1,9 +1,9 @@
 {
     "$schema": "../schemas/card.schema.json",
-    "id": "mixJade_golden_berry",
-    "nameTerm": "mixJade_golden_berry_name",
-    "descriptionTerm": "mixJade_golden_berry_description",
-    "icon": "berry",
+    "id": "mixJade_golden_banana",
+    "nameTerm": "mixJade_golden_banana_name",
+    "descriptionTerm": "mixJade_golden_banana_description",
+    "icon": "banana",
     "value": 20,
     "type": "Food",
     "script": "Food",

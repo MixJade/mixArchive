@@ -1,0 +1,16 @@
+{
+    "$schema": "../schemas/blueprint.schema.json",
+    "id": "mixJade_blueprint_golden_banana",
+    "nameTerm": "mixJade_golden_banana_name",
+    "group": "Cooking",
+    "subprints": [
+      {
+        "RequiredCards": "sand, banana",
+        "ResultCard": "mixJade_golden_banana",
+
+        "ExtraResultCards": "mixJade_golden_banana",
+        "Time": 5,
+        "StatusTerm": "mixJade_idea_golden_banana_status"
+      }
+    ]
+  }
