@@ -4,7 +4,9 @@ For information about using the template, see the Modding Wiki
 
 ## 功能介绍
 
-石头+树莓 合成2个金树莓
+1. 石头+树莓 合成2个金树莓
+2. 沙子+香蕉 合成2个金香蕉
+3. 金树莓+石头 合成金光头盔和金光战袍
 
 ## 快速搜索方法
 
