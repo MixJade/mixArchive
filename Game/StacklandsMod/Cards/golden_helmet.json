@@ -1,0 +1,37 @@
+{
+  "$schema": "../schemas/card.schema.json",
+  "id": "golden_helmet",
+  "nameTerm": "golden_helmet_name",
+  "descriptionTerm": "golden_helmet_description",
+  "type": "Equipable",
+  "value": 20,
+  "icon": "helmet",
+  "_EquipableType": "Head",
+  "_MyStats": {
+    "MaxHealth": 10,
+    "DefenceIncrement": 5,
+    "HitChanceIncrement": 5,
+    "AttackSpeedIncrement": 5,
+    "AttackDamageIncrement": 5,
+    "SpecialHits": [
+      {
+        "Chance": 50,
+        "HitType": "Damage",
+        "Target": "AllEnemy"
+      },
+      {
+        "Chance": 50,
+        "HitType": "Stun",
+        "Target": "Target"
+      }
+    ]
+  },
+  "_IsShiny": true,
+  "_HasUniquePalette": true,
+  "_MyPalette": {
+    "Color": "#FFE299",
+    "Color2": "#F8C74A",
+    "Icon": "#000000"
+  },
+  "script": "Equipable"
+}

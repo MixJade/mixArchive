@@ -1,0 +1,37 @@
+{
+  "$schema": "../schemas/card.schema.json",
+  "id": "gold_torso",
+  "nameTerm": "gold_torso_name",
+  "descriptionTerm": "gold_torso_description",
+  "type": "Equipable",
+  "value": 20,
+  "icon": "tiger_fur_coat",
+  "_EquipableType": "Torso",
+  "_MyStats": {
+    "MaxHealth": 20,
+    "DefenceIncrement": 10,
+    "AttackSpeedIncrement": 5,
+    "AttackDamageIncrement": 5,
+    "HitChanceIncrement": 5,
+    "SpecialHits": [
+      {
+        "Chance": 50,
+        "HitType": "LifeSteal",
+        "Target": "AllEnemy"
+      },
+      {
+        "Chance": 50,
+        "HitType": "Heal",
+        "Target": "AllFriendly"
+      }
+    ]
+  },
+  "_IsShiny": true,
+  "_HasUniquePalette": true,
+  "_MyPalette": {
+    "Color": "#FFE299",
+    "Color2": "#F8C74A",
+    "Icon": "#000000"
+  },
+  "script": "Equipable"
+}

@@ -1,0 +1,16 @@
+{
+    "$schema": "../schemas/blueprint.schema.json",
+    "id": "mixJade_blueprint_golden_helmet",
+    "nameTerm": "golden_helmet_name",
+    "group": "Cooking",
+    "subprints": [
+      {
+        "RequiredCards": "stone, mixJade_golden_berry",
+        "ResultCard": "golden_helmet",
+
+        "ExtraResultCards": "gold_torso",
+        "Time": 5,
+        "StatusTerm": "mixJade_idea_golden_helmet_status"
+      }
+    ]
+  }
