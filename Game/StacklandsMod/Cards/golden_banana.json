@@ -1,22 +1,22 @@
 {
-    "$schema": "../schemas/card.schema.json",
-    "id": "mixJade_golden_banana",
-    "nameTerm": "mixJade_golden_banana_name",
-    "descriptionTerm": "mixJade_golden_banana_description",
-    "icon": "banana",
-    "value": 20,
-    "type": "Food",
-    "script": "Food",
-
-    "_IsFoil": true,
-
-    "_IsShiny": true,
-    "_CanSpoil": false,
-    "_FoodValue": 100,
-    "_HasUniquePalette": true,
-    "_MyPalette": {
-      "Color": "#FFE299",
-      "Color2": "#F8C74A",
-      "Icon": "#000000"
-    }
+  "$schema": "../schemas/card.schema.json",
+  "id": "mixJade_golden_banana",
+  "nameTerm": "mixJade_golden_banana_name",
+  "descriptionTerm": "mixJade_golden_banana_description",
+  "icon": "banana",
+  "value": 20,
+  "type": "Food",
+  "script": "Food",
+  "_IsFoil": true,
+  "_IsShiny": true,
+  "_CanSpoil": false,
+  "_FoodValue": 100,
+  "_IsCookedFood": true,
+  "_ResultAction": "add:StatusEffect_WellFed",
+  "_HasUniquePalette": true,
+  "_MyPalette": {
+    "Color": "#FFE299",
+    "Color2": "#F8C74A",
+    "Icon": "#000000"
   }
+}

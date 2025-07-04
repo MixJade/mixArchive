@@ -11,6 +11,7 @@ namespace mixJadeNS
         {
             WorldManager.instance.GameDataLoader.AddCardToSetCardBag(SetCardBagType.CookingIdea, "mixJade_blueprint_golden_berry", 1);
             WorldManager.instance.GameDataLoader.AddCardToSetCardBag(SetCardBagType.CookingIdea, "mixJade_blueprint_golden_banana", 1);
+            WorldManager.instance.GameDataLoader.AddCardToSetCardBag(SetCardBagType.CookingIdea, "mixJade_blueprint_golden_helmet", 1);
             Logger.Log("Ready!");
         }
     }
