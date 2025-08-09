@@ -26,3 +26,9 @@ https://github.com/Sightwalker/SomeMediaCards_StacklandMod
 
 开发wiki
 https://modding.stacklands.co/en/latest/
+
+## 本地mod位置
+
+```text
+%userprofile%/AppData/LocalLow/sokpop/Stacklands/Mods
+```
