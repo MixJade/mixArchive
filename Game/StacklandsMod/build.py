@@ -11,6 +11,7 @@ SYNC_FOLDERS = ["Blueprints", "Boosterpacks", "Cards", "Icons",
                 "Sounds"]  # folders to be synced, such as Cards, Blueprints, Icons, etc.
 COPY_FILES = ["manifest.json",
               "icon.jpg",  # 正规的是512x512的png，但jpg也能用
+              "workshop.txt",  # 上传steam后的识别ID
               "localization.tsv"]
 MODS_ROOT = Path(os.environ["userprofile"]) / Path(
     "AppData/LocalLow/sokpop/Stacklands/Mods")  # windows only, can be hardcoded with the below line instead
@@ -57,7 +58,7 @@ if len(found_csprojs) != 1:
     raise RuntimeError("Can't find .csproj file")
 with open(found_csprojs[0], encoding="utf-8") as f:
     root = ET.parse(f).getroot()
-    MOD_ID = json.load(open("manifest.json"))["id"]
+    MOD_ID = json.load(open("manifest.json", encoding='utf-8'))["id"]
     DLL_NAME = f"{root.find('./PropertyGroup/AssemblyName').text}.dll"
     MOD_DLL = MOD_BIN / DLL_NAME
     MOD_PATH = MODS_ROOT / MOD_ID
