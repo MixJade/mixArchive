@@ -9,6 +9,8 @@ add_executable(hello hello.c)
 # 设置WIN32标志,以去除黑框
 add_executable(S WIN32 sevenBtn/sevenBtn.c resource.rc)
 
+# 设置屏幕常亮
+add_executable(wakeScreen sevenBtn/wakeScreen.c)
 
 #DES加密
 add_executable(Des crypt/DES_Enc.c crypt/des_constants.h crypt/des_constants.c)
