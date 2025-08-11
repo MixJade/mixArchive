@@ -37,7 +37,7 @@ const TCHAR *buttonLabels[] = {
 
 // 按钮对应的文件夹路径
 const TCHAR *btnDir[] = {
-        "PythonLearn\\Normal\\utils\\pyCmd",
+        "PythonLearn\\Normal\\cmdPy\\pyCmd",
         "PythonLearn\\docs",
         "TsLearn\\docs",
         "selfTool",
