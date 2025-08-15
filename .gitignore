@@ -1,8 +1,11 @@
 ### IntelliJ IDEA ###
 .idea
+target
+temp_jar_extract
 *.iws
 *.iml
 *.ipr
+*.jar
 ### no exe
 *.exe
 cmake-build-debug

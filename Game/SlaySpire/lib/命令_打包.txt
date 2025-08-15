@@ -1,0 +1,1 @@
+C:\rubbish\jdk1.8.0_461\bin\jar.exe cf modified.jar -C desktop-1.0/ .
