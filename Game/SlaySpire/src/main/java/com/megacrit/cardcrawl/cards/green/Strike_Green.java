@@ -23,11 +23,10 @@ import com.megacrit.cardcrawl.powers.PoisonPower;
 public class Strike_Green extends AbstractCard {
     public static final String ID = "Strike_G";
     private static final CardStrings cardStrings;
-    private static final CardStrings cardStrings2;
 
     public Strike_Green() {
         // 消耗归0，拼接“致命毒药”描述
-        super("Strike_G", cardStrings.NAME, "green/attack/strike", 0, cardStrings.DESCRIPTION + "\n" + cardStrings2.DESCRIPTION, CardType.ATTACK, CardColor.GREEN, CardRarity.BASIC, CardTarget.ENEMY);
+        super("Strike_G", cardStrings.NAME, "green/attack/strike", 0, cardStrings.DESCRIPTION + " NL 给予 !M! 层 中毒 。", CardType.ATTACK, CardColor.GREEN, CardRarity.BASIC, CardTarget.ENEMY);
         this.baseDamage = 6;
         this.tags.add(CardTags.STRIKE);
         this.tags.add(CardTags.STARTER_STRIKE);
@@ -71,7 +70,5 @@ public class Strike_Green extends AbstractCard {
 
     static {
         cardStrings = CardCrawlGame.languagePack.getCardStrings("Strike_G");
-        // 获取毒药的描述
-        cardStrings2 = CardCrawlGame.languagePack.getCardStrings("Deadly Poison");
     }
 }

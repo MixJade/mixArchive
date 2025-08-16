@@ -22,9 +22,7 @@ C:\rubbish\jdk1.8.0_461\bin\jar.exe cf modified.jar -C desktop-1.0/ .
 
 ## 卡片ID查看
 
-可以去看wiki
-
-[防御卡片](https://sts.huijiwiki.com/wiki/%E9%98%B2%E5%BE%A1%EF%BC%88%E7%BA%A2%EF%BC%89)
-
+* 可以去解压`desktop-1.0.jar`,找`localization\zhs\card.json`
+* 里面有所有卡片的ID和名称、描述
 * 比如“防御卡”是`Defend_R`
 * 那么我们可以去`com/megacrit/cardcrawl/cards/red`下面找`Defend_Red`
