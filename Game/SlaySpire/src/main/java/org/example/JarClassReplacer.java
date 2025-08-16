@@ -27,6 +27,10 @@ public class JarClassReplacer {
                     "com/megacrit/cardcrawl/cards/red/Defend_Red.class",
                     "target/classes/com/megacrit/cardcrawl/cards/red/Defend_Red.class"
             ));
+            newClassPaths.add(new ReC(
+                    "com/megacrit/cardcrawl/cards/green/Strike_Green.class",
+                    "target/classes/com/megacrit/cardcrawl/cards/green/Strike_Green.class"
+            ));
             String outputJarPath = "desktop-1.0.jar";    // 输出的新JAR包路径
 
             replaceClassInJar(jarPath, newClassPaths, outputJarPath);
