@@ -21,7 +21,7 @@ public class Defend_Blue extends AbstractCard {
     private static final CardStrings cardStrings;
 
     public Defend_Blue() {
-        super("Defend_B", cardStrings.NAME, "blue/skill/defend", 0, cardStrings.DESCRIPTION + " NL 抽 !M! 张牌 NL 获得 [B] ", CardType.SKILL, CardColor.BLUE, CardRarity.BASIC, CardTarget.SELF);
+        super("Defend_B", cardStrings.NAME, "blue/skill/defend", 0, cardStrings.DESCRIPTION + " NL 抽 !M! 张牌 NL 获得 [B] [B] [B] ", CardType.SKILL, CardColor.BLUE, CardRarity.BASIC, CardTarget.SELF);
         this.baseBlock = 5;
         this.tags.add(CardTags.STARTER_DEFEND);
         // 拼接"快速检索"
@@ -31,7 +31,7 @@ public class Defend_Blue extends AbstractCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new DrawCardAction(p, this.magicNumber)); // 拼接"快速检索"
-        this.addToBot(new GainEnergyAction(1)); // 回复1点能量
+        this.addToBot(new GainEnergyAction(3)); // 回复3点能量
         if (Settings.isDebug) {
             this.addToBot(new GainBlockAction(p, p, 50));
         } else {
