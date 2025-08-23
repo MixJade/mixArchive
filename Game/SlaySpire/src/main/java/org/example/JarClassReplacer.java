@@ -28,6 +28,10 @@ public class JarClassReplacer {
                     "target/classes/com/megacrit/cardcrawl/cards/red/Defend_Red.class"
             ));
             newClassPaths.add(new ReC(
+                    "com/megacrit/cardcrawl/cards/red/Bash.class",
+                    "target/classes/com/megacrit/cardcrawl/cards/red/Bash.class"
+            ));
+            newClassPaths.add(new ReC(
                     "com/megacrit/cardcrawl/cards/green/Strike_Green.class",
                     "target/classes/com/megacrit/cardcrawl/cards/green/Strike_Green.class"
             ));
