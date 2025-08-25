@@ -14,7 +14,7 @@ import com.megacrit.cardcrawl.powers.FocusPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
 /**
- * 鸡煲基础攻击
+ * 鸡煲基础防御
  *
  * @since 2025-08-16 19:24:21
  */

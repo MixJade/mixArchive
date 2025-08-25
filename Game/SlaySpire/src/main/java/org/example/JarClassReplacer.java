@@ -19,6 +19,7 @@ public class JarClassReplacer {
             // 示例用法
             String jarPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\SlayTheSpire\\desktop-1.0.jar";          // 原始JAR包路径
             List<ReC> newClassPaths = new ArrayList<>();
+            // 战士
             newClassPaths.add(new ReC(
                     "com/megacrit/cardcrawl/cards/red/Strike_Red.class", // 要替换的类名(包含包路径)
                     "target/classes/com/megacrit/cardcrawl/cards/red/Strike_Red.class"  // 新的class文件路径
@@ -31,13 +32,20 @@ public class JarClassReplacer {
                     "com/megacrit/cardcrawl/cards/red/Bash.class",
                     "target/classes/com/megacrit/cardcrawl/cards/red/Bash.class"
             ));
+            // 猎煲
             newClassPaths.add(new ReC(
                     "com/megacrit/cardcrawl/cards/green/Strike_Green.class",
                     "target/classes/com/megacrit/cardcrawl/cards/green/Strike_Green.class"
             ));
+            // 鸡煲
             newClassPaths.add(new ReC(
                     "com/megacrit/cardcrawl/cards/blue/Defend_Blue.class",
                     "target/classes/com/megacrit/cardcrawl/cards/blue/Defend_Blue.class"
+            ));
+            // 观者
+            newClassPaths.add(new ReC(
+                    "com/megacrit/cardcrawl/cards/purple/Defend_Watcher.class",
+                    "target/classes/com/megacrit/cardcrawl/cards/purple/Defend_Watcher.class"
             ));
             String outputJarPath = "desktop-1.0.jar";    // 输出的新JAR包路径
 
