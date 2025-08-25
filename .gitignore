@@ -6,6 +6,9 @@ temp_jar_extract
 *.iml
 *.ipr
 *.jar
+__pycache__/
 ### no exe
 *.exe
 cmake-build-debug
+# 不追踪结果数据
+*_结果.*
