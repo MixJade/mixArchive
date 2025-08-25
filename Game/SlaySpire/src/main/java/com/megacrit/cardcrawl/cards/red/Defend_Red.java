@@ -1,12 +1,14 @@
 package com.megacrit.cardcrawl.cards.red;
 
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 
 /**
  * 铁甲战士的基础卡：防御
@@ -24,23 +26,26 @@ public class Defend_Red extends AbstractCard {
         // 格挡值改为50
         this.baseBlock = 50;
         this.tags.add(CardTags.STARTER_DEFEND);
+        // 拼接"回血、力量"
+        this.baseMagicNumber = 9;
+        this.magicNumber = this.baseMagicNumber;
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (Settings.isDebug) {
-            this.addToBot(new GainBlockAction(p, p, 50));
-        } else {
-            this.addToBot(new GainBlockAction(p, p, this.block));
-        }
-
+        // 加防御
+        this.addToBot(new GainBlockAction(p, p, this.block));
+        // 加力量
+        this.addToBot(new ApplyPowerAction(p, p, new StrengthPower(p, this.magicNumber), this.magicNumber));
+        // 回血
+        this.addToBot(new HealAction(p, p, this.magicNumber));
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
             this.upgradeBlock(3);
+            this.upgradeMagicNumber(3); // 加入回血量提升
         }
-
     }
 
     public AbstractCard makeCopy() {
@@ -49,5 +54,6 @@ public class Defend_Red extends AbstractCard {
 
     static {
         cardStrings = CardCrawlGame.languagePack.getCardStrings("Defend_R");
+        cardStrings.DESCRIPTION += " NL 加 !M! 力量 NL 回复 !M! 生命";
     }
 }
