@@ -1,0 +1,404 @@
+{
+  "response": {
+    "game_count": 28,
+    "games": [
+      {
+        "appid": 105600,
+        "name": "Terraria",
+        "playtime_forever": 394,
+        "img_icon_url": "858961e95fbf869f136e1770d586e0caefd4cfac",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 394,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1714147732,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 262060,
+        "name": "Darkest Dungeon®",
+        "playtime_forever": 130,
+        "img_icon_url": "af219e7f9ed0506cb0954aabb7f24a45e38d28e4",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 130,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1732954298,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 271590,
+        "name": "Grand Theft Auto V Legacy",
+        "playtime_forever": 6089,
+        "img_icon_url": "1e72f87eb927fa1485e68aefaff23c7fd7178251",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 6089,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1714147988,
+        "content_descriptorids": [
+          5
+        ],
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 3240220,
+        "name": "Grand Theft Auto V Enhanced",
+        "playtime_forever": 0,
+        "img_icon_url": "8355a7bbdb704f727bfba80ec56bc7228991338e",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 0,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 0,
+        "content_descriptorids": [
+          1,
+          2,
+          5
+        ],
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 367520,
+        "name": "Hollow Knight",
+        "playtime_forever": 7964,
+        "img_icon_url": "7b87aecda896ae747a6e40e3eb63498cb8b84df2",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 7786,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 178,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1710002908,
+        "playtime_disconnected": 316
+      },
+      {
+        "appid": 219740,
+        "name": "Don't Starve",
+        "playtime_forever": 7145,
+        "img_icon_url": "03fe647df40dccc4d19bf42a0185cd3e6b9f2953",
+        "playtime_windows_forever": 7145,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1599021251,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 413150,
+        "name": "Stardew Valley",
+        "playtime_forever": 6519,
+        "img_icon_url": "35d1377200084a4034238c05b0c8930451e2fb40",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 6453,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 65,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1712412814,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 457140,
+        "name": "Oxygen Not Included",
+        "playtime_forever": 10446,
+        "img_icon_url": "d37534163ebac8351e0bda0bf30f8f2174c921b6",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 10446,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1721525579,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 322330,
+        "name": "Don't Starve Together",
+        "playtime_forever": 3298,
+        "img_icon_url": "a80aa6cff8eebc1cbc18c367d9ab063e1553b0ee",
+        "playtime_windows_forever": 3298,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1700320310,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 568220,
+        "name": "Lobotomy Corporation",
+        "playtime_forever": 1259,
+        "img_icon_url": "43faff1c904babf6a84888b594f7554afeee494e",
+        "playtime_windows_forever": 1259,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1723981874,
+        "content_descriptorids": [
+          2,
+          5
+        ],
+        "playtime_disconnected": 1
+      },
+      {
+        "appid": 683320,
+        "name": "GRIS",
+        "playtime_forever": 355,
+        "img_icon_url": "10a3afeac4adedb37acaec02885bdc3c102eca93",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 355,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1735442854,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 718670,
+        "name": "Cultist Simulator",
+        "playtime_forever": 5112,
+        "img_icon_url": "45d3323697f801b62bab92ef0bbd2e672d68f504",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 5112,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1739285751,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 881100,
+        "name": "Noita",
+        "playtime_forever": 1774,
+        "img_icon_url": "a21dbd1d3bd01f0a688f2d7029978d5cdbe14e74",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 1774,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1712925381,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 1057090,
+        "name": "Ori and the Will of the Wisps",
+        "playtime_forever": 1361,
+        "img_icon_url": "ea50b151bb1e2c39e7bdd3ff4f8cc5e8738d6983",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 1361,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1714147708,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 1115690,
+        "name": "Yes, Your Grace",
+        "playtime_forever": 508,
+        "img_icon_url": "aa8e4f61b6974bd26d0e724657e85333d303a2b6",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 508,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1717004989,
+        "content_descriptorids": [
+          5
+        ],
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 1145360,
+        "name": "Hades",
+        "playtime_forever": 2588,
+        "img_icon_url": "8a3fca36a00883e8066263ad35dd15d77a1f9abc",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 2588,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1722260760,
+        "playtime_disconnected": 2
+      },
+      {
+        "appid": 1289310,
+        "name": "Helltaker",
+        "playtime_forever": 207,
+        "img_icon_url": "c4cfc91850d08836a6b49bc0509f7b0e3e17ffa4",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 207,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1712925369,
+        "content_descriptorids": [
+          1,
+          5
+        ],
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 1451940,
+        "name": "NEEDY STREAMER OVERLOAD",
+        "playtime_forever": 478,
+        "img_icon_url": "2d9e7f71e6372b3f8b4a7a2a9f1fcfdbd28061c1",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 478,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1662128878,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 1468810,
+        "name": "鬼谷八荒 Tale of Immortal",
+        "playtime_forever": 7933,
+        "img_icon_url": "51a531645724df6f419ce89c1d8c34b2b2355428",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 7933,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1712924710,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 1584090,
+        "name": "Touhou Mystia's Izakaya",
+        "playtime_forever": 2145,
+        "img_icon_url": "80de67530dfa1caeb41ab1c1252aae8956d8be93",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 2145,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1648017704,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 701160,
+        "name": "Kingdom Two Crowns",
+        "playtime_forever": 1642,
+        "img_icon_url": "7bf44c4e301a0f6fae78f697b39b5a1268223945",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 1642,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1731226200,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 356570,
+        "name": "Party Hard",
+        "playtime_forever": 801,
+        "img_icon_url": "7435291bc4a3c11c601c903bf79ac9f75ee0a839",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 801,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1728786278,
+        "content_descriptorids": [
+          2,
+          5
+        ],
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 512900,
+        "name": "Streets of Rogue",
+        "playtime_forever": 566,
+        "img_icon_url": "36dad6939749b4ccca0d1e2298b8e79e154b5135",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 566,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1727944080,
+        "playtime_disconnected": 1
+      },
+      {
+        "appid": 834740,
+        "name": "Circle Empires",
+        "playtime_forever": 82,
+        "img_icon_url": "9a26f2fab66dfb8a0db4f5c1e39e6b5597a5d43e",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 82,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1720705514,
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 233450,
+        "name": "Prison Architect",
+        "playtime_forever": 5418,
+        "img_icon_url": "c166c7911beec4d63a74cdddf25f26b73c84556b",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 5418,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1734273174,
+        "content_descriptorids": [
+          1,
+          2,
+          5
+        ],
+        "playtime_disconnected": 3
+      },
+      {
+        "appid": 588650,
+        "name": "Dead Cells",
+        "playtime_forever": 792,
+        "img_icon_url": "a431361e5dae5fd6ac2433064b62b2a37abc38f1",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 792,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1734624006,
+        "content_descriptorids": [
+          2,
+          5
+        ],
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 2138710,
+        "name": "Sifu",
+        "playtime_forever": 1178,
+        "img_icon_url": "3930eb06cc31a6c91ab243afd4c45f49c9d0c5c1",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 1178,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1724577198,
+        "content_descriptorids": [
+          2,
+          5
+        ],
+        "playtime_disconnected": 0
+      },
+      {
+        "appid": 1623730,
+        "name": "Palworld",
+        "playtime_forever": 1064,
+        "img_icon_url": "f5523077a8f4c923c2e8d8c17794b3319035fa73",
+        "has_community_visible_stats": true,
+        "playtime_windows_forever": 1064,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0,
+        "rtime_last_played": 1712412455,
+        "playtime_disconnected": 1
+      }
+    ]
+  }
+}
