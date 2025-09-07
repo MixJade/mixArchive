@@ -60,8 +60,15 @@ namespace MixSilkSongMod
         [HarmonyPrefix]
         private static void AddGeoPrefix(PlayerData __instance, ref int amount)
         {
-            // 所有获取念珠行为(包括收魂和拆红包)
+            // 所有获取念珠行为(包括拆红包)
             amount = (int)Math.Round(amount * _rosaryMultiplier);
+        }
+        [HarmonyPatch(typeof(HeroController), "CocoonBroken", new[] { typeof(bool), typeof(bool) })]
+        [HarmonyPrefix]
+        private static void CocoonBrokenPrefix(ref bool doAirPause, ref bool forceCanBind, HeroController __instance)
+        {
+            // 防止收魂的念珠加倍
+            __instance.playerData.HeroCorpseMoneyPool = (int)Math.Round(__instance.playerData.HeroCorpseMoneyPool / _rosaryMultiplier);
         }
     }
 }
