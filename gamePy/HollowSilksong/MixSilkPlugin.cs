@@ -70,5 +70,12 @@ namespace MixSilkSongMod
             // 防止收魂的念珠加倍
             __instance.playerData.HeroCorpseMoneyPool = (int)Math.Round(__instance.playerData.HeroCorpseMoneyPool / _rosaryMultiplier);
         }
+        [HarmonyPatch(typeof(HeroController), "AddToMaggotCharmTimer", new[] { typeof(float) })]
+        [HarmonyPrefix]
+        private static void AddToMaggotCharmTimer(ref float delta)
+        {
+            // 净界花环不消耗
+            delta = 0;
+        }
     }
 }
