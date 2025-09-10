@@ -44,6 +44,7 @@ namespace MixSilkSongMod
         }
 
         [HarmonyPatch(typeof(HealthManager), "TakeDamage")]
+        [HarmonyPrefix]
         private static void TakeDamagePrefix(ref HitInstance hitInstance)
         {
             if (!hitInstance.IsHeroDamage)
