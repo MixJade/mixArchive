@@ -1,10 +1,6 @@
 ﻿using BepInEx;
-using BepInEx.Logging;
-using GlobalSettings;
 using HarmonyLib;
 using System;
-using System.Diagnostics;
-using static SilkSpool;
 
 namespace MixSilkSongMod
 {
@@ -48,7 +44,7 @@ namespace MixSilkSongMod
         }
 
         [HarmonyPatch(typeof(HealthManager), "TakeDamage")]
-        private static void Prefix(ref HitInstance hitInstance)
+        private static void TakeDamagePrefix(ref HitInstance hitInstance)
         {
             if (!hitInstance.IsHeroDamage)
                 return;
@@ -72,7 +68,7 @@ namespace MixSilkSongMod
         }
         [HarmonyPatch(typeof(HeroController), "AddToMaggotCharmTimer", new[] { typeof(float) })]
         [HarmonyPrefix]
-        private static void AddToMaggotCharmTimer(ref float delta)
+        private static void AddToMaggotCharmTimerPrefix(ref float delta)
         {
             // 净界花环不消耗
             delta = 0;
