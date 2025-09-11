@@ -74,5 +74,12 @@ namespace MixSilkSongMod
             // 净界花环不消耗
             delta = 0;
         }
+        [HarmonyPatch(typeof(HeroController), "UseLavaBell")]
+        [HarmonyPrefix]
+        private static bool UseLavaBellPrefix()
+        {
+            // 熔岩钟不消耗
+            return false;
+        }
     }
 }
