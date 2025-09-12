@@ -42,3 +42,15 @@ if __name__ == "__main__":
     # 目标cs文件
     target_file_2 = r"MixSilkPlugin.cs"
     copy_file_to_file(source_file_2, target_file_2)
+
+    # 源dll文件
+    source_file_3 = os.path.join(os.path.expanduser("~"), r"source\repos\SureGodSwimMod\bin\Debug\SureGodSwimMod.dll")
+    # 目标dll文件
+    target_file_3 = r"C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight Silksong" \
+                    r"\BepInEx\plugins\SureGodSwimMod.dll"
+    copy_file_to_file(source_file_3, target_file_3)
+    # 源cs文件2
+    source_file_4 = os.path.join(os.path.expanduser("~"), r"source\repos\SureGodSwimMod\SureGodSwim.cs")
+    # 目标cs文件2
+    target_file_4 = r"SureGodSwim.cs"
+    copy_file_to_file(source_file_4, target_file_4)

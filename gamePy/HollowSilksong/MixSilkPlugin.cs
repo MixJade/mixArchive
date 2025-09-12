@@ -4,7 +4,7 @@ using System;
 
 namespace MixSilkSongMod
 {
-    [BepInPlugin("MixJade.MixSilkSongMod", "MixSilkPlugin", "1.0.0.0")]
+    [BepInPlugin("MixJade.MixSilkSongMod", "MixSilkPlugin", "1.0.0")]
     [BepInProcess("Hollow Knight Silksong.exe")]
     public class MixSilkPlugin : BaseUnityPlugin
     {
@@ -26,7 +26,7 @@ namespace MixSilkSongMod
             _shardsMultiplier = Config.Bind("Cheats", "MixShardsMult", 10.0f, "获取碎片倍数").Value;
             _rosaryMultiplier = Config.Bind("Cheats", "MixRosaryMult", 2.0f, "获取念珠倍数").Value;
             _damageMult = Config.Bind("Cheats", "PlayerDamageMult", 2.0f, "造成伤害倍数").Value;
-            Logger.LogInfo("Plugin MixJade.MixSilkSongMod is loaded!");
+            Logger.LogInfo("《蛊仙修为》已加载");
         }
 
         [HarmonyPatch(typeof(HeroController), "AddSilk", new[] { typeof(int), typeof(bool), typeof(SilkSpool.SilkAddSource), typeof(bool) })]
@@ -79,6 +79,23 @@ namespace MixSilkSongMod
         private static bool UseLavaBellPrefix()
         {
             // 熔岩钟不消耗
+            return false;
+        }
+        [HarmonyPatch(typeof(GameMap), "Update")]
+        [HarmonyPrefix]
+        public static void GameMapPrefix(ref GameMap __instance)
+        {
+            // 总是有指南针
+            // 这个语法专门用来设置类的私有属性(前提不是那种有且只有get的，哪怕没有get/set都行)
+            Traverse.Create(__instance).Field("displayingCompass").SetValue(true);
+        }
+        [HarmonyPatch(typeof(CurrencyObjectBase), "MagnetToolIsEquipped")]
+        [HarmonyPrefix]
+        public static bool MagnetToolIsEquippedPrefix(ref CurrencyObjectBase __instance, ref bool __result)
+        {
+            // 总是有磁铁
+            // __result是固定关键字，表示原方法的返回值
+            __result = true;
             return false;
         }
     }
