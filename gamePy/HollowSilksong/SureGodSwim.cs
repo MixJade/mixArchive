@@ -156,8 +156,7 @@ namespace SureGodSwimMod
         {
             try
             {
-                // 使用Unity的persistentDataPath获取游戏数据目录
-                // 通常是: C:\Users\[用户名]\AppData\LocalLow\Team Cherry\Hollow Knight Silksong
+                // 保存点位存档的位置
                 string gameDataPath = "C:\\MyHide\\silkModData";
 
                 // 在游戏数据目录下创建SureGodSwim子文件夹

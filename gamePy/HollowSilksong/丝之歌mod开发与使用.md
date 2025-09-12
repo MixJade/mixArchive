@@ -17,35 +17,29 @@
 8. 接着将源代码`gamePy/HollowSilksong/MixSilkPlugin.cs`复制进去
 9. 至此准备完成
 
-## 常用mod推荐
+## 《蛊仙修为》mod说明
 
-> 从下载mod的zip文件提取 DLL，将其放置在“Hollow Knight Silksong\BepInEx\plugins\”中
+1. 九倍获取灵丝
+2. 十倍获取碎片
+3. 双倍获取念珠
+4. 双倍伤害
+5. 净界花环不消耗
+6. 熔岩钟不消耗
+7. 总是有指南针
+8. 总是有磁铁
 
-1. 始终拥有指南针(N网编号21)
-2. 始终拥有磁铁(N网编号22)
-3. 地图传送(N网编号33)
+## 《定仙游》mod说明
 
 ## 传送mod补充说明
 
 ***Keyboard / 键盘***
 
-1. Ctrl + 1~5： Save position / 保存位置 （完全可自定义 / 完全可定制）有音效提示
-2. Alt + 1~5： 加载位置 / 读取位置 （完全可自定义 / 完全可自定义）
-3. 无保存数据：自动传送到长凳 / 无存档时自动传送到椅子
-
-***游戏手柄 / 手柄***
-
-- 【不建议用手柄来运行此Mod，最好直接把配置文件里面的手柄关了】
-- 配置项：`启用手柄支持 | Enable Gamepad Support = false`
-
-***传送配置文件***
-
-```text
-C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight Silksong\BepInEx\config\Mhz.TeleportMod.cfg
-```
+1. Ctrl + 1~5： 保存位置
+2. Alt + 1~5： 加载位置
+3. 无保存数据：无存档时自动传送到椅子
 
 ***传送坐标数据***
 
 ```text
-%userprofile%\AppData\LocalLow\Team Cherry\Hollow Knight Silksong\TeleportMod\savedata.json
+C:\MyHide\silkModData\savedata.json
 ```
