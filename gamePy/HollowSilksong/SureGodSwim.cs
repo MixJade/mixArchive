@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace SureGodSwimMod
 {
