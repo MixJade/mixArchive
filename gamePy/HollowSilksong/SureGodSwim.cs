@@ -213,7 +213,7 @@ namespace SureGodSwimMod
             // 传送修饰键+存档槽按键 读取对应档位
             else if (IsModifierKeyPressed("LeftAlt"))
             {
-                for (int i = 1; i <= 6; i++)
+                for (int i = 1; i <= 5; i++)
                 {
                     KeyCode slotKey = GetSlotKey(i);
                     if (slotKey != KeyCode.None && Input.GetKeyDown(slotKey))
@@ -221,6 +221,11 @@ namespace SureGodSwimMod
                         LoadFromSlot(i);
                         break;
                     }
+                }
+                KeyCode benchTeleportKeyCode = ParseKeyCode("Alpha6");
+                if (benchTeleportKeyCode != KeyCode.None && Input.GetKeyDown(benchTeleportKeyCode))
+                {
+                    TeleportToBench();
                 }
             }
         }
@@ -627,6 +632,45 @@ namespace SureGodSwimMod
             catch (Exception ex)
             {
                 Logger?.LogError($"执行传送时发生错误: {ex.Message}");
+            }
+        }
+
+        // 直接传送到椅子功能
+        private void TeleportToBench()
+        {
+            try
+            {
+                if (HeroController.instance == null || GameManager.instance == null)
+                {
+                    Logger?.LogWarning("HeroController 或 GameManager 未找到，无法传送到椅子");
+                    return;
+                }
+
+                // 获取椅子位置信息
+                var (position, scene) = GetBenchPositionAndScene();
+                if (position == Vector3.zero || string.IsNullOrEmpty(scene))
+                {
+                    Logger?.LogWarning("未找到有效的椅子位置或场景信息 | No valid bench position or scene found");
+                    return;
+                }
+
+                string currentScene = GameManager.instance.sceneName;
+                // 准备传送到椅子: {benchInfo.position} 在场景: {benchInfo.scene}
+
+                // 检查是否需要切换场景
+                if (!string.IsNullOrEmpty(scene) && currentScene != scene)
+                {
+                    StartCoroutine(TeleportWithSceneChange(scene));
+                }
+                else
+                {
+                    // 在同一场景，直接传送
+                    PerformTeleport(position);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger?.LogError($"传送到椅子时发生错误 | Error during teleport to bench: {ex.Message}");
             }
         }
     }
