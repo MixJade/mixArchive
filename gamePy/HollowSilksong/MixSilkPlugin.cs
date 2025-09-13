@@ -81,8 +81,8 @@ namespace MixSilkSongMod
             // 熔岩钟不消耗
             return false;
         }
-        [HarmonyPatch(typeof(GameMap), "Update")]
-        [HarmonyPrefix]
+        [HarmonyPatch(typeof(GameMap), "PositionCompassAndCorpse")]
+        [HarmonyPostfix]
         public static void GameMapPrefix(ref GameMap __instance)
         {
             // 总是有指南针
