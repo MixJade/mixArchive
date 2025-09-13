@@ -213,7 +213,7 @@ namespace SureGodSwimMod
             // 传送修饰键+存档槽按键 读取对应档位
             else if (IsModifierKeyPressed("LeftAlt"))
             {
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= 6; i++)
                 {
                     KeyCode slotKey = GetSlotKey(i);
                     if (slotKey != KeyCode.None && Input.GetKeyDown(slotKey))
@@ -252,8 +252,12 @@ namespace SureGodSwimMod
         // 获取配置的存档槽按键
         private KeyCode GetSlotKey(int slotNumber)
         {
-            string keyString = "Alpha1";
-            if (slotNumber == 2)
+            string keyString = "Alpha6";
+            if (slotNumber == 1)
+            {
+                keyString = "Alpha1";
+            }
+            else if (slotNumber == 2)
             {
                 keyString = "Alpha2";
             }
@@ -626,5 +630,4 @@ namespace SureGodSwimMod
             }
         }
     }
-
 }
