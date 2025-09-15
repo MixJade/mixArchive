@@ -2,12 +2,17 @@
 # @Time    : 2025/8/25 20:58
 # @Software: PyCharm
 import os
+
 import hollowAES
 
 if __name__ == '__main__':
     # 配置参数
     input_file = "存档解密_结果.json"  # 输入的明文JSON文件
-    output_file = os.path.join(os.path.expanduser("~"), "AppData/LocalLow/Team Cherry/Hollow Knight/user1.dat")
+    # 空洞骑士存档位置：
+    hollow_dat = "Hollow Knight/user1.dat"
+    # 丝之歌存档位置
+    silk_song_dat = "Hollow Knight Silksong/1079511766/user1.dat"
+    output_file = os.path.join(os.path.expanduser("~"), "AppData/LocalLow/Team Cherry/" + silk_song_dat)
 
     # 读取明文内容
     with open(input_file, 'r', encoding='utf-8') as f:
