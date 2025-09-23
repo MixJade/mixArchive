@@ -14,7 +14,7 @@ create table silk_collect
 
 insert into silk_collect (collect_id, collect_type, scene_name, after_data, scene_id, axis_x, axis_y, remark)
 values  (1, '金属', '骸骨洞窟', '{ "SceneName": "Bone_07", "ID": "Collectable Item Pickup - Tool Metal", "Value": true, "Mutator": 0 }', 'Bone_07', 37, 5, 'Value之前为false'),
-        (2, '金属', '深钨', '{ "SceneName": "Dock_03", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0 }', null, null, null, null),
+        (2, '金属', '深钨', '{ "SceneName": "Dock_03", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0 }', 'Dock_03', null, null, null),
         (3, '盒子', '猎人小径', '{ "SceneName": "Ant_20", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0 }', 'Ant_20', null, null, 'StoryEvents从此:0面具,1丝轴,2丝心,3盒子'),
         (4, '面具', '远野', '{"SceneName": "Bone_East_20", "ID": "Heart Piece", "Value": true, "Mutator": 0}', 'Bone_East_20', null, null, null),
         (5, '面具', '骸底买面具', '"PurchasedBonebottomHeartPiece": true', '\\', null, null, '之前为false'),
@@ -72,4 +72,6 @@ values  (1, '金属', '骸骨洞窟', '{ "SceneName": "Bone_07", "ID": "Collecta
         (57, '盒子', '蚀阶', '{"SceneName": "Coral_02", "ID": "Collectable Item Pickup (1)", "Value": true, "Mutator": 0}', 'Coral_02', 202, 45, null),
         (58, '盒子', '图书馆右上', '{"SceneName": "Library_08", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Library_08', 106, 35, null),
         (59, '盒子', '深钨温泉房下方', '{"SceneName": "Dock_13", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Dock_13', 15, 5, null),
-        (60, '盒子', '罪石监狱', '{"SceneName": "Slab_Cell_Quiet", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Slab_Cell_Quiet', 43, 32, null);
+        (60, '盒子', '罪石监狱', '{"SceneName": "Slab_Cell_Quiet", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Slab_Cell_Quiet', 43, 32, null),
+        (61, '盒子', '第三幕远野右上方', '{"SceneName": "Bone_East_25", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Bone_East_25', 152, 8, null),
+        (62, '面具', '第三幕飞毛腿赛跑', '{"Name": "Sprintmaster Race", "Data": {"HasBeenSeen": false, "IsAccepted": true, "CompletedCount": 0, "IsCompleted": true, "WasEverCompleted": true}}', 'Sprintmaster_Cave', 50, 14, null);
