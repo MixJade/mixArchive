@@ -74,4 +74,8 @@ values  (1, '金属', '骸骨洞窟', '{ "SceneName": "Bone_07", "ID": "Collecta
         (59, '盒子', '深钨温泉房下方', '{"SceneName": "Dock_13", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Dock_13', 15, 5, null),
         (60, '盒子', '罪石监狱', '{"SceneName": "Slab_Cell_Quiet", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Slab_Cell_Quiet', 43, 32, null),
         (61, '盒子', '第三幕远野右上方', '{"SceneName": "Bone_East_25", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Bone_East_25', 152, 8, null),
-        (62, '面具', '第三幕飞毛腿赛跑', '{"Name": "Sprintmaster Race", "Data": {"HasBeenSeen": false, "IsAccepted": true, "CompletedCount": 0, "IsCompleted": true, "WasEverCompleted": true}}', 'Sprintmaster_Cave', 50, 14, null);
+        (62, '面具', '第三幕飞毛腿赛跑', '{"Name": "Sprintmaster Race", "Data": {"HasBeenSeen": false, "IsAccepted": true, "CompletedCount": 0, "IsCompleted": true, "WasEverCompleted": true}}', 'Sprintmaster_Cave', 50, 14, null),
+        (63, '盒子', '第三幕钟镇上方', '{"SceneName": "Belltown", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Belltown', 59, 68, null),
+        (64, '面具', '第三幕雪山上冲', '{"SceneName": "Peak_06", "ID": "Heart Piece", "Value": true, "Mutator": 0}', 'Peak_06', 28, 182, null),
+        (65, '面具', '第三幕暗蚀之心任务', '{"Name": "Destroy Thread Cores", "Data": {"HasBeenSeen": true, "IsAccepted": true, "CompletedCount": 5, "IsCompleted": true, "WasEverCompleted": true}}', '\\', null, null, null),
+        (66, '面具', '第三幕隐秘猎手任务', '{"Name": "Ant Trapper", "Data": {"HasBeenSeen": true, "IsAccepted": true, "CompletedCount": 0, "IsCompleted": true, "WasEverCompleted": true}}', '\\', null, null, null);
