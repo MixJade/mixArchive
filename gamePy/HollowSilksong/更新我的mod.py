@@ -1,12 +1,6 @@
 # coding=utf-8
 # @Time    : 2025/9/7 20:12
 # @Software: PyCharm
-# C:\Users\11141\source\repos\MixSilkSongMod\bin\Debug\MixSilkSongMod.dll
-# os.path.join(os.path.expanduser("~"), "Desktop")
-
-# coding=utf-8
-# @Time    : 2025/9/7 20:12
-# @Software: PyCharm
 import os
 import shutil
 
