@@ -63,7 +63,7 @@ values  (1, '金属', '骸骨洞窟', '{ "SceneName": "Bone_07", "ID": "Collecta
         (48, '面具', '罪石监狱上右', '{"SceneName": "Slab_17", "ID": "Heart Piece", "Value": true, "Mutator": 0}', 'Slab_17', 19, 68, null),
         (49, '丝轴', '罪石监狱左侧', '{"SceneName": "Peak_01", "ID": "Silk Spool", "Value": true, "Mutator": 0}', 'Peak_01', 86, 192, null),
         (50, '面具', '雪山柱子内', '{"SceneName": "Peak_04c", "ID": "Heart Piece", "Value": true, "Mutator": 0}', 'Peak_04c', 68, 8, null),
-        (51, '面具', '蚀阶', '{"SceneName": "Peak_04c", "ID": "Heart Piece", "Value": true, "Mutator": 0}', 'Coral_19b', 75, 108, null),
+        (51, '面具', '蚀阶', '{"SceneName": "Coral_19b", "ID": "Heart Piece", "Value": true, "Mutator": 0}', 'Coral_19b', 75, 108, null),
         (52, '丝轴', '深钨', '{"SceneName": "Bone_East_13", "ID": "Silk Spool", "Value": true, "Mutator": 0}', 'Bone_East_13', 41, 24, null),
         (53, '丝轴', '德鲁伊下方', '{"SceneName": "Bone_11b", "ID": "Silk Spool", "Value": true, "Mutator": 0}', 'Bone_11b', 31, 5, null),
         (54, '丝轴', '深钨右侧', '{"SceneName": "Dock_03c", "ID": "Silk Spool", "Value": true, "Mutator": 0}', 'Dock_03c', 128, 55, null),
@@ -78,4 +78,11 @@ values  (1, '金属', '骸骨洞窟', '{ "SceneName": "Bone_07", "ID": "Collecta
         (63, '盒子', '第三幕钟镇上方', '{"SceneName": "Belltown", "ID": "Collectable Item Pickup", "Value": true, "Mutator": 0}', 'Belltown', 59, 68, null),
         (64, '面具', '第三幕雪山上冲', '{"SceneName": "Peak_06", "ID": "Heart Piece", "Value": true, "Mutator": 0}', 'Peak_06', 28, 182, null),
         (65, '面具', '第三幕暗蚀之心任务', '{"Name": "Destroy Thread Cores", "Data": {"HasBeenSeen": true, "IsAccepted": true, "CompletedCount": 5, "IsCompleted": true, "WasEverCompleted": true}}', '\\', null, null, null),
-        (66, '面具', '第三幕隐秘猎手任务', '{"Name": "Ant Trapper", "Data": {"HasBeenSeen": true, "IsAccepted": true, "CompletedCount": 0, "IsCompleted": true, "WasEverCompleted": true}}', '\\', null, null, null);
+        (66, '面具', '第三幕隐秘猎手任务', '{"Name": "Ant Trapper", "Data": {"HasBeenSeen": true, "IsAccepted": true, "CompletedCount": 0, "IsCompleted": true, "WasEverCompleted": true}}', '\\', null, null, null),
+        (67, '苔梅', '忆廊_椅子旁', '{ "SceneName": "Arborium_04", "ID": "moss_berry_fruit", "Value": true, "Mutator": 0 }', 'Arborium_04', 72, 9, null),
+        (68, '苔梅', '苔穴出生点左上', '{"SceneName": "Tut_02", "ID": "moss_berry_fruit", "Value": true, "Mutator": 0}', 'Tut_02', 140, 50, null),
+        (69, '苔梅', '出生点织巢左侧', '{"SceneName": "Weave_03", "ID": "moss_berry_fruit", "Value": true, "Mutator": 0}', 'Weave_03', 165, 28, null),
+        (70, '苔梅', '苔穴出生点右上', '{"SceneName": "Tut_01b", "ID": "moss_berry_fruit", "Value": true, "Mutator": 0}', 'Tut_01b', 74, 89, null),
+        (71, '苔梅', '骸底镇上空_蚊子', '"bonetownAspidBerryCollected": true', 'Bonetown', 286, 55, null),
+        (72, '苔梅', '德鲁伊下方_蚊子', '"mosstownAspidBerryCollected": true', 'Bone_05b', 61, 25, null),
+        (73, '苔梅', '漫游者教堂上空_蚊子', '"bonegraveAspidBerryCollected": true', 'Bonegrave', 253, 39, null);
