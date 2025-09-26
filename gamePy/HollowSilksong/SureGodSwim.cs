@@ -19,9 +19,6 @@ namespace SureGodSwimMod
         // 多档位存档系统
         private static Dictionary<int, SaveSlot> saveSlots = new Dictionary<int, SaveSlot>();
 
-        // Alt+6功能的入口点轮换索引
-        private static int currentEntryPointIndex = 0;
-
         // 存档数据结构
         public struct SaveSlot
         {
@@ -42,7 +39,6 @@ namespace SureGodSwimMod
         public class PersistentData
         {
             public Dictionary<int, SerializableSaveSlot> saveSlots = new Dictionary<int, SerializableSaveSlot>();
-            public int currentEntryPointIndex = 0;
         }
 
         [System.Serializable]
@@ -99,11 +95,6 @@ namespace SureGodSwimMod
                                 saveSlots[kvp.Key] = kvp.Value.ToSaveSlot();
                             }
                         }
-
-                        // 恢复入口点索引
-                        currentEntryPointIndex = data.currentEntryPointIndex;
-
-                        // 已加载持久化数据：data.saveSlots.Count 个存档槽
                     }
                 }
             }
@@ -128,9 +119,6 @@ namespace SureGodSwimMod
                         data.saveSlots[kvp.Key] = new SerializableSaveSlot(kvp.Value);
                     }
                 }
-
-                // 保存入口点索引
-                data.currentEntryPointIndex = currentEntryPointIndex;
 
                 string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
                 string filePath = GetSaveFilePath();
@@ -208,6 +196,12 @@ namespace SureGodSwimMod
                         SaveToSlot(i);
                         break;
                     }
+                }
+                // 测试直接ctrl+alt刷新存档
+                KeyCode goSaveKeyCode = ParseKeyCode("LeftAlt");
+                if (goSaveKeyCode != KeyCode.None && Input.GetKeyDown(goSaveKeyCode))
+                {
+                    LoadPersistentData();
                 }
             }
             // 传送修饰键+存档槽按键 读取对应档位
