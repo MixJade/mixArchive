@@ -8,12 +8,6 @@ namespace MixSilkSongMod
     [BepInProcess("Hollow Knight Silksong.exe")]
     public class MixSilkPlugin : BaseUnityPlugin
     {
-        // 获取灵丝倍数
-        private static float _silkMultiplier = 9;
-        // 获取碎片倍数
-        private static float _shardsMultiplier = 10;
-        // 获取念珠倍数
-        private static float _rosaryMultiplier = 2;
         // 造成伤害倍数
         private static float _damageMult = 2;
 
@@ -22,9 +16,6 @@ namespace MixSilkSongMod
         {
             // 设置一堆配置文件参数
             Harmony.CreateAndPatchAll(typeof(MixSilkPlugin));
-            _silkMultiplier = Config.Bind("Cheats", "MixSilkMult", 9.0f, "获取灵丝倍数").Value;
-            _shardsMultiplier = Config.Bind("Cheats", "MixShardsMult", 10.0f, "获取碎片倍数").Value;
-            _rosaryMultiplier = Config.Bind("Cheats", "MixRosaryMult", 2.0f, "获取念珠倍数").Value;
             _damageMult = Config.Bind("Cheats", "PlayerDamageMult", 2.0f, "造成伤害倍数").Value;
             Logger.LogInfo("《蛊仙修为》已加载");
         }
@@ -33,14 +24,16 @@ namespace MixSilkSongMod
         [HarmonyPrefix]
         private static void AddSilkPrefix(ref int amount, ref bool heroEffect, ref SilkSpool.SilkAddSource source, ref bool forceCanBindEffect)
         {
-            amount = (int)Math.Round(amount * _silkMultiplier);
+            // 获取灵丝x9
+            amount *= 9;
         }
 
         [HarmonyPatch(typeof(PlayerData), "AddShards")]
         [HarmonyPrefix]
-        private static void AddShardsPrefix(PlayerData __instance, ref int amount)
+        private static void AddShardsPrefix(ref int amount)
         {
-            amount = (int)Math.Round(amount * _shardsMultiplier);
+            // 获取碎片x8
+            amount *= 8;
         }
 
         [HarmonyPatch(typeof(HealthManager), "TakeDamage")]
@@ -57,15 +50,15 @@ namespace MixSilkSongMod
         [HarmonyPrefix]
         private static void AddGeoPrefix(PlayerData __instance, ref int amount)
         {
-            // 所有获取念珠行为(包括拆红包)
-            amount = (int)Math.Round(amount * _rosaryMultiplier);
+            // 所有获取念珠行为(包括拆红包)x2
+            amount *= 2;
         }
         [HarmonyPatch(typeof(HeroController), "CocoonBroken", new[] { typeof(bool), typeof(bool) })]
         [HarmonyPrefix]
         private static void CocoonBrokenPrefix(ref bool doAirPause, ref bool forceCanBind, HeroController __instance)
         {
             // 防止收魂的念珠加倍
-            __instance.playerData.HeroCorpseMoneyPool = (int)Math.Round(__instance.playerData.HeroCorpseMoneyPool / _rosaryMultiplier);
+            __instance.playerData.HeroCorpseMoneyPool = __instance.playerData.HeroCorpseMoneyPool / 2;
         }
         [HarmonyPatch(typeof(HeroController), "AddToMaggotCharmTimer", new[] { typeof(float) })]
         [HarmonyPrefix]
@@ -96,6 +89,13 @@ namespace MixSilkSongMod
             // 总是有磁铁
             // __result是固定关键字，表示原方法的返回值
             __result = true;
+            return false;
+        }
+        [HarmonyPatch(typeof(HeroController), "ResetHunterUpgCrestState")]
+        [HarmonyPrefix]
+        private static bool ResetHunterUpgCrestStatePrefix()
+        {
+            // 猎人专注不消失
             return false;
         }
     }
