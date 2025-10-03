@@ -1,6 +1,5 @@
 ﻿using BepInEx;
 using HarmonyLib;
-using System;
 
 namespace MixSilkSongMod
 {
@@ -97,6 +96,13 @@ namespace MixSilkSongMod
         {
             // 猎人专注不消失
             return false;
+        }
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(HeroController), "get_CurrentNailChargeTime")]
+        private static void IncreaseNailChargeTime(ref float __result)
+        {
+            // 蓄力时间变为0.4s（原1.35s）
+            __result = 0.4f;
         }
     }
 }
