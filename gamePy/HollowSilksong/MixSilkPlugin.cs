@@ -21,7 +21,7 @@ namespace MixSilkSongMod
 
         [HarmonyPatch(typeof(HeroController), "AddSilk", new[] { typeof(int), typeof(bool), typeof(SilkSpool.SilkAddSource), typeof(bool) })]
         [HarmonyPrefix]
-        private static void AddSilkPrefix(ref int amount, ref bool heroEffect, ref SilkSpool.SilkAddSource source, ref bool forceCanBindEffect)
+        private static void AddSilkPrefix(ref int amount, bool heroEffect, SilkSpool.SilkAddSource source, bool forceCanBindEffect)
         {
             // 获取灵丝x9
             amount *= 9;
@@ -47,14 +47,14 @@ namespace MixSilkSongMod
 
         [HarmonyPatch(typeof(PlayerData), "AddGeo")]
         [HarmonyPrefix]
-        private static void AddGeoPrefix(PlayerData __instance, ref int amount)
+        private static void AddGeoPrefix(ref int amount)
         {
             // 所有获取念珠行为(包括拆红包)x2
             amount *= 2;
         }
         [HarmonyPatch(typeof(HeroController), "CocoonBroken", new[] { typeof(bool), typeof(bool) })]
         [HarmonyPrefix]
-        private static void CocoonBrokenPrefix(ref bool doAirPause, ref bool forceCanBind, HeroController __instance)
+        private static void CocoonBrokenPrefix(bool doAirPause, bool forceCanBind, HeroController __instance)
         {
             // 防止收魂的念珠加倍
             __instance.playerData.HeroCorpseMoneyPool = __instance.playerData.HeroCorpseMoneyPool / 2;
@@ -83,7 +83,7 @@ namespace MixSilkSongMod
         }
         [HarmonyPatch(typeof(CurrencyObjectBase), "MagnetToolIsEquipped")]
         [HarmonyPrefix]
-        public static bool MagnetToolIsEquippedPrefix(ref CurrencyObjectBase __instance, ref bool __result)
+        public static bool MagnetToolIsEquippedPrefix(ref bool __result)
         {
             // 总是有磁铁
             // __result是固定关键字，表示原方法的返回值
