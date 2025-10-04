@@ -104,5 +104,12 @@ namespace MixSilkSongMod
             // 蓄力时间变为0.4s（原1.35s）
             __result = 0.4f;
         }
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(ToolItemManager), "GetToolStorageAmount")]
+        private static void IncreaseNailChargeTime(ToolItem tool, ref int __result)
+        {
+            // 所有工具数+100
+            __result += 100;
+        }
     }
 }
