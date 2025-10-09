@@ -78,21 +78,8 @@ namespace SureGodSwimMod
         // 获取存档文件路径
         private string GetSaveFilePath()
         {
-            try
-            {
-                // 保存点位存档的位置
-                string gameDataPath = "C:\\MyHide\\silkModData";
-                // 返回完整的JSON文件路径
-                string saveFilePath = Path.Combine(gameDataPath, "sureGodSwim.txt");
-                // 存档文件路径
-                return saveFilePath;
-            }
-            catch (Exception ex)
-            {
-                Logger?.LogError($"获取存档文件路径时发生错误: {ex.Message}");
-                // 出错时回退到相对路径
-                return Path.Combine("SureGodSwim", "sureGodSwim.txt");
-            }
+            // 返回完整的存档文件路径
+            return "C:\\MyHide\\silkModData\\sureGodSwim.txt";
         }
 
         private void Update()
@@ -122,7 +109,7 @@ namespace SureGodSwimMod
                     KeyCode slotKey = GetSlotKey(i);
                     if (slotKey != KeyCode.None && Input.GetKeyDown(slotKey))
                     {
-                        SaveToSlot(i-1);
+                        SaveToSlot(i - 1);
                         break;
                     }
                 }
@@ -141,7 +128,7 @@ namespace SureGodSwimMod
                     KeyCode slotKey = GetSlotKey(i);
                     if (slotKey != KeyCode.None && Input.GetKeyDown(slotKey))
                     {
-                        LoadFromSlot(i-1);
+                        LoadFromSlot(i - 1);
                         break;
                     }
                 }
@@ -226,7 +213,7 @@ namespace SureGodSwimMod
                 var slot = TryParse(saveSlots[slotNumber]);
                 Vector3 targetPosition = slot.position;
                 string targetScene = slot.scene;
-            
+
 
                 string currentScene = GameManager.instance.sceneName;
                 if (!string.IsNullOrEmpty(targetScene) && currentScene != targetScene)
@@ -251,7 +238,7 @@ namespace SureGodSwimMod
             // 1. 分割场景名（左括号 '(' 之前的部分）
             int leftParenIndex = str.IndexOf('(');
             // 提取场景名（如 "Belltown"）
-            string scene = str.Substring(0, leftParenIndex); 
+            string scene = str.Substring(0, leftParenIndex);
             // 2. 提取括号内的坐标部分（如 "71.5,8.2"）
             int rightParenIndex = str.IndexOf(')');
             string coords = str.Substring(leftParenIndex + 1, rightParenIndex - leftParenIndex - 1);
