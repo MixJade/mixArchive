@@ -1,9 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
-using Newtonsoft.Json;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -17,13 +15,12 @@ namespace SureGodSwimMod
         private new static ManualLogSource Logger;
 
         // 多档位存档系统 - 键为存档槽位，值为场景(x,y)格式的字符串
-        private static Dictionary<int, string> saveSlots = new Dictionary<int, string>()
-        {
-            { 1, "Song_Enclave(36,8)" },
-            { 2, "Belltown(71,8)" },
-            { 3, "Bone_10(26,17)" },
-            { 4, "Aqueduct_05(122,10)" },
-            { 5, "Abyss_12(18,9)" },
+        private static string[] saveSlots = {
+             "Song_Enclave(36,8)", // 圣歌盟地
+             "Belltown(71,8)", // 钟心镇
+             "Bone_10(26,17)", // 幸存者营地
+             "Aqueduct_05(122,10)", // 蚤托邦
+             "Abyss_12(18,9)", // 深渊
         };
 
         // 存档数据结构
@@ -47,13 +44,6 @@ namespace SureGodSwimMod
             }
         }
 
-        // 可序列化的存档数据 - 直接存储scene(x,y)格式的字典
-        [System.Serializable]
-        public class PersistentData
-        {
-            public Dictionary<int, string> saveSlots = new Dictionary<int, string>();
-        }
-
         private void Awake()
         {
             Logger = base.Logger;
@@ -70,60 +60,18 @@ namespace SureGodSwimMod
                 string filePath = GetSaveFilePath();
                 if (File.Exists(filePath))
                 {
-                    string json = File.ReadAllText(filePath);
-                    PersistentData data = JsonConvert.DeserializeObject<PersistentData>(json);
-
-                    if (data != null && data.saveSlots != null)
+                    // 读取所有行（自动按换行符分割）
+                    string[] lines = File.ReadAllLines(filePath);
+                    // 循环5次
+                    for (int i = 0; i < 5; i++)
                     {
-                        // 恢复存档槽数据
-                        foreach (var kvp in data.saveSlots)
-                        {
-                            if (!string.IsNullOrEmpty(kvp.Value))
-                            {
-                                saveSlots[kvp.Key] = kvp.Value;
-                            }
-                        }
+                        saveSlots[i] = lines[i].Trim();
                     }
                 }
             }
             catch (Exception ex)
             {
                 Logger?.LogError($"加载持久化数据时发生错误: {ex.Message}");
-            }
-        }
-
-        // 保存持久化数据
-        private void SavePersistentData()
-        {
-            try
-            {
-                PersistentData data = new PersistentData();
-
-                // 保存存档槽数据（直接存储scene(x,y)格式字符串）
-                foreach (var kvp in saveSlots)
-                {
-                    if (!string.IsNullOrEmpty(kvp.Value))
-                    {
-                        data.saveSlots[kvp.Key] = kvp.Value;
-                    }
-                }
-
-                string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
-                string filePath = GetSaveFilePath();
-
-                // 确保目录存在
-                string directory = Path.GetDirectoryName(filePath);
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
-
-                File.WriteAllText(filePath, json);
-                // 已保存持久化数据：{data.saveSlots.Count} 个存档槽
-            }
-            catch (Exception ex)
-            {
-                Logger?.LogError($"保存持久化数据时发生错误: {ex.Message}");
             }
         }
 
@@ -135,7 +83,7 @@ namespace SureGodSwimMod
                 // 保存点位存档的位置
                 string gameDataPath = "C:\\MyHide\\silkModData";
                 // 返回完整的JSON文件路径
-                string saveFilePath = Path.Combine(gameDataPath, "sureGodSwim.json");
+                string saveFilePath = Path.Combine(gameDataPath, "sureGodSwim.txt");
                 // 存档文件路径
                 return saveFilePath;
             }
@@ -143,7 +91,7 @@ namespace SureGodSwimMod
             {
                 Logger?.LogError($"获取存档文件路径时发生错误: {ex.Message}");
                 // 出错时回退到相对路径
-                return Path.Combine("SureGodSwim", "savedata.json");
+                return Path.Combine("SureGodSwim", "sureGodSwim.txt");
             }
         }
 
@@ -174,7 +122,7 @@ namespace SureGodSwimMod
                     KeyCode slotKey = GetSlotKey(i);
                     if (slotKey != KeyCode.None && Input.GetKeyDown(slotKey))
                     {
-                        SaveToSlot(i);
+                        SaveToSlot(i-1);
                         break;
                     }
                 }
@@ -193,7 +141,7 @@ namespace SureGodSwimMod
                     KeyCode slotKey = GetSlotKey(i);
                     if (slotKey != KeyCode.None && Input.GetKeyDown(slotKey))
                     {
-                        LoadFromSlot(i);
+                        LoadFromSlot(i-1);
                         break;
                     }
                 }
@@ -242,7 +190,16 @@ namespace SureGodSwimMod
 
                     // 保存为scene(x,y)格式字符串
                     saveSlots[slotNumber] = new SaveSlot(currentPosition, currentScene).ToSceneCoordinateString();
-                    SavePersistentData();
+
+                    string filePath = GetSaveFilePath();
+                    // 确保目录存在
+                    string directory = Path.GetDirectoryName(filePath);
+                    if (!Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+                    // 直接将数组写入文件，每个元素占一行
+                    File.WriteAllLines(filePath, saveSlots);
                 }
                 else
                 {
@@ -265,28 +222,11 @@ namespace SureGodSwimMod
                     return;
                 }
 
-                Vector3 targetPosition;
-                string targetScene;
-
-                if (saveSlots.ContainsKey(slotNumber) && !string.IsNullOrEmpty(saveSlots[slotNumber]))
-                {
-                    // 有存档数据，传送到存档位置
-                    var slot = TryParse(saveSlots[slotNumber]);
-                    targetPosition = slot.position;
-                    targetScene = slot.scene;
-                }
-                else
-                {
-                    var (position, scene) = GetBenchPositionAndScene();
-                    targetPosition = position;
-                    targetScene = scene;
-
-                    if (targetPosition == Vector3.zero || string.IsNullOrEmpty(targetScene))
-                    {
-                        Logger?.LogWarning("未找到有效的椅子位置或场景信息");
-                        return;
-                    }
-                }
+                // 传送到存档位置
+                var slot = TryParse(saveSlots[slotNumber]);
+                Vector3 targetPosition = slot.position;
+                string targetScene = slot.scene;
+            
 
                 string currentScene = GameManager.instance.sceneName;
                 if (!string.IsNullOrEmpty(targetScene) && currentScene != targetScene)
@@ -462,7 +402,7 @@ namespace SureGodSwimMod
                 var (position, scene) = GetBenchPositionAndScene();
                 if (position == Vector3.zero || string.IsNullOrEmpty(scene))
                 {
-                    Logger?.LogWarning("未找到有效的椅子位置或场景信息 | No valid bench position or scene found");
+                    Logger?.LogWarning("未找到有效的椅子位置或场景信息");
                     return;
                 }
 
@@ -480,7 +420,7 @@ namespace SureGodSwimMod
             }
             catch (Exception ex)
             {
-                Logger?.LogError($"传送到椅子时发生错误 | Error during teleport to bench: {ex.Message}");
+                Logger?.LogError($"传送到椅子时发生错误: {ex.Message}");
             }
         }
     }
