@@ -16,8 +16,15 @@ namespace SureGodSwimMod
     {
         private new static ManualLogSource Logger;
 
-        // 多档位存档系统
-        private static Dictionary<int, SaveSlot> saveSlots = new Dictionary<int, SaveSlot>();
+        // 多档位存档系统 - 键为存档槽位，值为场景(x,y)格式的字符串
+        private static Dictionary<int, string> saveSlots = new Dictionary<int, string>()
+        {
+            { 1, "Song_Enclave(36,8)" },
+            { 2, "Belltown(71,8)" },
+            { 3, "Bone_10(26,17)" },
+            { 4, "Aqueduct_05(122,10)" },
+            { 5, "Abyss_12(18,9)" },
+        };
 
         // 存档数据结构
         public struct SaveSlot
@@ -32,37 +39,19 @@ namespace SureGodSwimMod
                 scene = sceneName;
                 hasData = true;
             }
+
+            // 转换为scene(x,y)格式字符串
+            public string ToSceneCoordinateString()
+            {
+                return $"{scene}({position.x:F2},{position.y:F2})";
+            }
         }
 
-        // 可序列化的存档数据
+        // 可序列化的存档数据 - 直接存储scene(x,y)格式的字典
         [System.Serializable]
         public class PersistentData
         {
-            public Dictionary<int, SerializableSaveSlot> saveSlots = new Dictionary<int, SerializableSaveSlot>();
-        }
-
-        [System.Serializable]
-        public class SerializableSaveSlot
-        {
-            public float x, y, z;
-            public string scene = "";
-            public bool hasData = false;
-
-            public SerializableSaveSlot() { }
-
-            public SerializableSaveSlot(SaveSlot slot)
-            {
-                x = slot.position.x;
-                y = slot.position.y;
-                z = slot.position.z;
-                scene = slot.scene ?? "";
-                hasData = slot.hasData;
-            }
-
-            public SaveSlot ToSaveSlot()
-            {
-                return new SaveSlot(new Vector3(x, y, z), scene);
-            }
+            public Dictionary<int, string> saveSlots = new Dictionary<int, string>();
         }
 
         private void Awake()
@@ -87,12 +76,11 @@ namespace SureGodSwimMod
                     if (data != null && data.saveSlots != null)
                     {
                         // 恢复存档槽数据
-                        saveSlots.Clear();
                         foreach (var kvp in data.saveSlots)
                         {
-                            if (kvp.Value != null && kvp.Value.hasData)
+                            if (!string.IsNullOrEmpty(kvp.Value))
                             {
-                                saveSlots[kvp.Key] = kvp.Value.ToSaveSlot();
+                                saveSlots[kvp.Key] = kvp.Value;
                             }
                         }
                     }
@@ -111,12 +99,12 @@ namespace SureGodSwimMod
             {
                 PersistentData data = new PersistentData();
 
-                // 保存存档槽数据
+                // 保存存档槽数据（直接存储scene(x,y)格式字符串）
                 foreach (var kvp in saveSlots)
                 {
-                    if (kvp.Value.hasData)
+                    if (!string.IsNullOrEmpty(kvp.Value))
                     {
-                        data.saveSlots[kvp.Key] = new SerializableSaveSlot(kvp.Value);
+                        data.saveSlots[kvp.Key] = kvp.Value;
                     }
                 }
 
@@ -146,19 +134,14 @@ namespace SureGodSwimMod
             {
                 // 保存点位存档的位置
                 string gameDataPath = "C:\\MyHide\\silkModData";
-
-                // 在游戏数据目录下创建SureGodSwim子文件夹
-                string modDataPath = Path.Combine(gameDataPath, "SureGodSwim");
-
                 // 返回完整的JSON文件路径
-                string saveFilePath = Path.Combine(modDataPath, "savedata.json");
-
-                // 存档文件路径 {saveFilePath};
+                string saveFilePath = Path.Combine(gameDataPath, "sureGodSwim.json");
+                // 存档文件路径
                 return saveFilePath;
             }
             catch (Exception ex)
             {
-                Logger?.LogError($"获取存档文件路径时发生错误 | Error getting save file path: {ex.Message}");
+                Logger?.LogError($"获取存档文件路径时发生错误: {ex.Message}");
                 // 出错时回退到相对路径
                 return Path.Combine("SureGodSwim", "savedata.json");
             }
@@ -171,7 +154,6 @@ namespace SureGodSwimMod
             {
                 return;
             }
-
             // 键盘输入检测
             HandleKeyboardInput();
         }
@@ -184,7 +166,6 @@ namespace SureGodSwimMod
             {
                 return;
             }
-
             // 保存修饰键+存档槽按键 保存对应档位
             if (IsModifierKeyPressed("LeftControl"))
             {
@@ -197,7 +178,7 @@ namespace SureGodSwimMod
                         break;
                     }
                 }
-                // 测试直接ctrl+alt刷新存档
+                // ctrl+alt刷新存档
                 KeyCode goSaveKeyCode = ParseKeyCode("LeftAlt");
                 if (goSaveKeyCode != KeyCode.None && Input.GetKeyDown(goSaveKeyCode))
                 {
@@ -224,19 +205,10 @@ namespace SureGodSwimMod
             }
         }
 
-
         // 将字符串转换为KeyCode
         private KeyCode ParseKeyCode(string keyString)
         {
-            try
-            {
-                return (KeyCode)System.Enum.Parse(typeof(KeyCode), keyString, true);
-            }
-            catch
-            {
-                Logger?.LogWarning($"无法解析按键设置: {keyString}，使用默认值: {keyString}, using default");
-                return KeyCode.None;
-            }
+            return (KeyCode)System.Enum.Parse(typeof(KeyCode), keyString, true);
         }
 
         // 检查修饰键是否被按下
@@ -244,7 +216,6 @@ namespace SureGodSwimMod
         {
             KeyCode keyCode = ParseKeyCode(modifierKeyString);
             if (keyCode == KeyCode.None) return false;
-
             return Input.GetKey(keyCode);
         }
 
@@ -252,95 +223,12 @@ namespace SureGodSwimMod
         private KeyCode GetSlotKey(int slotNumber)
         {
             string keyString = "Alpha6";
-            if (slotNumber == 1)
-            {
-                keyString = "Alpha1";
-            }
-            else if (slotNumber == 2)
-            {
-                keyString = "Alpha2";
-            }
-            else if (slotNumber == 3)
-            {
-                keyString = "Alpha3";
-            }
-            else if (slotNumber == 4)
-            {
-                keyString = "Alpha4";
-            }
-            else if (slotNumber == 5)
-            {
-                keyString = "Alpha5";
-            }
+            if (slotNumber == 1) keyString = "Alpha1";
+            else if (slotNumber == 2) keyString = "Alpha2";
+            else if (slotNumber == 3) keyString = "Alpha3";
+            else if (slotNumber == 4) keyString = "Alpha4";
+            else if (slotNumber == 5) keyString = "Alpha5";
             return ParseKeyCode(keyString);
-        }
-
-        // 检查并修复当前场景的位置安全性
-        private Vector3 CheckAndFixPositionInCurrentScene(Vector3 targetPosition, int slotNumber)
-        {
-            try
-            {
-                if (HeroController.instance == null) return targetPosition;
-
-                // 检查位置是否安全
-                if (IsPositionSafe(targetPosition))
-                {
-                    // 档位 {slotNumber} 位置安全: {targetPosition}");
-                    return targetPosition;
-                }
-
-                // 位置不安全，寻找附近的安全位置
-                Logger?.LogWarning($"档位 {slotNumber} 位置不安全，正在查找安全位置: {targetPosition}");
-                Vector3 safePosition = FindSafePositionNearby(targetPosition);
-
-                if (safePosition != Vector3.zero)
-                {
-                    // 找到安全位置，更新存档槽
-                    string currentScene = GameManager.instance.sceneName;
-                    saveSlots[slotNumber] = new SaveSlot(safePosition, currentScene);
-                    // 档位 {slotNumber} 已修正为安全位置: {targetPosition} -> {safePosition}
-                    return safePosition;
-                }
-                else
-                {
-                    Logger?.LogWarning($"档位 {slotNumber} 无法找到安全位置，将在传送后尝试修复");
-                    return targetPosition;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger?.LogError($"检查位置安全性时发生错误: {ex.Message}");
-                return targetPosition;
-            }
-        }
-
-        // 检查位置是否安全（不会卡在地形中）
-        private bool IsPositionSafe(Vector3 position)
-        {
-            try
-            {
-                var heroCollider = HeroController.instance?.GetComponent<Collider2D>();
-                if (heroCollider == null) return true; // 如果获取不到碰撞器，假设安全
-
-                var groundLayerMask = LayerMask.GetMask("Terrain");
-
-                // 检查该位置是否与地形重叠
-                var overlap = Physics2D.OverlapBox(
-                    position,
-                    heroCollider.bounds.size,
-                    0f,
-                    groundLayerMask
-                );
-
-                bool isSafe = overlap == null;
-                //位置安全检查: {position} -> {(isSafe ? "安全" : "不安全")};
-                return isSafe;
-            }
-            catch (Exception ex)
-            {
-                Logger?.LogError($"检查位置安全性时发生错误: {ex.Message}");
-                return true; // 出错时假设安全
-            }
         }
 
         private void SaveToSlot(int slotNumber)
@@ -352,10 +240,8 @@ namespace SureGodSwimMod
                     Vector3 currentPosition = HeroController.instance.transform.position;
                     string currentScene = GameManager.instance.sceneName;
 
-                    saveSlots[slotNumber] = new SaveSlot(currentPosition, currentScene);
-                    // 档位 {slotNumber} 已保存: {currentPosition} 在场景: {currentScene}");
-
-                    // 保存持久化数据
+                    // 保存为scene(x,y)格式字符串
+                    saveSlots[slotNumber] = new SaveSlot(currentPosition, currentScene).ToSceneCoordinateString();
                     SavePersistentData();
                 }
                 else
@@ -368,7 +254,6 @@ namespace SureGodSwimMod
                 Logger?.LogError($"保存档位 {slotNumber} 时发生错误: {ex.Message}");
             }
         }
-
 
         private void LoadFromSlot(int slotNumber)
         {
@@ -383,19 +268,15 @@ namespace SureGodSwimMod
                 Vector3 targetPosition;
                 string targetScene;
 
-                // 检查指定档位是否有存档数据
-                if (saveSlots.ContainsKey(slotNumber) && saveSlots[slotNumber].hasData)
+                if (saveSlots.ContainsKey(slotNumber) && !string.IsNullOrEmpty(saveSlots[slotNumber]))
                 {
                     // 有存档数据，传送到存档位置
-                    var slot = saveSlots[slotNumber];
+                    var slot = TryParse(saveSlots[slotNumber]);
                     targetPosition = slot.position;
                     targetScene = slot.scene;
-                    // 准备传送到档位 {slotNumber}: {targetPosition} 在场景: {targetScene}");
                 }
                 else
                 {
-                    // 没有存档数据，回退到椅子传送逻辑
-                    // 档位 {slotNumber} 没有存档数据，传送到椅子位置");
                     var (position, scene) = GetBenchPositionAndScene();
                     targetPosition = position;
                     targetScene = scene;
@@ -405,22 +286,16 @@ namespace SureGodSwimMod
                         Logger?.LogWarning("未找到有效的椅子位置或场景信息");
                         return;
                     }
-                    // 准备传送到椅子位置: {targetPosition} 在场景: {targetScene}");
                 }
 
-                // 检查是否需要切换场景
                 string currentScene = GameManager.instance.sceneName;
                 if (!string.IsNullOrEmpty(targetScene) && currentScene != targetScene)
                 {
-                    // 需要切换场景: {currentScene} -> {targetScene}");
                     StartCoroutine(TeleportWithSceneChange(targetScene));
                 }
                 else
                 {
-                    // 在同一场景，先检查位置安全性
-                    Vector3 safePosition = CheckAndFixPositionInCurrentScene(targetPosition, slotNumber);
-                    // 已经预先检查过安全性，直接传送，无需重复检查
-                    PerformTeleport(safePosition);
+                    PerformTeleport(targetPosition);
                 }
 
             }
@@ -428,6 +303,21 @@ namespace SureGodSwimMod
             {
                 Logger?.LogError($"从档位 {slotNumber} 传送时发生错误: {ex.Message}");
             }
+        }
+
+        // 从scene(x,y)格式字符串解析
+        private SaveSlot TryParse(string str)
+        {
+            // 1. 分割场景名（左括号 '(' 之前的部分）
+            int leftParenIndex = str.IndexOf('(');
+            // 提取场景名（如 "Belltown"）
+            string scene = str.Substring(0, leftParenIndex); 
+            // 2. 提取括号内的坐标部分（如 "71.5,8.2"）
+            int rightParenIndex = str.IndexOf(')');
+            string coords = str.Substring(leftParenIndex + 1, rightParenIndex - leftParenIndex - 1);
+            // 3. 分割x和y坐标（按逗号 ',' 分割）
+            string[] xy = coords.Split(',');
+            return new SaveSlot(new Vector3(float.Parse(xy[0]), float.Parse(xy[1]), 0.004f), scene);
         }
 
         private (Vector3 position, string scene) GetBenchPositionAndScene()
@@ -449,13 +339,9 @@ namespace SureGodSwimMod
                     return (Vector3.zero, "");
                 }
 
-                // 查找椅子: {respawnMarkerName} 在场景: {respawnScene}");
-
-                // 检查椅子是否在当前场景
                 string currentScene = GameManager.instance?.sceneName ?? "";
                 if (currentScene == respawnScene)
                 {
-                    // 椅子在当前场景，直接查找位置
                     if (RespawnMarker.Markers != null)
                     {
                         var targetMarker = RespawnMarker.Markers
@@ -463,7 +349,6 @@ namespace SureGodSwimMod
 
                         if (targetMarker != null)
                         {
-                            // 在当前场景找到椅子: {targetMarker.gameObject.name} 位置: {targetMarker.transform.position}");
                             return (targetMarker.transform.position, respawnScene);
                         }
                     }
@@ -472,9 +357,7 @@ namespace SureGodSwimMod
                 }
                 else
                 {
-                    // 椅子在其他场景，返回场景信息，坐标将在场景切换后获取
-                    // 椅子在其他场景: {respawnScene}，需要切换场景后获取坐标");
-                    return (Vector3.one, respawnScene); // 使用 Vector3.one 作为占位符，表示需要场景切换后获取真实坐标
+                    return (Vector3.one, respawnScene);
                 }
             }
             catch (Exception ex)
@@ -484,17 +367,10 @@ namespace SureGodSwimMod
             }
         }
 
-        // 场景切换传送
         private IEnumerator TeleportWithSceneChange(string targetScene)
         {
-            // 开始场景切换到: {targetScene}");
-
-            // 没有指定入口点，尝试智能选择
             string useEntryPoint = GetBestEntryPointForScene();
 
-            // 使用入口点: {useEntryPoint}");
-
-            // 使用 GameManager 的场景切换功能
             try
             {
                 GameManager.instance.BeginSceneTransition(new GameManager.SceneLoadInfo
@@ -513,83 +389,25 @@ namespace SureGodSwimMod
                 yield break;
             }
 
-            // 等待场景加载完成
             yield return new WaitWhile(() => GameManager.instance != null && GameManager.instance.IsInSceneTransition);
-
-            // 等待额外一小段时间确保所有组件都初始化完成
             yield return new WaitForSeconds(0.5f);
         }
 
-        // 智能选择最佳入口点
         private string GetBestEntryPointForScene()
         {
             try
             {
-                // 常见的安全入口点名称列表（按优先级排序）
                 string[] commonEntryPoints = { "door1", "door_entrance", "entrance", "left1", "right1", "top1", "bot1" };
-
                 foreach (string entryPoint in commonEntryPoints)
                 {
-                    // 这里可以根据需要添加更复杂的逻辑
-                    // 比如检查特定场景的已知入口点
-                    // 尝试使用入口点: {entryPoint}");
                     return entryPoint;
                 }
-
-                // 如果都没有找到，返回默认值，GameManager会fallback到第一个可用的
                 return "door1";
             }
             catch (Exception ex)
             {
                 Logger?.LogError($"选择最佳入口点时发生错误: {ex.Message}");
                 return "door1";
-            }
-        }
-
-        // 在附近查找安全位置
-        private Vector3 FindSafePositionNearby(Vector3 originalPosition)
-        {
-            try
-            {
-                var heroCollider = HeroController.instance?.GetComponent<Collider2D>();
-                if (heroCollider == null) return Vector3.zero;
-
-                var groundLayerMask = LayerMask.GetMask("Terrain");
-
-                // 尝试向上、左、右偏移查找安全位置
-                Vector3[] offsets = {
-                new Vector3(0, 2f, 0),   // 向上
-                new Vector3(0, 4f, 0),   // 向上更远
-                new Vector3(-1f, 2f, 0), // 左上
-                new Vector3(1f, 2f, 0),  // 右上
-                new Vector3(-2f, 0, 0),  // 左侧
-                new Vector3(2f, 0, 0),   // 右侧
-            };
-
-                foreach (var offset in offsets)
-                {
-                    Vector3 testPosition = originalPosition + offset;
-
-                    var overlap = Physics2D.OverlapBox(
-                        testPosition,
-                        heroCollider.bounds.size,
-                        0f,
-                        groundLayerMask
-                    );
-
-                    if (overlap == null)
-                    {
-                        // 找到安全位置偏移: {offset}");
-                        return testPosition;
-                    }
-                }
-
-                return Vector3.zero;
-            }
-            catch (Exception ex)
-            {
-                Logger?.LogError($"查找安全位置时发生错误: {ex.Message}");
-                return Vector3.zero;
             }
         }
 
@@ -649,8 +467,6 @@ namespace SureGodSwimMod
                 }
 
                 string currentScene = GameManager.instance.sceneName;
-                // 准备传送到椅子: {benchInfo.position} 在场景: {benchInfo.scene}
-
                 // 检查是否需要切换场景
                 if (!string.IsNullOrEmpty(scene) && currentScene != scene)
                 {
