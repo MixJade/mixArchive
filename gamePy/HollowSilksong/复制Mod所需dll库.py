@@ -44,7 +44,6 @@ if __name__ == "__main__":
         r"\Hollow Knight Silksong_Data\Managed\UnityEngine.UI.dll",
         # 以下mod为炼制定仙游所需
         r"\Hollow Knight Silksong_Data\Managed\UnityEngine.Physics2DModule.dll",
-        r"\Hollow Knight Silksong_Data\Managed\Newtonsoft.Json.dll",
         r"\Hollow Knight Silksong_Data\Managed\UnityEngine.InputLegacyModule.dll",
     ]
 
