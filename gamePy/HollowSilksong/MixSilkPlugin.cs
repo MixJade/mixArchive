@@ -7,15 +7,10 @@ namespace MixSilkSongMod
     [BepInProcess("Hollow Knight Silksong.exe")]
     public class MixSilkPlugin : BaseUnityPlugin
     {
-        // 造成伤害倍数
-        private static float _damageMult = 2;
-
-
         private void Awake()
         {
             // 设置一堆配置文件参数
             Harmony.CreateAndPatchAll(typeof(MixSilkPlugin));
-            _damageMult = Config.Bind("Cheats", "PlayerDamageMult", 2.0f, "造成伤害倍数").Value;
             Logger.LogInfo("《蛊仙修为》已加载");
         }
 
@@ -42,7 +37,7 @@ namespace MixSilkSongMod
             if (!hitInstance.IsHeroDamage)
                 return;
             // 玩家造成伤害x2
-            hitInstance.Multiplier *= _damageMult;
+            hitInstance.Multiplier *= 2;
         }
 
         [HarmonyPatch(typeof(PlayerData), "AddGeo")]
