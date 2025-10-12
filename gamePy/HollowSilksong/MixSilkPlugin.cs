@@ -39,6 +39,18 @@ namespace MixSilkSongMod
             // 玩家造成伤害x2
             hitInstance.Multiplier *= 2;
         }
+        [HarmonyPatch(typeof(EnemyDeathEffects), "RecordKillForJournal")]
+        [HarmonyPrefix]
+        private static void RecordKillForJournalPrefix()
+        {
+            // 杀敌回血、回灵丝
+            HeroController heroController = UnityEngine.Object.FindFirstObjectByType<HeroController>();
+            if (heroController != null)
+            {
+                heroController.AddHealth(1);
+                heroController.AddSilk(1, false);
+            }
+        }
 
         [HarmonyPatch(typeof(PlayerData), "AddGeo")]
         [HarmonyPrefix]
@@ -83,13 +95,6 @@ namespace MixSilkSongMod
             // 总是有磁铁
             // __result是固定关键字，表示原方法的返回值
             __result = true;
-            return false;
-        }
-        [HarmonyPatch(typeof(HeroController), "ResetHunterUpgCrestState")]
-        [HarmonyPrefix]
-        private static bool ResetHunterUpgCrestStatePrefix()
-        {
-            // 猎人专注不消失
             return false;
         }
         [HarmonyPostfix]
