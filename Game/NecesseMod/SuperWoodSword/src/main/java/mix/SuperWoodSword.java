@@ -38,9 +38,7 @@ public class SuperWoodSword {
                     setBaseValueMethod.invoke(attackDamage, 520.0F); // 传入新的基础值
 
                     System.out.println("成功修改【木剑】的 attackDamage 基础值");
-                }
-
-                if ("woodpickaxe".equals(item.getStringID()) && item instanceof CustomPickaxeToolItem) {
+                } else if ("woodpickaxe".equals(item.getStringID()) && item instanceof CustomPickaxeToolItem) {
                     CustomPickaxeToolItem customPickaxe = (CustomPickaxeToolItem) item;
                     System.out.println("开始处理【木镐】" + customPickaxe.getStringID());
                     // 1. 直接从已知的 ToolDamageItem类获取 toolDps 字段
