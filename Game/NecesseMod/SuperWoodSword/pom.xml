@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>mix</groupId>
+    <artifactId>SuperWoodSword</artifactId>
+    <version>1.0</version>
+    <description>奈斯启示录mod</description>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>necesse</groupId>  <!-- 自定义，例如"com.necesse" -->
+            <artifactId>necesse</artifactId> <!-- 自定义，例如"necesse-core" -->
+            <version>1.0.0</version>        <!-- 自定义版本号 -->
+            <scope>system</scope>
+            <!-- 相对路径：${project.basedir} 表示项目根目录 -->
+            <systemPath>${project.basedir}/lib/Necesse.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- 全局配置最终文件名（不带版本号） -->
+        <finalName>${project.artifactId}</finalName>
+    </build>
+</project>

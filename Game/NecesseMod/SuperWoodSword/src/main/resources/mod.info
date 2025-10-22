@@ -1,0 +1,9 @@
+{
+	id = super.wood.sword,
+	name = SuperWoodSword,
+	version = 1.0.1,
+	gameVersion = 1.0.1,
+	author = MixJade,
+	description = WoodSword and woodpickaxe and woodaxe attackDamage to 520,
+	clientside = false
+}
