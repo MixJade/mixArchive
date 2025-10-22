@@ -1,0 +1,14 @@
+存档所在地址
+%USERPROFILE%\AppData\Roaming\Necesse\saves\worlds
+
+订阅的mod地址
+C:\Program Files (x86)\Steam\steamapps\workshop\content\1169040
+
+翻译文件
+C:\Program Files (x86)\Steam\steamapps\common\Necesse\locale\zh-CN.lang
+
+本地mod
+%APPDATA%/Necesse/mods/
+
+木剑类位置
+package necesse.inventory.item.toolItem.swordToolItem;
