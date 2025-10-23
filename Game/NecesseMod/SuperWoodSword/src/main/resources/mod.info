@@ -4,6 +4,6 @@
 	version = 1.0.1,
 	gameVersion = 1.0.1,
 	author = MixJade,
-	description = WoodSword and woodpickaxe and woodaxe attackDamage to 520,
+	description = WoodSword and woodpickaxe and woodaxe attackDamage to 520 and torch lightLevel to double
 	clientside = false
 }
