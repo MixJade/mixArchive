@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * 将木剑、木镐、木斧的伤害都改为520
+ * 将木剑、木镐、木斧的伤害都改为520，将火把的亮度翻倍
  *
  * @since 2025-10-22 23:26:43
  */
