@@ -3,12 +3,16 @@ package mix;
 import necesse.engine.modLoader.annotations.ModEntry;
 import necesse.engine.registries.ItemRegistry;
 import necesse.engine.registries.ObjectRegistry;
+import necesse.engine.registries.RecipeTechRegistry;
 import necesse.inventory.item.Item;
 import necesse.inventory.item.toolItem.ToolDamageItem;
 import necesse.inventory.item.toolItem.ToolItem;
 import necesse.inventory.item.toolItem.axeToolItem.CustomAxeToolItem;
 import necesse.inventory.item.toolItem.pickaxeToolItem.CustomPickaxeToolItem;
 import necesse.inventory.item.toolItem.swordToolItem.WoodSwordToolItem;
+import necesse.inventory.recipe.Ingredient;
+import necesse.inventory.recipe.Recipe;
+import necesse.inventory.recipe.Recipes;
 import necesse.level.gameObject.GameObject;
 import necesse.level.gameObject.TorchObject;
 
@@ -98,5 +102,14 @@ public class SuperWoodSword {
     }
 
     public void postInit() {
+        // 新增炸药的配方
+        Recipes.registerModRecipe(new Recipe(
+                "dynamitestick",
+                5,
+                RecipeTechRegistry.NONE,
+                new Ingredient[]{
+                        new Ingredient("stone", 1)
+                }
+        ));
     }
 }

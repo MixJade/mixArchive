@@ -8,12 +8,12 @@
 
 1. 木剑、木镐、木斧的伤害设为520。杀怪一剑秒，砍树一斧倒。
 2. 火把亮度翻倍。神光一照如天赦，黑暗地洞处处明。
+3. 新增配方：用1石头做5炸药，可在背包中制作。
 
 ---
-”四十岁后，不滞于物，草木竹石均可为剑。自此精修，渐进于无剑胜有剑之境。”
-
----
-WoodSword and woodpickaxe and woodaxe attackDamage to 520 and torch lightLevel to double
+1. WoodSword and woodpickaxe and woodaxe attackDamage to 520 
+2. torch lightLevel to double
+3. 1 stone can make 5 dynamitestick
 
 
 ## Mod上传教程
