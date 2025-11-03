@@ -102,9 +102,27 @@ public class SuperWoodSword {
     }
 
     public void postInit() {
-        // 新增炸药的配方
+        // 新增配方：1石头做5炸药
         Recipes.registerModRecipe(new Recipe(
                 "dynamitestick",
+                5,
+                RecipeTechRegistry.NONE,
+                new Ingredient[]{
+                        new Ingredient("stone", 1)
+                }
+        ));
+        // 新增配方：1石头做5回城卷轴
+        Recipes.registerModRecipe(new Recipe(
+                "recallscroll",
+                5,
+                RecipeTechRegistry.NONE,
+                new Ingredient[]{
+                        new Ingredient("stone", 1)
+                }
+        ));
+        // 新增配方：1石头做5传送卷轴
+        Recipes.registerModRecipe(new Recipe(
+                "teleportationscroll",
                 5,
                 RecipeTechRegistry.NONE,
                 new Ingredient[]{

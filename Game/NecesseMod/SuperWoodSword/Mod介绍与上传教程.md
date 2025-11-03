@@ -8,7 +8,7 @@
 
 1. 木剑、木镐、木斧的伤害设为520。
 2. 火把亮度翻倍。
-3. 新增配方：用1石头做5炸药，可在背包中制作。
+3. 新增配方：用1石头做5炸药 or 5传送卷 or 5回城卷，可在背包中制作。
 
 ---
 1. WoodSword and woodpickaxe and woodaxe attackDamage to 520 
