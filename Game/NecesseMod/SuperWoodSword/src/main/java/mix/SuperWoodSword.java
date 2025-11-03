@@ -1,6 +1,8 @@
 package mix;
 
 import necesse.engine.modLoader.annotations.ModEntry;
+import necesse.engine.network.gameNetworkData.GNDItemEnchantment;
+import necesse.engine.network.gameNetworkData.GNDItemMap;
 import necesse.engine.registries.ItemRegistry;
 import necesse.engine.registries.ObjectRegistry;
 import necesse.engine.registries.RecipeTechRegistry;
@@ -128,6 +130,50 @@ public class SuperWoodSword {
                 new Ingredient[]{
                         new Ingredient("stone", 1)
                 }
+        ));
+        // 新增配方：1石头做5铁皮药水
+        Recipes.registerModRecipe(new Recipe(
+                "greaterresistancepotion",
+                5,
+                RecipeTechRegistry.WORKSTATION,
+                new Ingredient[]{
+                        new Ingredient("stone", 1)
+                }
+        ));
+        // 新增配方：1石头做5速度药水
+        Recipes.registerModRecipe(new Recipe(
+                "greaterspeedpotion",
+                5,
+                RecipeTechRegistry.WORKSTATION,
+                new Ingredient[]{
+                        new Ingredient("stone", 1)
+                }
+        ));
+        // 新增配方：神圣卷轴
+        registerScroll("divine");
+        // 新增配方：狂暴卷轴
+        registerScroll("berserk");
+        // 新增配方：大师卷轴
+        registerScroll("master");
+        // 新增配方：高超卷轴
+        registerScroll("masterful");
+        // 新增配方：坚固卷轴
+        registerScroll("sturdy");
+    }
+
+    /**
+     * 注册 注魔卷轴配方
+     */
+    private void registerScroll(String buffName) {
+        Recipes.registerModRecipe(new Recipe(
+                "enchantingscroll",
+                1,
+                RecipeTechRegistry.WORKSTATION,
+                new Ingredient[]{
+                        new Ingredient("stone", 1)
+                },
+                false,
+                new GNDItemMap().setItem("enchantment", new GNDItemEnchantment(buffName))
         ));
     }
 }
