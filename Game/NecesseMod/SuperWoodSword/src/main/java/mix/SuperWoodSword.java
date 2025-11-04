@@ -7,10 +7,7 @@ import necesse.engine.registries.ItemRegistry;
 import necesse.engine.registries.ObjectRegistry;
 import necesse.engine.registries.RecipeTechRegistry;
 import necesse.inventory.item.Item;
-import necesse.inventory.item.toolItem.ToolDamageItem;
 import necesse.inventory.item.toolItem.ToolItem;
-import necesse.inventory.item.toolItem.axeToolItem.CustomAxeToolItem;
-import necesse.inventory.item.toolItem.pickaxeToolItem.CustomPickaxeToolItem;
 import necesse.inventory.item.toolItem.swordToolItem.WoodSwordToolItem;
 import necesse.inventory.recipe.Ingredient;
 import necesse.inventory.recipe.Recipe;
@@ -47,38 +44,6 @@ public class SuperWoodSword {
                     setBaseValueMethod.invoke(attackDamage, 520.0F); // 传入新的基础值
 
                     System.out.println("成功修改【木剑】的 attackDamage 基础值");
-                } else if ("woodpickaxe".equals(item.getStringID()) && item instanceof CustomPickaxeToolItem) {
-                    CustomPickaxeToolItem customPickaxe = (CustomPickaxeToolItem) item;
-                    System.out.println("开始处理【木镐】" + customPickaxe.getStringID());
-                    // 1. 直接从已知的 ToolDamageItem类获取 toolDps 字段
-                    Field toolDpsField = ToolDamageItem.class.getDeclaredField("toolDps");
-                    toolDpsField.setAccessible(true); // 允许访问私有/受保护字段
-
-                    // 2. 获取 toolDps 字段的值
-                    Object toolDps = toolDpsField.get(customPickaxe);
-
-                    // 3. 反射调用 setBaseValue 方法修改基础值（例如改为 50.0F）
-                    Method setBaseValueMethod = toolDps.getClass().getDeclaredMethod("setBaseValue", int.class);
-                    setBaseValueMethod.setAccessible(true);
-                    setBaseValueMethod.invoke(toolDps, 520); // 传入新的基础值
-
-                    System.out.println("成功修改【木镐】的 toolDps 基础值");
-                } else if ("woodaxe".equals(item.getStringID()) && item instanceof CustomAxeToolItem) {
-                    CustomAxeToolItem customAxe = (CustomAxeToolItem) item;
-                    System.out.println("开始处理【木斧】" + customAxe.getStringID());
-                    // 1. 直接从已知的 ToolDamageItem类获取 toolDps 字段
-                    Field toolDpsField = ToolDamageItem.class.getDeclaredField("toolDps");
-                    toolDpsField.setAccessible(true); // 允许访问私有/受保护字段
-
-                    // 2. 获取 toolDps 字段的值
-                    Object toolDps = toolDpsField.get(customAxe);
-
-                    // 3. 反射调用 setBaseValue 方法修改基础值（例如改为 50.0F）
-                    Method setBaseValueMethod = toolDps.getClass().getDeclaredMethod("setBaseValue", int.class);
-                    setBaseValueMethod.setAccessible(true);
-                    setBaseValueMethod.invoke(toolDps, 520); // 传入新的基础值
-
-                    System.out.println("成功修改【木斧】的 toolDps 基础值");
                 }
             }
 
@@ -105,60 +70,59 @@ public class SuperWoodSword {
 
     public void postInit() {
         // 新增配方：1石头做5炸药
-        Recipes.registerModRecipe(new Recipe(
-                "dynamitestick",
-                5,
-                RecipeTechRegistry.NONE,
-                new Ingredient[]{
-                        new Ingredient("stone", 1)
-                }
-        ));
+        registerNone("dynamitestick");
         // 新增配方：1石头做5回城卷轴
-        Recipes.registerModRecipe(new Recipe(
-                "recallscroll",
-                5,
-                RecipeTechRegistry.NONE,
-                new Ingredient[]{
-                        new Ingredient("stone", 1)
-                }
-        ));
+        registerNone("recallscroll");
         // 新增配方：1石头做5传送卷轴
+        registerNone("teleportationscroll");
+        // 新增配方：1石头做5铁皮药水
+        registerWork("greaterresistancepotion");
+        // 新增配方：1石头做5速度药水
+        registerWork("greaterspeedpotion");
+        // 新增配方：1石头做5钨锭
+        registerWork("tungstenbar");
+        // 新增配方：1石头做5石英
+        registerWork("quartz");
+        // 神圣卷轴-法师
+        registerScroll("divine");
+        // 狂暴卷轴-近战
+        registerScroll("berserk");
+        // 大师卷轴-工具
+        registerScroll("master");
+        // 高超卷轴-射手
+        registerScroll("masterful");
+        // 坚固卷轴-饰品
+        registerScroll("sturdy");
+        // 野蛮卷轴-召唤
+        registerScroll("savage");
+    }
+
+    /**
+     * 注册 普通配方
+     */
+    private void registerNone(String goods) {
         Recipes.registerModRecipe(new Recipe(
-                "teleportationscroll",
+                goods,
                 5,
                 RecipeTechRegistry.NONE,
                 new Ingredient[]{
-                        new Ingredient("stone", 1)
+                        new Ingredient("anystone", 1)
                 }
         ));
-        // 新增配方：1石头做5铁皮药水
+    }
+
+    /**
+     * 注册 工作台配方
+     */
+    private void registerWork(String goods) {
         Recipes.registerModRecipe(new Recipe(
-                "greaterresistancepotion",
+                goods,
                 5,
                 RecipeTechRegistry.WORKSTATION,
                 new Ingredient[]{
-                        new Ingredient("stone", 1)
+                        new Ingredient("anystone", 1)
                 }
         ));
-        // 新增配方：1石头做5速度药水
-        Recipes.registerModRecipe(new Recipe(
-                "greaterspeedpotion",
-                5,
-                RecipeTechRegistry.WORKSTATION,
-                new Ingredient[]{
-                        new Ingredient("stone", 1)
-                }
-        ));
-        // 新增配方：神圣卷轴
-        registerScroll("divine");
-        // 新增配方：狂暴卷轴
-        registerScroll("berserk");
-        // 新增配方：大师卷轴
-        registerScroll("master");
-        // 新增配方：高超卷轴
-        registerScroll("masterful");
-        // 新增配方：坚固卷轴
-        registerScroll("sturdy");
     }
 
     /**
@@ -170,7 +134,7 @@ public class SuperWoodSword {
                 1,
                 RecipeTechRegistry.WORKSTATION,
                 new Ingredient[]{
-                        new Ingredient("stone", 1)
+                        new Ingredient("anystone", 1)
                 },
                 false,
                 new GNDItemMap().setItem("enchantment", new GNDItemEnchantment(buffName))

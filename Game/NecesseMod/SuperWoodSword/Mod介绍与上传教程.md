@@ -6,18 +6,18 @@
 
 ## Mod介绍
 
-1. 木剑、木镐、木斧的伤害设为520。
+1. 木剑的伤害设为520。
 2. 火把亮度翻倍。
-3. 新增配方：用1石头在背包中做5炸药 or 传送卷 or 回城卷。
-4. 新增配方：用1石头在工作台做5超级铁皮药水 or 超级速度药水 or 回城卷。
-5. 新增配方：用1石头在工作台做注魔卷轴：神圣、狂暴、大师、高超、坚固。
+3. 新增配方：用1石头在背包中做5炸药,传送卷,回城卷。
+4. 新增配方：用1石头在工作台做5铁皮药水,速度药水,钨锭,石英。
+5. 新增配方：用1石头在工作台做注魔卷轴(各职业最顶尖的)。
 
 ---
-1. WoodSword and woodpickaxe and woodaxe attackDamage to 520 
+1. WoodSword attackDamage to 520 
 2. torch lightLevel to double
-3. 1 stone can make 5 dynamitestick or recallscroll or teleportationscroll
-4. 1 stone in workstation can make 5 greaterresistancepotion or greaterspeedpotion
-5. 1 stone in workstation can make enchantingscroll for divine,berserk,master,masterful,sturdy
+3. 1 stone can make 5 dynamitestick,recallscroll
+4. 1 stone in workstation can make 5 craftingmat
+5. 1 stone in workstation can make enchantingscroll
 
 
 ## Mod上传教程

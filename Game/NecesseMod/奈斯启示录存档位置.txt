@@ -10,8 +10,11 @@ C:\Program Files (x86)\Steam\steamapps\common\Necesse\locale\zh-CN.lang
 本地mod
 %APPDATA%/Necesse/mods/
 
-木剑类位置
-package necesse.inventory.item.toolItem.swordToolItem;
+木剑、木斧等物品的注册位置(木剑的伤害是attackDamage，木斧的是toolDps)
+necesse.engine.registries.ItemRegistry;
+
+火把（放在地上的状态）这种场景物品的位置
+necesse.engine.registries.ObjectRegistry
 
 注魔卷轴的各类型位置：
 necesse.engine.registries.EnchantmentRegistry
