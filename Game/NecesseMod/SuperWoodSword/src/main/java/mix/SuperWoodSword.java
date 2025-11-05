@@ -72,16 +72,12 @@ public class SuperWoodSword {
         // 10炸药
         registerBoom();
 
-        // 暂时不用：5铁皮药水
-        // registerWork("greaterresistancepotion");
-        // 暂时不用：5速度药水
-        // registerWork("greaterspeedpotion");
-        // 5铁锭
-        registerWork("ironbar");
+        // 10铁锭
+        registerWork("ironbar", 10);
         // 5钨锭
-        registerWork("tungstenbar");
+        registerWork("tungstenbar", 5);
         // 5石英
-        registerWork("quartz");
+        registerWork("quartz", 5);
 
         // 神圣卷轴-法师
         registerScroll("divine");
@@ -114,10 +110,10 @@ public class SuperWoodSword {
     /**
      * 注册 工作台配方
      */
-    private void registerWork(String goods) {
+    private void registerWork(String goods, int num) {
         Recipes.registerModRecipe(new Recipe(
                 goods,
-                5,
+                num,
                 RecipeTechRegistry.WORKSTATION,
                 new Ingredient[]{
                         new Ingredient("anylog", 1)
