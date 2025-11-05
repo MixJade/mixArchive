@@ -70,7 +70,8 @@ public class SuperWoodSword {
 
     public void postInit() {
         // 10炸药
-        registerNone("dynamitestick");
+        registerBoom();
+
         // 暂时不用：5铁皮药水
         // registerWork("greaterresistancepotion");
         // 暂时不用：5速度药水
@@ -81,6 +82,7 @@ public class SuperWoodSword {
         registerWork("tungstenbar");
         // 5石英
         registerWork("quartz");
+
         // 神圣卷轴-法师
         registerScroll("divine");
         // 狂暴卷轴-近战
@@ -96,11 +98,11 @@ public class SuperWoodSword {
     }
 
     /**
-     * 注册 普通配方
+     * 注册炸药配方
      */
-    private void registerNone(String goods) {
+    private void registerBoom() {
         Recipes.registerModRecipe(new Recipe(
-                goods,
+                "dynamitestick",
                 10,
                 RecipeTechRegistry.NONE,
                 new Ingredient[]{
