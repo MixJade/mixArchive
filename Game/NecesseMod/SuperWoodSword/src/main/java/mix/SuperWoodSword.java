@@ -69,19 +69,17 @@ public class SuperWoodSword {
     }
 
     public void postInit() {
-        // 新增配方：1石头做5炸药
+        // 10炸药
         registerNone("dynamitestick");
-        // 新增配方：1石头做5回城卷轴
-        registerNone("recallscroll");
-        // 新增配方：1石头做5传送卷轴
-        registerNone("teleportationscroll");
-        // 新增配方：1石头做5铁皮药水
-        registerWork("greaterresistancepotion");
-        // 新增配方：1石头做5速度药水
-        registerWork("greaterspeedpotion");
-        // 新增配方：1石头做5钨锭
+        // 暂时不用：5铁皮药水
+        // registerWork("greaterresistancepotion");
+        // 暂时不用：5速度药水
+        // registerWork("greaterspeedpotion");
+        // 5铁锭
+        registerWork("ironbar");
+        // 5钨锭
         registerWork("tungstenbar");
-        // 新增配方：1石头做5石英
+        // 5石英
         registerWork("quartz");
         // 神圣卷轴-法师
         registerScroll("divine");
@@ -103,10 +101,10 @@ public class SuperWoodSword {
     private void registerNone(String goods) {
         Recipes.registerModRecipe(new Recipe(
                 goods,
-                5,
+                10,
                 RecipeTechRegistry.NONE,
                 new Ingredient[]{
-                        new Ingredient("anystone", 1)
+                        new Ingredient("anylog", 1)
                 }
         ));
     }
@@ -120,7 +118,7 @@ public class SuperWoodSword {
                 5,
                 RecipeTechRegistry.WORKSTATION,
                 new Ingredient[]{
-                        new Ingredient("anystone", 1)
+                        new Ingredient("anylog", 1)
                 }
         ));
     }
@@ -134,7 +132,7 @@ public class SuperWoodSword {
                 1,
                 RecipeTechRegistry.WORKSTATION,
                 new Ingredient[]{
-                        new Ingredient("anystone", 1)
+                        new Ingredient("anylog", 1)
                 },
                 false,
                 new GNDItemMap().setItem("enchantment", new GNDItemEnchantment(buffName))

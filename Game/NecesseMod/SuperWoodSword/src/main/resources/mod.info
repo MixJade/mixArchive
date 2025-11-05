@@ -4,6 +4,6 @@
 	version = 1.0.2,
 	gameVersion = 1.0.2,
 	author = MixJade,
-	description = 1. WoodSword attackDamage to 520 \n2. torch lightLevel to double \n3. 1 stone can make 5 dynamitestick \n4. 1 stone in workstation can make 5 craftingmat \n5. 1 stone in workstation can make enchantingscroll
+	description = 1. WoodSword attackDamage to 520 \n2. torch lightLevel to double \n3. 1 log can make 10 dynamitestick \n4. 1 log in workstation can make 5 craftingmat \n5. 1 log in workstation can make enchantingscroll
 	clientside = false
 }
