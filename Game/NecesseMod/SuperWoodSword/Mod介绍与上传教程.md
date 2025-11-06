@@ -8,16 +8,12 @@
 
 1. 木剑的伤害设为520。
 2. 火把亮度翻倍。
-3. 新增配方：用1木头在背包中做10炸药。
-4. 新增配方：用1木头在工作台做铁锭,钨锭,石英等材料。
-5. 新增配方：用1木头在工作台做注魔卷轴(各职业最顶尖的)。
+3. 新增工作台配方：1木头做炸药、铁锭、钨锭、注魔卷轴。
 
 ---
 1. WoodSword attackDamage to 520 
 2. torch lightLevel to double
-3. 1 log can make 10 dynamitestick
-4. 1 log in workstation can make craftingmat
-5. 1 log in workstation can make enchantingscroll
+3. 1 log in workstation can make dynamitestick or craftingmat or enchantingscroll
 
 
 ## Mod上传教程

@@ -70,14 +70,11 @@ public class SuperWoodSword {
 
     public void postInit() {
         // 10炸药
-        registerBoom();
-
+        registerWork("dynamitestick", 10);
         // 10铁锭
         registerWork("ironbar", 10);
         // 5钨锭
         registerWork("tungstenbar", 5);
-        // 5石英
-        registerWork("quartz", 5);
 
         // 神圣卷轴-法师
         registerScroll("divine");
@@ -87,24 +84,10 @@ public class SuperWoodSword {
         registerScroll("master");
         // 高超卷轴-射手
         registerScroll("masterful");
-        // 坚固卷轴-饰品
-        registerScroll("sturdy");
         // 野蛮卷轴-召唤
         registerScroll("savage");
-    }
-
-    /**
-     * 注册炸药配方
-     */
-    private void registerBoom() {
-        Recipes.registerModRecipe(new Recipe(
-                "dynamitestick",
-                10,
-                RecipeTechRegistry.NONE,
-                new Ingredient[]{
-                        new Ingredient("anylog", 1)
-                }
-        ));
+        // 坚固卷轴-饰品
+        registerScroll("sturdy");
     }
 
     /**
