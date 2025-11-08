@@ -1,9 +1,0 @@
-{
-	id = chain.mine.stones,
-	name = ChainMineStones,
-	version = 1.0.1,
-	gameVersion = 1.0.1,
-	author = MixJade,
-	description = chain mine stones
-	clientside = false
-}
