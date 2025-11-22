@@ -22,7 +22,7 @@
             <version>1.0.0</version>        <!-- 自定义版本号 -->
             <scope>system</scope>
             <!-- 相对路径：${project.basedir} 表示项目根目录 -->
-            <systemPath>${project.basedir}/lib/Necesse.jar</systemPath>
+            <systemPath>${project.basedir}/../SuperWoodSword/lib/Necesse.jar</systemPath>
         </dependency>
     </dependencies>
 
