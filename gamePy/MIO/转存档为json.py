@@ -4,7 +4,6 @@
 import json
 import os
 import re
-import time
 
 """将MIO存档的save文本转换为JSON格式
 """
@@ -69,9 +68,9 @@ for idx in sorted(temp_pairs.keys(), key=lambda x: int(x)):
 # 5. 转换为格式化的 JSON 字符串
 json_str = json.dumps(result_dict, ensure_ascii=False, indent=4)
 
-# 6. 若指定输出路径，将 JSON 写入文件
-formatted_time = time.strftime("%m%d%H%M%S", time.localtime(time.time()))
-output_file = f"MIO_{formatted_time}_结果.json"
+# 6. 若指定输出路径，将 JSON
+file_name = input("请输入名称：")
+output_file = f"MIO_{file_name}_结果.json"
 with open(output_file, 'w', encoding='utf-8') as json_file:
     json_file.write(json_str)
 print(f"JSON 文件已成功生成：{output_file}")

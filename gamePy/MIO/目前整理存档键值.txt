@@ -8,3 +8,9 @@
 "SHIELD_FRAGMENT:18"
 脊的左侧需要闪避才能进入的房间，经过一场强制战斗后从容器中获取
 相关的容器key：CHEST2:chest2_arene_ruin_launcheater
+
+
+# 老旧核心：钟楼观景电梯旁
+BV1LczTBVE35?p=161
+
+CARCASS:Carcass_GA_bou_up_F1
