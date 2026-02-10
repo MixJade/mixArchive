@@ -70,7 +70,7 @@ json_str = json.dumps(result_dict, ensure_ascii=False, indent=4)
 
 # 6. 若指定输出路径，将 JSON
 file_name = input("请输入名称：")
-output_file = f"MIO_{file_name}_结果.json"
+output_file = f"{file_name}_结果.json"
 with open(output_file, 'w', encoding='utf-8') as json_file:
     json_file.write(json_str)
 print(f"JSON 文件已成功生成：{output_file}")
