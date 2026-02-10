@@ -21,3 +21,12 @@ pairs.48.value.flags = Flags("Acquired")
 pairs.48.value.count = i32(24000)
 ```
 
+## 修改老旧核心
+
+* 搜索`RESOURCE:FULL_PEARLS`即可
+
+```text
+pairs.1487.key = String("RESOURCE:FULL_PEARLS")
+pairs.1487.value.flags = Flags("Acquired")
+pairs.1487.value.count = i32(7)
+```

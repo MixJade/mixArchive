@@ -4,6 +4,7 @@
 import json
 import os
 import re
+import shutil
 
 """将MIO存档的save文本转换为JSON格式
 """
@@ -68,9 +69,15 @@ for idx in sorted(temp_pairs.keys(), key=lambda x: int(x)):
 # 5. 转换为格式化的 JSON 字符串
 json_str = json.dumps(result_dict, ensure_ascii=False, indent=4)
 
-# 6. 若指定输出路径，将 JSON
+# 6. 若指定输出路径，将 JSON 保存
 file_name = input("请输入名称：")
 output_file = f"{file_name}_结果.json"
 with open(output_file, 'w', encoding='utf-8') as json_file:
     json_file.write(json_str)
 print(f"JSON 文件已成功生成：{output_file}")
+
+# 备份存档
+os.makedirs("save_bak", exist_ok=True)
+target_file_path = os.path.join("save_bak", f"{file_name}_结果.save")
+shutil.copy2(input_file, target_file_path)
+print(f"文件已成功复制到: {target_file_path}")
