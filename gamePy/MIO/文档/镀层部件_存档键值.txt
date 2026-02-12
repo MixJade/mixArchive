@@ -1,15 +1,28 @@
-# 镀层部件2
+# 镀层部件2：居所滑雪的镀层部件
 "SHIELD_FRAGMENT:14"
 p=129
-居所滑雪的镀层部件
 
-# 镀层部件3
+# 镀层部件3：脊左侧需要闪避才能进入的房间，经过一场强制战斗后从容器中获取
 "SHIELD_FRAGMENT:18"
 p=130
-脊左侧需要闪避才能进入的房间，经过一场强制战斗后从容器中获取
 相关的容器key：CHEST2:chest2_arene_ruin_launcheater
 
-# 镀层部件4
+# 镀层部件4：希伊托举右侧
 "SHIELD_FRAGMENT:19"
 p=131
-希伊托举右侧
+
+# 镀层部件5：野生灌丛中部机器人残骸
+"SHIELD_FRAGMENT:10"
+p=132
+
+# 镀层部件9：安港钟楼大厅
+"SHIELD_FRAGMENT:12"
+p=136
+
+# 镀层部件10：野生灌丛勾锚点
+"SHIELD_FRAGMENT:11",
+p=137
+
+# 镀层部件11：野生灌丛右上角
+"SHIELD_FRAGMENT:21"
+p=138
