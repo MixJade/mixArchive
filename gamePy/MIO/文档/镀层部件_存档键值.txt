@@ -1,5 +1,15 @@
+# 镀层部件2
+"SHIELD_FRAGMENT:14"
+p=129
+居所滑雪的镀层部件
+
 # 镀层部件3
 "SHIELD_FRAGMENT:18"
 p=130
-脊的左侧需要闪避才能进入的房间，经过一场强制战斗后从容器中获取
+脊左侧需要闪避才能进入的房间，经过一场强制战斗后从容器中获取
 相关的容器key：CHEST2:chest2_arene_ruin_launcheater
+
+# 镀层部件4
+"SHIELD_FRAGMENT:19"
+p=131
+希伊托举右侧

@@ -1,3 +1,7 @@
+# 老旧核心11：打完母贝雕刻师直走
+"CARCASS:Carcass_LQ_ruins_intro_S1"
+p=156
+
 # 老旧核心12：居所滑雪
 CARCASS:Carcass_LQ_ruins_intro_C2
 p=157
