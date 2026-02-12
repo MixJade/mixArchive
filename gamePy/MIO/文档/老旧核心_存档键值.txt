@@ -3,24 +3,28 @@
 p=156
 
 # 老旧核心12：居所滑雪
-CARCASS:Carcass_LQ_ruins_intro_C2
+"CARCASS:Carcass_LQ_ruins_intro_C2"
 p=157
 
-# 老旧核心13：核心_鸟笼中花坛下冲
-CARCASS:Carcass_GA_bou_crop_P2
+# 老旧核心13：鸟笼中花坛下冲
+"CARCASS:Carcass_GA_bou_crop_P2"
 p=158
 
 # 老旧核心16：钟楼观景电梯旁
-CARCASS:Carcass_GA_bou_up_F1
+"CARCASS:Carcass_GA_bou_up_F1"
 p=161
 
 # 老旧核心17：野生灌丛中部
 "CARCASS:Carcass_GA_root_center_P1"
 p=162
 
-# 老旧核心19：息左侧需下冲
-CARCASS:Carcass_GA_bou_chill_S1
+# 老旧核心19：安港（息左侧树叶下冲）
+"CARCASS:Carcass_GA_bou_chill_S1"
 p=164
+
+# 老旧核心20：安港（钟楼之底）
+"CARCASS:Carcass_GA_bou_intro_F6"
+p=165
 
 # 老旧核心21：野生灌丛和阿周那对话
 "DIALOG:TXT_GA_ROOT_WRONGTURN"

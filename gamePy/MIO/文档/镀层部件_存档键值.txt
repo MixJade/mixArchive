@@ -1,3 +1,9 @@
+# 镀层部件：梅尔购买1
+"SHIELD_FRAGMENT:0"
+
+# 镀层部件：梅尔购买2
+"SHIELD_FRAGMENT:1"
+
 # 镀层部件2：居所滑雪的镀层部件
 "SHIELD_FRAGMENT:14"
 p=129
