@@ -1,0 +1,2 @@
+# 开启居所之门
+"DOOR:door_shortcut_twins"
