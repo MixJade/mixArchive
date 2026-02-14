@@ -1,96 +1,24 @@
-# 镀层部件1：
-暂未收录
-p=128
-
-# 镀层部件2：居所滑雪的镀层部件
-"SHIELD_FRAGMENT:14"
-p=129
-
-# 镀层部件3：脊左侧需要闪避才能进入的房间，经过一场强制战斗后从容器中获取
-"SHIELD_FRAGMENT:18"
-p=130
-相关的容器key：CHEST2:chest2_arene_ruin_launcheater
-
-# 镀层部件4：希伊托举右侧
-"SHIELD_FRAGMENT:19"
-p=131
-
-# 镀层部件5：野生灌丛中部机器人残骸
-"SHIELD_FRAGMENT:10"
-p=132
-
-# 镀层部件6：
-暂未收录
-p=133
-
-# 镀层部件7：钟楼拿滑翔的下方
-"SHIELD_FRAGMENT:6"
-p=134
-
-# 镀层部件8：安港钟塔传送点右侧
-"SHIELD_FRAGMENT:7"
-p=135
-
-# 镀层部件9：安港钟塔大厅
-"SHIELD_FRAGMENT:12"
-p=136
-
-# 镀层部件10：野生灌丛勾锚点
-"SHIELD_FRAGMENT:11",
-p=137
-
-# 镀层部件11：野生灌丛右上角
-"SHIELD_FRAGMENT:21"
-p=138
-
-# 镀层部件12：息右下
-"SHIELD_FRAGMENT:22"
-p=139
-
-# 镀层部件13：
-暂未收录
-p=140
-
-# 镀层部件14：
-暂未收录
-p=141
-
-# 镀层部件15：精炼坊右上抽屉
-"SHIELD_FRAGMENT:23"
-p=142
-
-# 镀层部件16：
-暂未收录
-p=143
-
-# 镀层部件17：
-暂未收录
-p=144
-
-# 镀层部件18：
-暂未收录
-p=145
-
-# 镀层部件19：梅尔购买1
-"SHIELD_FRAGMENT:0"
-p=0
-
-# 镀层部件20：梅尔购买2
-"SHIELD_FRAGMENT:1"
-p=0
-
-# 镀层部件21：梅尔购买3
-"SHIELD_FRAGMENT:2"
-p=0
-
-# 镀层部件22：梅尔购买4
-"SHIELD_FRAGMENT:3"
-p=0
-
-# 镀层部件23：梅尔购买5
-"SHIELD_FRAGMENT:4"
-p=0
-
-# 镀层部件24：梅尔购买6
-"SHIELD_FRAGMENT:5"
-p=0
+{cId: 1, type: 1, nm: "未知", ev: "暂未收录", vd: "p=128"},
+{cId: 2, type: 1, nm: "居所滑雪的镀层部件", ev: "SHIELD_FRAGMENT:14", vd: "p=129"},
+{cId: 3, type: 1, nm: "“脊”左侧需闪避的房间，遭遇战后从容器获取", ev: "SHIELD_FRAGMENT:18", vd: "p=130"},
+{cId: 4, type: 1, nm: "希伊托举右侧", ev: "SHIELD_FRAGMENT:19", vd: "p=131"},
+{cId: 5, type: 1, nm: "野生灌丛中部机器人残骸", ev: "SHIELD_FRAGMENT:10", vd: "p=132"},
+{cId: 6, type: 1, nm: "未知", ev: "暂未收录", vd: "p=133"},
+{cId: 7, type: 1, nm: "钟楼拿滑翔的下方", ev: "SHIELD_FRAGMENT:6", vd: "p=134"},
+{cId: 8, type: 1, nm: "安港钟塔传送点右侧", ev: "SHIELD_FRAGMENT:7", vd: "p=135"},
+{cId: 9, type: 1, nm: "安港钟塔大厅", ev: "SHIELD_FRAGMENT:12", vd: "p=136"},
+{cId: 10, type: 1, nm: "野生灌丛勾锚点", ev: "SHIELD_FRAGMENT:11", vd: "p=137"},
+{cId: 11, type: 1, nm: "野生灌丛右上角", ev: "SHIELD_FRAGMENT:21", vd: "p=138"},
+{cId: 12, type: 1, nm: "“息”右下", ev: "SHIELD_FRAGMENT:22", vd: "p=139"},
+{cId: 13, type: 1, nm: "未知", ev: "暂未收录", vd: "p=140"},
+{cId: 14, type: 1, nm: "未知", ev: "暂未收录", vd: "p=141"},
+{cId: 15, type: 1, nm: "精炼坊右上抽屉", ev: "SHIELD_FRAGMENT:23", vd: "p=142"},
+{cId: 16, type: 1, nm: "未知", ev: "暂未收录", vd: "p=143"},
+{cId: 17, type: 1, nm: "未知", ev: "暂未收录", vd: "p=144"},
+{cId: 18, type: 1, nm: "未知", ev: "暂未收录", vd: "p=145"},
+{cId: 19, type: 1, nm: "梅尔购买1", ev: "SHIELD_FRAGMENT:0", vd: ""},
+{cId: 20, type: 1, nm: "梅尔购买2", ev: "SHIELD_FRAGMENT:1", vd: ""},
+{cId: 21, type: 1, nm: "梅尔购买3", ev: "SHIELD_FRAGMENT:2", vd: ""},
+{cId: 22, type: 1, nm: "梅尔购买4", ev: "SHIELD_FRAGMENT:3", vd: ""},
+{cId: 23, type: 1, nm: "梅尔购买5", ev: "SHIELD_FRAGMENT:4", vd: ""},
+{cId: 24, type: 1, nm: "梅尔购买6", ev: "SHIELD_FRAGMENT:5", vd: ""},

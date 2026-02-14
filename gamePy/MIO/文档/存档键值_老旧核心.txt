@@ -1,156 +1,39 @@
-# 老旧核心1：地基数删入口
-"CARCASS:Carcass_security_glide_P1"
-p=146
-
-# 老旧核心2：都市地下左侧
-"CARCASS:Carcass_LQ_under_hub_P4"
-p=147
-
-# 老旧核心3：地基数删出口
-"CARCASS:Carcass_security_glide_P3"
-p=148
-
-# 老旧核心4：
-暂未收录
-p=149
-
-# 老旧核心5：血门口台阶隐藏
-"CARCASS:Carcass_LQ_city_lobby_secret"
-p=150
-
-# 老旧核心6：地球末裔左下
-"CARCASS:Carcass_LQ_city_lobby_C2"
-p=151
-
-# 老旧核心7：地基入口与庞西亚对话
-"DIALOG:TXT_LQ_CITY_FOUNDATIONS"
-p=152
-
-# 老旧核心8：地基回血房间左侧房
-"CARCASS:Carcass_LQ_under_chall_C3"
-p=153
-
-# 老旧核心9：地基回血点大房间右上
-"CARCASS:Carcass_LQ_under_chall_P3"
-p=154
-
-# 老旧核心10：地基拿完神行步后
-"CARCASS:Carcass_LQ_under_tuto_C2"
-p=155
-
-# 老旧核心11：打完母贝雕刻师直走
-"CARCASS:Carcass_LQ_ruins_intro_S1"
-p=156
-
-# 老旧核心12：居所滑雪
-"CARCASS:Carcass_LQ_ruins_intro_C2"
-p=157
-
-# 老旧核心13：鸟笼中花坛下冲
-"CARCASS:Carcass_GA_bou_crop_P2"
-p=158
-
-# 老旧核心14：
-暂未收录
-p=159
-
-# 老旧核心15：
-暂未收录
-p=160
-
-# 老旧核心16：钟塔通路电梯左侧门顶
-"CARCASS:Carcass_GA_bou_up_F1"
-p=161
-
-# 老旧核心17：野生灌丛中部
-"CARCASS:Carcass_GA_root_center_P1"
-p=162
-
-# 老旧核心18：钟摆观景台电梯右
-"CARCASS:Carcass_GA_bou_build_F4"
-p=163
-
-# 老旧核心19：安港（息左侧树叶下冲）
-"CARCASS:Carcass_GA_bou_chill_S1"
-p=164
-
-# 老旧核心20：安港（钟塔之底）
-"CARCASS:Carcass_GA_bou_intro_F6"
-p=165
-
-# 老旧核心21：野生灌丛和阿周那对话
-"DIALOG:TXT_GA_ROOT_WRONGTURN"
-p=166
-
-# 老旧核心22：息左侧
-"CARCASS:Carcass_GA_bou_door_C1"
-p=167
-
-# 老旧核心23：安港和欧兰忒对话
-"DIALOG:TXT_GA_BOU_MINDYOURSTEP"
-p=168
-
-# 老旧核心24：野生灌丛右侧台阶内
-"CARCASS:Carcass_GA_root_conex_P1"
-p=169
-
-# 老旧核心25：
-暂未收录
-p=170
-
-# 老旧核心26：息下方
-"CARCASS:Carcass_GA_bou_glide_P2"
-p=171
-
-# 老旧核心27：
-暂未收录
-p=172
-
-# 老旧核心28：
-暂未收录
-p=173
-
-# 老旧核心29：息右下
-"CARCASS:Carcass_GA_vin_bridge_S1"
-p=174
-
-# 老旧核心30：
-暂未收录
-p=175
-
-# 老旧核心31：
-暂未收录
-p=176
-
-# 老旧核心32：
-暂未收录
-p=177
-
-# 老旧核心33：宁静避所上方大厅
-"CARCASS:Carcass_ST_tube_top"
-p=178
-
-# 老旧核心34：储藏库传送点左
-"CARCASS:Carcass_ST_tube_hub_P2"
-p=179
-
-# 老旧核心35：宁静避所右边管道下去
-"CARCASS:Carcass_ST_tube_liquids_C4"
-p=180
-
-# 老旧核心36：
-暂未收录
-p=181
-
-# 老旧核心37：
-暂未收录
-p=182
-
-# 老旧核心38：
-暂未收录
-p=183
-
-# 老旧核心39：
-暂未收录
-p=184
-
+{cId:1, type: 0, nm: "地基数删入口", ev:"CARCASS:Carcass_security_glide_P1", vd: "p=146"},
+{cId:2, type: 0, nm: "都市地下左侧", ev:"CARCASS:Carcass_LQ_under_hub_P4", vd: "p=147"},
+{cId:3, type: 0, nm: "地基数删出口", ev:"CARCASS:Carcass_security_glide_P3", vd: "p=148"},
+{cId:4, type: 0, nm: "未知", ev:"暂未收录", vd: "p=149"},
+{cId:5, type: 0, nm: "“血”门口台阶隐藏", ev:"CARCASS:Carcass_LQ_city_lobby_secret", vd: "p=150"},
+{cId:6, type: 0, nm: "地球末裔左下", ev:"CARCASS:Carcass_LQ_city_lobby_C2", vd: "p=151"},
+{cId:7, type: 0, nm: "地基入口与庞西亚对话", ev:"DIALOG:TXT_LQ_CITY_FOUNDATIONS", vd: "p=152"},
+{cId:8, type: 0, nm: "地基回血房间左侧房", ev:"CARCASS:Carcass_LQ_under_chall_C3", vd: "p=153"},
+{cId:9, type: 0, nm: "地基回血点大房间右上", ev:"CARCASS:Carcass_LQ_under_chall_P3", vd: "p=154"},
+{cId:10, type: 0, nm: "地基拿完神行步后", ev:"CARCASS:Carcass_LQ_under_tuto_C2", vd: "p=155"},
+{cId:11, type: 0, nm: "打完母贝雕刻师直走", ev:"CARCASS:Carcass_LQ_ruins_intro_S1", vd: "p=156"},
+{cId:12, type: 0, nm: "居所滑雪", ev:"CARCASS:Carcass_LQ_ruins_intro_C2", vd: "p=157"},
+{cId:13, type: 0, nm: "鸟笼中花坛下冲", ev:"CARCASS:Carcass_GA_bou_crop_P2", vd: "p=158"},
+{cId:14, type: 0, nm: "未知", ev:"暂未收录", vd: "p=159"},
+{cId:15, type: 0, nm: "未知", ev:"暂未收录", vd: "p=160"},
+{cId:16, type: 0, nm: "钟塔通路电梯左侧门顶", ev:"CARCASS:Carcass_GA_bou_up_F1", vd: "p=161"},
+{cId:17, type: 0, nm: "野生灌丛中部", ev:"CARCASS:Carcass_GA_root_center_P1", vd: "p=162"},
+{cId:18, type: 0, nm: "钟摆观景台电梯右", ev:"CARCASS:Carcass_GA_bou_build_F4", vd: "p=163"},
+{cId:19, type: 0, nm: "安港（“息”左侧树叶下冲）", ev:"CARCASS:Carcass_GA_bou_chill_S1", vd: "p=164"},
+{cId:20, type: 0, nm: "安港（钟塔之底）", ev:"CARCASS:Carcass_GA_bou_intro_F6", vd: "p=165"},
+{cId:21, type: 0, nm: "野生灌丛和阿周那对话", ev:"DIALOG:TXT_GA_ROOT_WRONGTURN", vd: "p=166"},
+{cId:22, type: 0, nm: "“息”左侧", ev:"CARCASS:Carcass_GA_bou_door_C1", vd: "p=167"},
+{cId:23, type: 0, nm: "安港和欧兰忒对话", ev:"DIALOG:TXT_GA_BOU_MINDYOURSTEP", vd: "p=168"},
+{cId:24, type: 0, nm: "野生灌丛右侧台阶内", ev:"CARCASS:Carcass_GA_root_conex_P1", vd: "p=169"},
+{cId:25, type: 0, nm: "未知", ev:"暂未收录", vd: "p=170"},
+{cId:26, type: 0, nm: "“息”下方", ev:"CARCASS:Carcass_GA_bou_glide_P2", vd: "p=171"},
+{cId:27, type: 0, nm: "未知", ev:"暂未收录", vd: "p=172"},
+{cId:28, type: 0, nm: "未知", ev:"暂未收录", vd: "p=173"},
+{cId:29, type: 0, nm: "“息”右下", ev:"CARCASS:Carcass_GA_vin_bridge_S1", vd: "p=174"},
+{cId:30, type: 0, nm: "未知", ev:"暂未收录", vd: "p=175"},
+{cId:31, type: 0, nm: "未知", ev:"暂未收录", vd: "p=176"},
+{cId:32, type: 0, nm: "未知", ev:"暂未收录", vd: "p=177"},
+{cId:33, type: 0, nm: "宁静避所上方大厅", ev:"CARCASS:Carcass_ST_tube_top", vd: "p=178"},
+{cId:34, type: 0, nm: "储藏库传送点左", ev:"CARCASS:Carcass_ST_tube_hub_P2", vd: "p=179"},
+{cId:35, type: 0, nm: "宁静避所右边管道下去", ev:"CARCASS:Carcass_ST_tube_liquids_C4", vd: "p=180"},
+{cId:36, type: 0, nm: "未知", ev:"暂未收录", vd: "p=181"},
+{cId:37, type: 0, nm: "未知", ev:"暂未收录", vd: "p=182"},
+{cId:38, type: 0, nm: "未知", ev:"暂未收录", vd: "p=183"},
+{cId:39, type: 0, nm: "未知", ev:"暂未收录", vd: "p=184"},

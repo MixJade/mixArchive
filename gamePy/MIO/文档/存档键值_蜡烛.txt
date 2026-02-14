@@ -1,47 +1,12 @@
-# 蜡烛1：都市谐调室与埃尔辛对话
-"CANDLE:8"
-p=33
-
-# 蜡烛2：安港遭遇战后开箱
-"CANDLE:0"
-p=34
-
-# 蜡烛3：
-暂未收录
-p=35
-
-# 蜡烛4：
-暂未收录
-p=36
-
-# 蜡烛5：数删传送点右
-"CANDLE:10"
-p=37
-
-# 蜡烛6：手的左边
-"CANDLE:9"
-p=38
-
-# 蜡烛7：安港（需神行步）
-"CANDLE:7"
-p=39
-
-# 蜡烛8：宁静避所下方
-"CANDLE:5"
-p=40
-
-# 蜡烛9：
-暂未收录
-p=41
-
-# 蜡烛10：息的门口
-"CANDLE:6"
-p=42
-
-# 蜡烛11：都市左侧
-"CANDLE:2"
-p=43
-
-# 蜡烛12：地基最底层
-"CANDLE:4"
-p=44
+{cId: 1, type: 3, nm: "都市谐调室与埃尔辛对话", ev: "CANDLE:8", vd: "p=33"},
+{cId: 2, type: 3, nm: "安港遭遇战后开箱", ev: "CANDLE:0", vd: "p=34"},
+{cId: 3, type: 3, nm: "未知", ev: "暂未收录", vd: "p=35"},
+{cId: 4, type: 3, nm: "未知", ev: "暂未收录", vd: "p=36"},
+{cId: 5, type: 3, nm: "数删传送点右", ev: "CANDLE:10", vd: "p=37"},
+{cId: 6, type: 3, nm: "“手”左边", ev: "CANDLE:9", vd: "p=38"},
+{cId: 7, type: 3, nm: "安港（需神行步）", ev: "CANDLE:7", vd: "p=39"},
+{cId: 8, type: 3, nm: "宁静避所下方", ev: "CANDLE:5", vd: "p=40"},
+{cId: 9, type: 3, nm: "未知", ev: "暂未收录", vd: "p=41"},
+{cId: 10, type: 3, nm: "“息”的门口", ev: "CANDLE:6", vd: "p=42"},
+{cId: 11, type: 3, nm: "都市左侧", ev: "CANDLE:2", vd: "p=43"},
+{cId: 12, type: 3, nm: "地基最底层", ev: "CANDLE:4", vd: "p=44"},

@@ -1,23 +1,6 @@
-# 序列号1：地基数删传送点下方
-"CHEST_KEY:5"
-p=45
-
-# 序列号2：地基数删最下方
-"CHEST_KEY:3"
-p=46
-
-# 序列号3：地基数删下方通道
-"CHEST_KEY:2"
-p=47
-
-# 序列号4：步道数删传送点左
-"CHEST_KEY:0"
-p=48
-
-# 序列号5：步道数删左下
-"CHEST_KEY:4"
-p=49
-
-# 序列号6：步道数删右侧
-"CHEST_KEY:1"
-p=50
+{cId: 1, type: 4, nm: "地基数删传送点下方", ev: "CHEST_KEY:5", vd: "p=45"},
+{cId: 2, type: 4, nm: "地基数删最下方", ev: "CHEST_KEY:3", vd: "p=46"},
+{cId: 3, type: 4, nm: "地基数删下方通道", ev: "CHEST_KEY:2", vd: "p=47"},
+{cId: 4, type: 4, nm: "步道数删传送点左", ev: "CHEST_KEY:0", vd: "p=48"},
+{cId: 5, type: 4, nm: "步道数删左下", ev: "CHEST_KEY:4", vd: "p=49"},
+{cId: 6, type: 4, nm: "步道数删右侧", ev: "CHEST_KEY:1", vd: "p=50"},
