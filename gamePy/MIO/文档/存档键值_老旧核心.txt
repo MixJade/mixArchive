@@ -1,13 +1,13 @@
-# 老旧核心1：
-暂未收录
+# 老旧核心1：地基数删入口
+"CARCASS:Carcass_security_glide_P1"
 p=146
 
 # 老旧核心2：都市地下左侧
 "CARCASS:Carcass_LQ_under_hub_P4"
 p=147
 
-# 老旧核心3：
-暂未收录
+# 老旧核心3：地基数删出口
+"CARCASS:Carcass_security_glide_P3"
 p=148
 
 # 老旧核心4：
@@ -82,8 +82,8 @@ p=165
 "DIALOG:TXT_GA_ROOT_WRONGTURN"
 p=166
 
-# 老旧核心22：
-暂未收录
+# 老旧核心22：息左侧
+"CARCASS:Carcass_GA_bou_door_C1"
 p=167
 
 # 老旧核心23：安港和欧兰忒对话
@@ -98,8 +98,8 @@ p=169
 暂未收录
 p=170
 
-# 老旧核心26：
-暂未收录
+# 老旧核心26：息下方
+"CARCASS:Carcass_GA_bou_glide_P2"
 p=171
 
 # 老旧核心27：
@@ -110,8 +110,8 @@ p=172
 暂未收录
 p=173
 
-# 老旧核心29：
-暂未收录
+# 老旧核心29：息右下
+"CARCASS:Carcass_GA_vin_bridge_S1"
 p=174
 
 # 老旧核心30：
@@ -126,16 +126,16 @@ p=176
 暂未收录
 p=177
 
-# 老旧核心33：
-暂未收录
+# 老旧核心33：宁静避所上方大厅
+"CARCASS:Carcass_ST_tube_top"
 p=178
 
-# 老旧核心34：
-暂未收录
+# 老旧核心34：储藏库传送点左
+"CARCASS:Carcass_ST_tube_hub_P2"
 p=179
 
-# 老旧核心35：
-暂未收录
+# 老旧核心35：宁静避所右边管道下去
+"CARCASS:Carcass_ST_tube_liquids_C4"
 p=180
 
 # 老旧核心36：
