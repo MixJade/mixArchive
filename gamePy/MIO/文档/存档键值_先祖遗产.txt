@@ -1,5 +1,5 @@
 {cId: 1, type: 2, nm: "居所滑雪场（伊赛）", ev: "ATTACK_POWER:0", vd: "p=2"},
 {cId: 2, type: 2, nm: "“脊”上方房间（格尔）", ev: "ATTACK_POWER:1", vd: "p=3"},
-{cId: 3, type: 2, nm: "未知", ev: "暂未收录", vd: "p=4"},
-{cId: 4, type: 2, nm: "未知", ev: "暂未收录", vd: "p=5"},
-{cId: 5, type: 2, nm: "未知", ev: "暂未收录", vd: "p=6"},
+{cId: 3, type: 2, nm: "“血”头顶（娜芙）", ev: "ATTACK_POWER:3", vd: "p=4"},
+{cId: 4, type: 2, nm: "“息”右侧（皮普）", ev: "ATTACK_POWER:2", vd: "p=5"},
+{cId: 5, type: 2, nm: "深渊右侧（阿露）", ev: "ATTACK_POWER:4", vd: "p=6"},

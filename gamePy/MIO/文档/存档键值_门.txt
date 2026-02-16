@@ -1,2 +1,8 @@
 # 开启居所之门
 "DOOR:door_shortcut_twins"
+
+# 右坩埚门
+"DOOR:ST_cuve_door1"
+
+# 左坩埚门
+"DOOR:ST_cuve_door2"

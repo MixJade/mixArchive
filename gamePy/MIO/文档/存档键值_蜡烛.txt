@@ -6,7 +6,7 @@
 {cId: 6, type: 3, nm: "“手”左边", ev: "CANDLE:9", vd: "p=38"},
 {cId: 7, type: 3, nm: "安港（需神行步）", ev: "CANDLE:7", vd: "p=39"},
 {cId: 8, type: 3, nm: "宁静避所下方", ev: "CANDLE:5", vd: "p=40"},
-{cId: 9, type: 3, nm: "未知", ev: "暂未收录", vd: "p=41"},
+{cId: 9, type: 3, nm: "谄媚者身旁", ev: "CANDLE:3", vd: "p=41"},
 {cId: 10, type: 3, nm: "“息”的门口", ev: "CANDLE:6", vd: "p=42"},
 {cId: 11, type: 3, nm: "都市左侧", ev: "CANDLE:2", vd: "p=43"},
 {cId: 12, type: 3, nm: "地基最底层", ev: "CANDLE:4", vd: "p=44"},
