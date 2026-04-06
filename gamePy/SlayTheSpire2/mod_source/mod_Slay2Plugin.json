@@ -1,0 +1,11 @@
+{
+  "id": "Slay2Plugin",
+  "name": "Slay2Plugin",
+  "author": "mixJade",
+  "description": "Slay the Spire 2 mod created from a template",
+  "version": "v0.0.1",
+  "has_pck": false,
+  "has_dll": true,
+  "dependencies": [],
+  "affects_gameplay": true
+}
