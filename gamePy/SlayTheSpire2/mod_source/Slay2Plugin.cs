@@ -25,8 +25,8 @@ namespace Slay2Plugin
         // 玩家回合开始
         static void Postfix(CombatState combatState, PlayerChoiceContext choiceContext, Player player)
         {
-            PlayerCmd.GainGold(50, player, false); // 获取50金币
-            PlayerCmd.GainEnergy(50, player); // 获取50能量
+            PlayerCmd.GainGold(30, player, false); // 获取30金币
+            PlayerCmd.GainEnergy(30, player); // 获取30能量
         }
     }
 }
