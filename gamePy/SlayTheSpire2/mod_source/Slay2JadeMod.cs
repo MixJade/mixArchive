@@ -5,16 +5,15 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Modding;
-using MegaCrit.Sts2.Core.Models;
 
-namespace Slay2Plugin
+namespace Slay2JadeMod
 {
     [ModInitializer("Init")]
-    public static class Slay2Plugin
+    public static class Slay2JadeMod
     {
         public static void Init()
         {
-            new Harmony("com.mixjade.slay2plugin").PatchAll();
+            new Harmony("com.mixjade.slay2JadeMod").PatchAll();
         }
     }
 
@@ -25,8 +24,8 @@ namespace Slay2Plugin
         // 玩家回合开始
         static void Postfix(CombatState combatState, PlayerChoiceContext choiceContext, Player player)
         {
-            PlayerCmd.GainGold(30, player, false); // 获取30金币
-            PlayerCmd.GainEnergy(30, player); // 获取30能量
+            PlayerCmd.GainGold(10, player, false); // 获取10金币
+            PlayerCmd.GainEnergy(10, player); // 获取10能量
         }
     }
 }
