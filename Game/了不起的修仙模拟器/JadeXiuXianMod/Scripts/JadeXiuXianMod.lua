@@ -20,6 +20,8 @@ function JadeXian:OnEnter()
 	self:ApplyPainterDefaults(true);
 	--绑定画符窗口：突破画符界面上挂「快速画符+」按钮（模块三）
 	self:InitQuickPaint();
+	--藏经阁扩容（模块四）
+	self:InitCangJingGe();
 end
 
 function JadeXian:AddBtn2Npcs(evt, thing, objs)
@@ -32,7 +34,7 @@ function JadeXian:AddBtn2Npcs(evt, thing, objs)
 			"扒光",
 			"res/Sprs/ui/icon_hand",
 			"GameMain:GetMod('JadeXian'):JadeXianonekey(bind)",
-			"尽取其财，逐之出山。其人竟欣然色喜，犹感君之厚德，稽首而别。",
+			"尽取其财，逐之出山",
 			nil
 		);
 	end
@@ -208,4 +210,21 @@ function JadeXian:AddQuickPaintButton()
 	if not ok then
 		print("[JadeXian] 16倍画符+ 按钮构建失败: " .. tostring(err));
 	end
+end
+
+
+--=====================================================================
+--  模块四：藏经阁扩容（由 CangJingGeKuoRong100 MOD 合并而来）
+--
+--  把藏经阁「书架记忆上限」从默认 100 提到 10000（即扩容 100 倍）
+--=====================================================================
+function JadeXian:InitCangJingGe()
+	--BOOK_SHELF_MEMORY 是私有静态字段，先开放访问
+	xlua.private_accessible(CS.CangJingGeMgr);
+	local Mgr = CS.CangJingGeMgr.Instance;
+	if Mgr == nil then
+		return;
+	end
+	Mgr.BOOK_SHELF_MEMORY = 10000;
+	Mgr:ResetBookSelf();
 end
