@@ -22,6 +22,8 @@ function JadeXian:OnEnter()
 	self:InitQuickPaint();
 	--藏经阁扩容（模块四）
 	self:InitCangJingGe();
+	--大衍神算修改（模块六）
+	self:ApplyMapStoryOverride();
 end
 
 function JadeXian:AddBtn2Npcs(evt, thing, objs)
@@ -227,4 +229,98 @@ function JadeXian:InitCangJingGe()
 	end
 	Mgr.BOOK_SHELF_MEMORY = 10000;
 	Mgr:ResetBookSelf();
+end
+
+
+--=====================================================================
+--  模块五：更高堆叠上限（由 MOREMAXSTACK MOD 合并而来）
+--
+--  把所有可堆叠物品的叠加上限改成 9999，仓库上限单独处理
+--  必须放在 OnBeforeInit：物品定义要在世界初始化之前改好
+--=====================================================================
+function JadeXian:OnBeforeInit()
+	local ThingMgr = CS.XiaWorld.ThingMgr.Instance;
+	if ThingMgr == nil then
+		return;
+	end
+	--2 = 物品/建筑那类定义表（MaxStack 本来就是 1 的不可堆叠物品不动）
+	local b, data = ThingMgr.m_mapThingDefs:TryGetValue(2);
+	if b and data ~= nil then
+		for k, v in pairs(data) do
+			if v ~= nil and v.MaxStack ~= nil and v.MaxStack ~= 1 then
+				v.MaxStack = 9999;
+			end
+		end
+	end
+	--仓库（储物格）不在上面的表里，需要单独取定义来改
+	local storeDef = ThingMgr:GetDef(g_emThingType.Space, "StorageSpace");
+	if storeDef ~= nil then
+		storeDef.MaxStack = 9999;
+	end
+end
+
+
+--=====================================================================
+--  模块六：大衍神算修改（由 SpellOfTriWorldByDao MOD 合并而来）
+--
+--  原版大衍神算随机出 53~76 号秘闻（并把 60 修正成 59），这里改成只出
+--  「道统 / 奇书」两类：五成概率 70~76，五成概率 58~60
+--  做法与原 mod 相同：覆盖 MagicHelper 里 Magic_MapStory 神通类的方法
+--  放在 OnEnter 执行，确保晚于游戏本体的 Scripts\Magic\class\Magic_MapStory.lua
+--=====================================================================
+function JadeXian:ApplyMapStoryOverride()
+	local MagicHelper = GameMain:GetMod("MagicHelper");
+	local tbMagic = nil;
+	if MagicHelper ~= nil and MagicHelper.GetMagic ~= nil then
+		tbMagic = MagicHelper:GetMagic("Magic_MapStory");
+	end
+	if tbMagic == nil then
+		print("[JadeXian] Magic_MapStory 未就绪，大衍神算修改跳过");
+		return;
+	end
+
+	function tbMagic:Init()
+	end
+
+	function tbMagic:TargetCheck(k, t)
+		return true;
+	end
+
+	function tbMagic:MagicEnter(IDs, IsThing)
+	end
+
+	function tbMagic:MagicStep(dt, duration)    --返回值 0继续 1成功并结束 -1失败并结束
+		self:SetProgress(duration / self.magic.Param1);
+		if duration >= self.magic.Param1 then
+			return 1;
+		end
+		return 0;
+	end
+
+	function tbMagic:MagicLeave(success)
+		if success == true then
+			local LuaHelper = self.bind.LuaHelper;
+			local daohang = LuaHelper:GetDaoHang();
+			local rate = daohang / 4000 * (LuaHelper:GetIntelligence() + LuaHelper:GetLuck());
+			local SECRET;
+			if math.random(10) / 10 >= 0.5 then
+				SECRET = {70, 76};    --道统
+			else
+				SECRET = {58, 60};    --奇书
+			end
+			if world:CheckRate(rate) then
+				world:ShowStoryBox(XT("大衍神算成功，获得秘闻"), XT("大衍神算"));
+				GameEventMgr:TriggerEvent(world:RandomInt(SECRET[1], SECRET[2]));
+			else
+				world:ShowStoryBox(XT("大衍神算失败"), XT("大衍神算"));
+			end
+		end
+	end
+
+	function tbMagic:OnGetSaveData()
+		return nil;
+	end
+
+	function tbMagic:OnLoadData(tbData, IDs, IsThing)
+	end
 end
