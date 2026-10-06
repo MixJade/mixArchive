@@ -24,8 +24,6 @@ function JadeXian:OnEnter()
 	self:InitCangJingGe();
 	--大衍神算修改（模块六）
 	self:ApplyMapStoryOverride();
-	--风水镇物免条件（模块七）：进入世界时处理一次
-	self:InitFengshuiItemOnce();
 end
 
 function JadeXian:AddBtn2Npcs(evt, thing, objs)
@@ -113,8 +111,14 @@ function JadeXian:OnAfterLoad()
 		self.painter_loaded = true;
 		print("超级符师默认设置已自动应用：幽粹/灵粹 100%，全部符文快速画符品质 100");
 	end
-	--风水镇物免条件（模块七）：OnEnter 时世界可能还没载入完，这里兜底再处理一次
-	self:InitFengshuiItemOnce();
+	--风水镇物免条件（模块七）：进入世界后处理一次，换地图不重复
+	if not self.fs_inited then
+		self.fs_inited = true;
+		local ok, err = pcall(function() JadeXian:StripFengshuiCondition(); end);
+		if not ok then
+			print("[JadeXian] 镇物条件处理异常: " .. tostring(err));
+		end
+	end
 end
 
 
@@ -333,41 +337,36 @@ end
 --=====================================================================
 --  模块七：风水镇物免条件
 --
---  随机生成的镇物默认带四类生效条件：
---    RoomKind     房间类型（卧室/丹房/库房…，位标志）
---    RoomLevel    房间大小等级
---    RoomFengshui 房间风水等级
---    Localtion    摆放位置（角落/靠墙/门旁…）
+--  随机生成的镇物默认带几类生效条件：
+--    RoomKind      房间类型（卧室/丹房/库房…，位标志）
+--    RoomLevel     房间大小等级
+--    RoomFengshui  房间风水等级
+--    Localtion     摆放位置（角落/靠墙/门旁…）
+--    ElementKind   元素种类（要求放在对应五行浓度足够的位置）
+--    ElementPower  该元素的最低浓度要求
 --  FengshuiItemData.CheckActive 里这几项都是「字段 != 0 才检查」，
 --  所以清零就等于取消对应限制，镇物放进任意房间都能生效。
 --
 --  做法：进入世界时遍历一次全部物品，挑出镇物（FSItemState > 0），读一次
---  FengshuiItem 触发它懒加载生成属性数据，再把上面四项写成 0。
+--  FengshuiItem 触发它懒加载生成属性数据，再把上面几项写成 0。
 --  （属性数据只在首次读取时生成一次，种子是物品 ID，所以必须在
 --    生成之后再改，改了就是永久生效。）
 --
---  时机：不做定时扫描，只在进入世界时处理一次。
---    OnEnter     —— 进入世界
---    OnAfterLoad —— 读档完成/所有系统就绪后（切图也会走），兜底
---  两处都调，靠 fs_done 去重，先到的那次把世界里的镇物处理掉，
---  后到的那次只会补处理当时还没载入的物品，多余开销可以忽略。
+--  时机：不做定时扫描，只在「进入世界」后处理一次，换地图不再重复。
+--  入口挂在 OnAfterLoad（读档且所有系统就绪后才触发，新档/读档都会走，
+--  比 OnEnter 可靠 —— OnEnter 时世界数据可能还没载入完），
+--  一个 fs_inited 标志保证整个游戏会话只跑一遍。
 --
 --  边界说明：
---   * 「镇物必须放在有风水的房间里」是 C# 里写死的前提，脚本改不了；
---   * 元素浓度要求（ElementKind / ElementPower）按要求保留，
---     放错元素位置仍然不会生效；
+--   * 元素浓度要求（ElementKind / ElementPower）也一并清零：
+--     CheckActive 里 ElementKind == 0 会直接跳过整段元素判定，镇物不再挑
+--     元素位置；物品自身的五行属性走 Thing.ElementKind，是另一个字段，不受影响；
 --   * 只处理随机生成的镇物（def 里没自带 Fengshui 的），
 --     道德印之类的固定镇物定义不动；
 --   * 进入世界之后新生成/新开出的镇物不在处理范围内。
 --=====================================================================
 
---初始化状态（进入世界时先清一次，按物品 ID 去重）
-function JadeXian:InitFengshuiItem()
-	self.fs_done = {};             --已处理过的镇物，按物品 ID 去重
-	self.fs_total = 0;             --累计处理件数
-end
-
---清掉一件镇物的「房间 / 摆放」条件；返回 true 表示确实改到了数据
+--清掉一件镇物的「房间 / 摆放 / 元素浓度」条件；返回 true 表示确实改到了数据
 function JadeXian:ClearFengshuiCondition(item)
 	local ok, err = pcall(function()
 		--读这个属性会触发游戏懒加载生成属性数据（只生成一次，之后走缓存）
@@ -375,17 +374,13 @@ function JadeXian:ClearFengshuiCondition(item)
 		if data == nil then
 			error("FengshuiItem 为空");
 		end
-		--0 即「无要求」：g_emRoomKind.None / g_emFengshuiRank.None /
-		--g_emFengshuiItemLocal.None 的值都是 0，CheckActive 里 != 0 才检查
+		--0 即「无要求」
 		data.RoomKind = 0;         --不限房间类型
 		data.RoomLevel = 0;        --不限房间大小等级
 		data.RoomFengshui = 0;     --不限房间风水等级
 		data.Localtion = 0;        --不限摆放位置
-		--读回自检：这个类型没有生成 xLua 包装，走的是反射，确认真的写进去了
-		if data.RoomKind ~= 0 or data.RoomLevel ~= 0
-			or data.RoomFengshui ~= 0 or data.Localtion ~= 0 then
-			error("字段写入无效，RoomKind=" .. tostring(data.RoomKind));
-		end
+		data.ElementKind = 0;      --不限元素种类（跳过五行浓度判定）
+		data.ElementPower = 0;     --不限元素浓度
 	end);
 	if not ok then
 		if not self.fs_warned then
@@ -397,7 +392,7 @@ function JadeXian:ClearFengshuiCondition(item)
 	return true;
 end
 
---扫描一遍全部物品，把镇物的房间/摆放条件清掉（进入世界时调用一次）
+--扫描一遍全部物品，把镇物的房间/摆放/元素浓度条件清掉（进入世界后调用一次）
 function JadeXian:StripFengshuiCondition()
 	local Mgr = CS.XiaWorld.ThingMgr.Instance;
 	if Mgr == nil then
@@ -409,8 +404,8 @@ function JadeXian:StripFengshuiCondition()
 	end
 	local ItemType = g_emThingType.Item;
 	local count = 0;
-	for id, t in pairs(things) do
-		if t ~= nil and self.fs_done[id] == nil then
+	for _, t in pairs(things) do
+		if t ~= nil then
 			local ok1, isItem = pcall(function() return t.ThingType == ItemType; end);
 			if ok1 and isItem then
 				local ok2, state = pcall(function() return t.FSItemState; end);
@@ -420,33 +415,14 @@ function JadeXian:StripFengshuiCondition()
 						local d = t.def;
 						return d ~= nil and d.Item ~= nil and d.Item.Fengshui == nil;
 					end);
-					if ok3 and isRandom then
-						if self:ClearFengshuiCondition(t) then
-							self.fs_done[id] = true;
-							count = count + 1;
-						else
-							self.fs_done[id] = true;   --写入失败，不再重试（错误只打印一次）
-						end
-					else
-						self.fs_done[id] = true;   --固定镇物或读取异常，不再处理
+					if ok3 and isRandom and self:ClearFengshuiCondition(t) then
+						count = count + 1;
 					end
 				end
 			end
 		end
 	end
 	if count > 0 then
-		self.fs_total = (self.fs_total or 0) + count;
-		print("[JadeXian] 已清除 " .. count .. " 件镇物的房间/摆放条件（累计 " .. self.fs_total .. " 件）");
-	end
-end
-
---进入世界时处理一次（OnEnter / OnAfterLoad 各调一次，靠 fs_done 去重）
-function JadeXian:InitFengshuiItemOnce()
-	if self.fs_done == nil then
-		self:InitFengshuiItem();
-	end
-	local ok, err = pcall(function() JadeXian:StripFengshuiCondition(); end);
-	if not ok then
-		print("[JadeXian] 镇物条件处理异常: " .. tostring(err));
+		print("[JadeXian] 已清除 " .. count .. " 件镇物的房间/摆放/元素浓度条件");
 	end
 end
