@@ -1,0 +1,12 @@
+<ModifierDefs><List>
+	<Modifier Name="Dan_IncreaseNeckCountdown2" Type="Normal">
+		<DisplayName>碧血丹青</DisplayName>
+		<Desc></Desc>
+		<MaxStack>0</MaxStack>
+		<Duration>-1</Duration>
+		<Display>0</Display>
+		<Properties>
+			<li Name="NeckCountdownAddV" AddV="162000"/>
+		</Properties>
+	</Modifier> 	
+</List></ModifierDefs>

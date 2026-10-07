@@ -1,0 +1,39 @@
+<Spells><List>
+	<Spell Name="Spell_MindState1">
+		<DisplayName>宁心符</DisplayName>
+		<Desc>使心境提高的符咒，受天道影响出现变化</Desc>
+		<Template>Spell/main_texture_ningxin01</Template>
+		<UnLock>0</UnLock>
+		<Effects>
+			<li Name="MindStateBaseValue" AddV="80"/>
+			<li Name="BaseEmotionAddV" AddV="30"/>
+			<li Name="HappyConsumeConstant" AddP="-3"/>
+		</Effects>
+	</Spell>
+	
+	<Spell Name="Spell_FabaoMake_LingInheritRateAddV">
+		<DisplayName>五方灵宝符</DisplayName>
+		<Desc>可提高炼宝品阶，受天道影响出现变化</Desc>
+		<Template>Spell/main_texture_wuli01</Template>
+		<UnLock>0</UnLock>
+		<Effects>
+			<li Name="FabaoMake_SpeedAddV" AddV="10"/>
+			<li Name="FabaoMake_SuccessRateAddV" AddV="15"/>
+			<li Name="FabaoMake_LingInheritRateAddV" AddV="15"/>
+			<li Name="FabaoMake_QualityAddV" AddV="10"/>
+			<li Name="FabaoMake_TwelveRateChance" AddV="20"/>
+		</Effects>
+	</Spell>
+	
+	<Spell Name="Spell_DanMake_YieldAddP">
+		<DisplayName>万化承丹符</DisplayName>
+		<Desc>可提高炼丹产量，受天道影响出现变化</Desc>
+		<Template>Spell/main_texture_wanhua01</Template>
+		<UnLock>0</UnLock>
+		<Effects>
+			<li Name="DanMake_SpeedAddV" AddV="10"/>
+			<li Name="DanMake_YieldAddP" AddV="20"/>
+			<li Name="DanMake_SuccessRateAddV" AddV="15"/>
+		</Effects>
+	</Spell>
+</List>	</Spells>
