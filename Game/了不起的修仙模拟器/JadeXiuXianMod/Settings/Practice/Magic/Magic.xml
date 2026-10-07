@@ -1,0 +1,18 @@
+<Magics><List>
+	<Magic Name="ClosedDoor">
+		<DisplayName>入定</DisplayName>
+		<Desc>进入定境之中修炼，会快速消耗寿命和精元。可以极快获得修为，并提升灵气最大值。</Desc>
+		<Icon>res\Sprs\ui\icon_ruding01</Icon>
+		<Param1>400</Param1><!--修炼速度加成-->
+		<Param2>0.001</Param2><!--寿命消耗/秒-->
+		<Param3>4</Param3><!--精元消耗倍率-->
+		<CostLing>0</CostLing>
+		<CostAge>0</CostAge>
+		<Penalty>-2</Penalty><!--天谴值-->
+		<ScoreBase>10</ScoreBase>
+		<ScoreGood>10</ScoreGood>
+		<ScoreBad>0</ScoreBad>
+		<CMD>ClosedDoor</CMD>
+		<SelectType>CloseDoor</SelectType>
+	</Magic>
+</List></Magics>
