@@ -1,0 +1,10 @@
+<ThingDefs><List>
+	<ThingDef Type="Item" Name="JieCloud">
+	<TexPath>Item/TestWeapon</TexPath>
+	<ThingName>劫云</ThingName>
+	<LingMax>10000</LingMax>
+	<Item  Lable="FightFabao">	
+		<NotRandom>1</NotRandom>
+	</Item>
+	</ThingDef>
+</List></ThingDefs>
