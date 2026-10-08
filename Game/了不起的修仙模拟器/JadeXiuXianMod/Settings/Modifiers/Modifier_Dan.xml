@@ -8,5 +8,22 @@
 		<Properties>
 			<li Name="NeckCountdownAddV" AddV="162000"/>
 		</Properties>
-	</Modifier> 	
+	</Modifier>
+	<Modifier Name="Dan_FiveBaseFromLife" Type="Normal">
+		<DisplayName>五毒五炁元神丹</DisplayName>
+		<Desc></Desc>
+		<MaxStack>0</MaxStack>
+		<Duration>-1</Duration>
+		<Display>0</Display>
+		<BaseFive>1,1,1,1,1</BaseFive>
+		<Properties>
+			<li Name="MaxAge" AddV="-6"/>
+		</Properties>
+		<Skills>
+			<li Name="Fight" Level="20"/>
+			<li Name="Qi" Level="20"/>
+			<li Name="SocialContact" Level="20"/>
+			<li Name="Art" Level="20"/>
+		</Skills>
+	</Modifier>
 </List></ModifierDefs>
