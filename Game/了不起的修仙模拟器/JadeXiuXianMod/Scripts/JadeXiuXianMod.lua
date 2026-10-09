@@ -24,6 +24,8 @@ function JadeXian:OnEnter()
 	self:InitCangJingGe();
 	--大衍神算修改（模块六）
 	self:ApplyMapStoryOverride();
+	--藏经阁一键录入（模块八）
+	self:InitBulkEntry();
 end
 
 function JadeXian:AddBtn2Npcs(evt, thing, objs)
@@ -125,10 +127,10 @@ end
 --=====================================================================
 --  模块三：突破时快速画符（由 GreatPainter 的「快速画符+」合并）
 --
---  符修「本命符（突破画符）」界面上挂一颗「16倍画符」按钮，
---  点一下即按固定倍率16倍直接结算完成本命符，不再弹出倍率选择窗口；
+--  符修「本命符（突破画符）」界面上挂一颗「32倍画符」按钮，
+--  点一下即按固定倍率32倍直接结算完成本命符，不再弹出倍率选择窗口；
 --=====================================================================
-JadeXian.PainterPower = 16;    --固定倍率
+JadeXian.PainterPower = 32;    --固定倍率
 
 --绑定画符窗口 + 挂按钮：窗口实例在切图/重进世界时可能被游戏重建，所以每次进入世界都重挂一次
 function JadeXian:InitQuickPaint()
@@ -208,7 +210,7 @@ function JadeXian:AddQuickPaintButton()
 		local Button = contentPane:AddChild(obj);
 		Button:SetXY(contentPane.m_n51.x - 10, contentPane.m_n51.y - 35);
 		Button.width = 75;
-		Button.title = XT("16倍画符");
+		Button.title = XT("32倍画符");
 		Button.name = "QuickPaintPlus";
 		Button.onClick:Add(function() JadeXian:QuickPaintPlus(JadeXian.PainterPower); end);
 		Button.visible = false;
@@ -218,7 +220,7 @@ function JadeXian:AddQuickPaintButton()
 		pcall(function() JadeXian:UpdateQuickPaintButton({ sender = contentPane.m_Mode }); end);
 	end);
 	if not ok then
-		print("[JadeXian] 16倍画符+ 按钮构建失败: " .. tostring(err));
+		print("[JadeXian] 32倍画符+ 按钮构建失败: " .. tostring(err));
 	end
 end
 
@@ -425,4 +427,171 @@ function JadeXian:StripFengshuiCondition()
 	if count > 0 then
 		print("[JadeXian] 已清除 " .. count .. " 件镇物的房间/摆放/元素浓度条件");
 	end
+end
+
+
+--=====================================================================
+--  模块八：藏经阁一键录入
+--=====================================================================
+JadeXian.CJG_BUILDING = "Building_BookShelf_CangJing";   --藏经阁书架的 def 名
+JadeXian.CJG_ICON = "res/Sprs/ui/icon_luru01";
+
+--注册「选中建筑」事件（_Event 模块一个 table 只能挂一个事件，这里用独立 key，不影响模块一）
+function JadeXian:InitBulkEntry()
+	local Event = GameMain:GetMod("_Event");
+	if Event == nil then
+		print("[JadeXian] _Event 未就绪，藏经阁一键录入跳过");
+		return;
+	end
+	Event:RegisterEvent(
+		g_emEvent.SelectBuilding,
+		function(evt, thing, objs) JadeXian:OnSelectBuilding(thing); end,
+		"JadeXian_BulkEntry"
+	);
+end
+
+--建筑信息面板弹出时触发（面板每次刷新都会走），只在藏经阁书架上挂按钮；重复挂也无害（先删后加）
+function JadeXian:OnSelectBuilding(thing)
+	if thing == nil or thing.def == nil then
+		return;
+	end
+	if thing.def.Name ~= JadeXian.CJG_BUILDING then
+		return;
+	end
+	local ok, err = pcall(function()
+		thing:RemoveBtnData("一键录入秘籍");
+		thing:AddBtnData(
+			"一键录入秘籍",
+			JadeXian.CJG_ICON,
+			"GameMain:GetMod('JadeXian'):BulkEntryClick(bind,0)",
+			"把地图上所有秘籍录入藏经阁并销毁秘籍，已收录的重复秘籍直接销毁",
+			nil
+		);
+		thing:RemoveBtnData("一键录入功法");
+		thing:AddBtnData(
+			"一键录入功法",
+			JadeXian.CJG_ICON,
+			"GameMain:GetMod('JadeXian'):BulkEntryClick(bind,1)",
+			"把已解锁但未录入的功法录入藏经阁",
+			nil
+		);
+	end);
+	if not ok then
+		print("[JadeXian] 藏经阁按钮构建失败: " .. tostring(err));
+	end
+end
+
+--按钮入口：点一下直接干活（tp：0=录入秘籍，1=录入功法）
+function JadeXian:BulkEntryClick(t, tp)
+	if t == nil then
+		return;
+	end
+	local ok, err = pcall(function()
+		if tp == 0 then
+			JadeXian:EntryAllEsoterica(t);
+		else
+			JadeXian:EntryAllGong(t);
+		end
+	end);
+	if not ok then
+		print("[JadeXian] 一键录入异常: " .. tostring(err));
+	end
+end
+
+--录入秘籍：遍历地图上全部物品，挑出秘籍逐本录入；已收录过的直接销毁
+function JadeXian:EntryAllEsoterica(t)
+	local ThingMgr = CS.XiaWorld.ThingMgr.Instance;
+	local CJG = CS.CangJingGeMgr.Instance;
+	local EMgr = CS.XiaWorld.EsotericaMgr.Instance;
+	if ThingMgr == nil or CJG == nil or EMgr == nil or t == nil then
+		return;
+	end
+	local list = ThingMgr:GetThingList(g_emThingType.Item);
+	if list == nil or list.Count < 1 then
+		return;
+	end
+	--GetThingList 返回的是 ThingMgr 内部列表本身，边遍历边 RemoveThing 可能让下标错位，
+	--所以先把待处理的秘籍抓成快照，再逐个处理
+	local books = {};
+	for i = 0, list.Count - 1 do
+		local it = list[i];
+		if it ~= nil and it.IsValid and it.Key ~= 0
+			and it.IsEsoterica and it.FreeCount > 0 then
+			books[#books + 1] = it;
+		end
+	end
+	local full = false;      --藏经阁容量不够，提前收手
+	local added = 0;         --本次成功录入的秘籍数
+	local dup = 0;           --已收录过、本次销毁的重复秘籍数
+	for _, it in ipairs(books) do
+		local esoID = it.EsotericaID;
+		if CJG:CheckEso(esoID) then
+			--藏经阁里已经有了：这本秘籍没用了，直接销毁
+			ThingMgr:RemoveThing(it, false, false);
+			dup = dup + 1;
+		else
+			local data = EMgr:GetSysEsoterica(esoID, true);
+			if data ~= nil then
+				local def = EMgr:GetEsotericaDef(data.TID, true);
+				if def ~= nil and def.Hide == 0 then
+					if data.Difficulty > CJG.GetFreeMemorySize then
+						full = true;
+						break;
+					end
+					CJG:AddEsoterica(esoID, nil);   --不传弟子 → 只录入，不加参悟
+					ThingMgr:RemoveThing(it, false, false);
+					added = added + 1;
+				end
+			end
+		end
+	end
+	local msg;
+	if added == 0 and dup == 0 then
+		msg = "地图上没有可录入的秘籍";
+	else
+		msg = "本次录入秘籍 " .. added .. " 本，重复销毁 " .. dup .. " 本";
+	end
+	if full then
+		msg = msg .. "\n藏经阁已满，部分秘籍未能录入，请先扩充藏经阁";
+	end
+	WorldLua:ShowMsgBox(XT(msg), XT("确定"));
+end
+
+--录入功法：遍历门派已解锁功法列表，未录入的逐本录入
+function JadeXian:EntryAllGong(t)
+	local CJG = CS.CangJingGeMgr.Instance;
+	if CJG == nil or PracticeMgr == nil or CS.XiaWorld.SchoolMgr.Instance == nil then
+		return;
+	end
+	local gonglist = CS.XiaWorld.SchoolMgr.Instance.GongList;
+	if gonglist == nil then
+		return;
+	end
+	local msg = "录入功法如下：\n";
+	local cnt = 0;
+	local full = false;
+	for i = 0, gonglist.Count - 1 do
+		local name = gonglist[i];
+		local def = PracticeMgr:GetGongDef(name);
+		if def ~= nil and def.Hide ~= 3
+			and def.GongKind ~= g_emGongKind.Body
+			and def.GongKind ~= g_emGongKind.God
+			and not CJG:CheckGongHas(name) then
+			cnt = cnt + 1;
+			if CJG:GetGongEsoInfos(name, nil, false) > CJG.GetFreeMemorySize then
+				full = true;
+				break;
+			end
+			CJG:AddGong(name, nil);                 --不传弟子 → 只录入，不加参悟
+			msg = msg .. "・" .. def.DisplayName .. "\n";
+		end
+	end
+	if cnt < 1 then
+		msg = "未发现尚未录入的功法";
+	elseif cnt == 1 and full then
+		msg = "藏经阁已满";
+	elseif full then
+		msg = msg .. "因藏经阁已满，剩余功法未能录入，请先扩充藏经阁";
+	end
+	WorldLua:ShowMsgBox(XT(msg), XT("确定"));
 end
