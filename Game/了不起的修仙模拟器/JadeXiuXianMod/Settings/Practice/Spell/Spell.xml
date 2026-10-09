@@ -32,7 +32,7 @@
 		<UnLock>0</UnLock>
 		<Effects>
 			<li Name="DanMake_SpeedAddV" AddV="10"/>
-			<li Name="DanMake_YieldAddP" AddV="20"/>
+			<li Name="DanMake_YieldAddP" AddV="2"/>
 			<li Name="DanMake_SuccessRateAddV" AddV="15"/>
 		</Effects>
 	</Spell>
