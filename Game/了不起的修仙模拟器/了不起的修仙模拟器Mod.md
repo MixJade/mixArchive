@@ -8,3 +8,9 @@
 C:\Program Files (x86)\Steam\steamapps\workshop\content\955900
 ```
 
+* 本地mod位置（游戏源文件夹）：
+
+```txt
+C:\Program Files (x86)\Steam\steamapps\common\AmazingCultivationSimulator\Mods
+```
+
