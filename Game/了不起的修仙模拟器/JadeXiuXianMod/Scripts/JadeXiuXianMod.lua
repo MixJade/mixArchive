@@ -4,7 +4,6 @@ local JadeXian = GameMain:NewMod("JadeXian");
 --  模块一：扒光访客
 --=====================================================================
 function JadeXian:OnEnter()
-	self.mod_enable = true;
 	local Event = GameMain:GetMod("_Event");
 	Event:RegisterEvent(g_emEvent.SelectNpc,
 	function(evt, item, objs)
@@ -13,9 +12,6 @@ function JadeXian:OnEnter()
 			self:AddBtn2Npcs(evt, item, objs);
 		end
 	end, "JadeXian");
-	if World.GameMode == CS.XiaWorld.g_emGameMode.Fight then
-		self.mod_enable = false;
-	end
 	--进入世界后自动应用“超级符师”相关设置（无界面、无弹窗）
 	self:ApplyPainterDefaults(true);
 	--绑定画符窗口：突破画符界面上挂「快速画符+」按钮（模块三）
@@ -28,12 +24,11 @@ function JadeXian:OnEnter()
 	self:InitBulkEntry();
 	--拍卖会 NPC 灵石封顶（模块九）
 	self:ApplyAuctionGoldCap();
+	--物品堆叠翻倍（模块十）
+	self:InitMultiItem();
 end
 
 function JadeXian:AddBtn2Npcs(evt, thing, objs)
-	if not self.mod_enable then
-		return;
-	end
 	if thing ~= nil and thing.ThingType == g_emThingType.Npc and thing.IsVistor then
 		thing:RemoveBtnData("扒光");
 		thing:AddBtnData(
@@ -642,4 +637,55 @@ function JadeXian:ApplyAuctionGoldCap()
 	end;
 	JadeXian.auction_hooked = true;
 	print("[JadeXian] 拍卖会 NPC 灵石封顶已挂钩");
+end
+
+
+--=====================================================================
+--  模块十：物品堆叠翻倍
+--
+--  选中物品时挂一颗「翻倍」按钮，点一下把堆叠数量翻倍（到 9999 为止）
+--  合并自工坊 mod 3806566324，去掉原版的斗法模式守卫
+--=====================================================================
+
+--注册「选中物品」事件（独立 key，不和模块一的 SelectNpc 冲突）
+function JadeXian:InitMultiItem()
+	local Event = GameMain:GetMod("_Event");
+	if Event == nil then
+		print("[JadeXian] _Event 未就绪，物品翻倍跳过");
+		return;
+	end
+	Event:RegisterEvent(
+		g_emEvent.SelectItem,
+		function(evt, item, objs)
+			if item ~= self.last_multi_item then
+				self.last_multi_item = item;
+				self:AddBtn2Item(evt, item, objs);
+			end
+		end,
+		"JadeXian_MultiItem"
+	);
+end
+
+--物品操作面板弹出时挂按钮
+function JadeXian:AddBtn2Item(evt, thing, objs)
+	if thing == nil or thing.ThingType ~= g_emThingType.Item then
+		return;
+	end
+	thing:RemoveBtnData("翻倍");
+	thing:AddBtnData(
+		"翻倍",
+		"res/Sprs/ui/icon_hand",
+		"GameMain:GetMod('JadeXian'):MultiItems(bind)",
+		"使物品的堆叠数量翻倍（超出堆叠上限的部分在读档后消失，可以重新翻倍一遍）",
+		nil
+	);
+end
+
+--把堆叠数量翻倍
+function JadeXian:MultiItems(item)
+	local iCount = item.Count;
+	if iCount >= 9999 then
+		return;
+	end
+	item:ChangeCount(iCount * 2);
 end
