@@ -26,6 +26,8 @@ function JadeXian:OnEnter()
 	self:ApplyMapStoryOverride();
 	--藏经阁一键录入（模块八）
 	self:InitBulkEntry();
+	--拍卖会 NPC 灵石封顶（模块九）
+	self:ApplyAuctionGoldCap();
 end
 
 function JadeXian:AddBtn2Npcs(evt, thing, objs)
@@ -121,6 +123,8 @@ function JadeXian:OnAfterLoad()
 			print("[JadeXian] 镇物条件处理异常: " .. tostring(err));
 		end
 	end
+	--拍卖会封顶兜底挂钩（模块九）：幂等，OnEnter 已挂钩则直接返回
+	self:ApplyAuctionGoldCap();
 end
 
 
@@ -594,4 +598,48 @@ function JadeXian:EntryAllGong(t)
 		msg = msg .. "因藏经阁已满，剩余功法未能录入，请先扩充藏经阁";
 	end
 	WorldLua:ShowMsgBox(XT(msg), XT("确定"));
+end
+
+
+--=====================================================================
+--  模块九：拍卖会 NPC 携带灵石极低
+--=====================================================================
+JadeXian.AUCTION_GOLD_CAP = 100;   --拍卖会 NPC 携带的灵石上限
+
+function JadeXian:ApplyAuctionGoldCap()
+	if GameUlt == nil or GameUlt.StartAuction == nil then
+		print("[JadeXian] GameUlt.StartAuction 未就绪，拍卖封顶本次跳过");
+		return;
+	end
+	if JadeXian.auction_hooked then
+		return;
+	end
+	local rawStartAuction = GameUlt.StartAuction;
+	GameUlt.StartAuction = function(aname, atype)
+		rawStartAuction(aname, atype);
+		local ok, err = pcall(function()
+			local auc = TradeMgr:GetAuction(aname);
+			local list = (auc ~= nil) and auc.Customers or nil;
+			if list == nil then
+				return;
+			end
+			local cap = JadeXian.AUCTION_GOLD_CAP;
+			for i = 0, list.Count - 1 do
+				local c = list[i];
+				if c ~= nil then
+					if c.maxgold > cap then
+						c.maxgold = cap;
+					end
+					if c.gold > cap then
+						c.gold = cap;
+					end
+				end
+			end
+		end);
+		if not ok then
+			print("[JadeXian] 拍卖封顶异常: " .. tostring(err));
+		end
+	end;
+	JadeXian.auction_hooked = true;
+	print("[JadeXian] 拍卖会 NPC 灵石封顶已挂钩");
 end

@@ -1,7 +1,7 @@
 <Magics><List>
 	<Magic Name="ClosedDoor">
 		<DisplayName>入定</DisplayName>
-		<Desc>进入定境之中修炼，会快速消耗寿命和精元。可以极快获得修为，并提升灵气最大值。</Desc>
+		<Desc>【天道垂青】进入定境之中修炼，会快速消耗寿命和精元。可以极快获得修为，并提升灵气最大值。</Desc>
 		<Icon>res\Sprs\ui\icon_ruding01</Icon>
 		<Param1>400</Param1><!--修炼速度加成-->
 		<Param2>0.001</Param2><!--寿命消耗/秒-->
@@ -14,5 +14,22 @@
 		<ScoreBad>0</ScoreBad>
 		<CMD>ClosedDoor</CMD>
 		<SelectType>CloseDoor</SelectType>
+	</Magic>
+		<Magic Name="PlantGrowUp_Gong9">
+		<DisplayName>万木回春</DisplayName>
+		<Desc>【天道强化】以精纯的木属性灵气激发植株全部的生机，可以在一天内大幅提高其生长速度。目标植物品阶越高，效果越差。</Desc>
+		<Icon>res\Sprs\ui\icon_yumu01</Icon>
+		<Kind>Good</Kind>
+		<Ani>shentong3</Ani>
+		<Param1>1.5</Param1><!--施法时间-->
+		<Param2>500000</Param2><!--生长倍速-->
+		<Param3>600</Param3><!--作用时长-->
+		<CostLing>30000</CostLing>
+		<Penalty>-2</Penalty><!--天谴值-->
+		<ScoreBase>10</ScoreBase>
+		<ScoreGood>10</ScoreGood>
+		<ScoreBad>0</ScoreBad>
+		<CMD>PlantGrowUp</CMD>
+		<SelectType>Plant</SelectType>
 	</Magic>
 </List></Magics>
