@@ -15,7 +15,7 @@
 		<CMD>ClosedDoor</CMD>
 		<SelectType>CloseDoor</SelectType>
 	</Magic>
-		<Magic Name="PlantGrowUp_Gong9">
+	<Magic Name="PlantGrowUp_Gong9">
 		<DisplayName>万木回春</DisplayName>
 		<Desc>【天道强化】以精纯的木属性灵气激发植株全部的生机，可以在一天内大幅提高其生长速度。目标植物品阶越高，效果越差。</Desc>
 		<Icon>res\Sprs\ui\icon_yumu01</Icon>
