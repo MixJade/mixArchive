@@ -54,9 +54,9 @@
 	</Element>
 	<Ling>
 		<AddionLing>1200</AddionLing>
-		<AddionRadius>5</AddionRadius>
+		<AddionRadius>4</AddionRadius>
 		<AddionFailing>1</AddionFailing>
-		<AddionFailRadius>4</AddionFailRadius>
+		<AddionFailRadius>3</AddionFailRadius>
 	</Ling>
 	</ThingDef>
 </List></ThingDefs>
