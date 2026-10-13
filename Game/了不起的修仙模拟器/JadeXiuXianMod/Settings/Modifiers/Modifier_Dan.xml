@@ -15,9 +15,10 @@
 		<MaxStack>0</MaxStack>
 		<Duration>-1</Duration>
 		<Display>0</Display>
-		<BaseFive>1,1,1,1,1</BaseFive>
+		<BaseFive>100,100,100,100,100</BaseFive>
 		<Properties>
-			<li Name="MaxAge" AddV="600"/>
+			<li Name="MaxAge" AddV="6000"/>
+			<li Name="PotentialOfBasepracticeAddValue" AddV="10"/>
 		</Properties>
 		<Skills>
 			<li Name="Fight" Level="20"/>
