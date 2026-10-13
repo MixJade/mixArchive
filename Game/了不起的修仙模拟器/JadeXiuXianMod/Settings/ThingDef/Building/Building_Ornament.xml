@@ -1,0 +1,62 @@
+<ThingDefs><List>
+	<ThingDef Type="Building" Name="Building_Flag2" Parent="OrnamentBase">
+	<TexPath>res\Sprs\buildingnew\building_baguaqi01a</TexPath>
+	<TexScale>0.6</TexScale>
+	<ThingName>聚灵八卦旗</ThingName>	
+	<Tags>
+		<Tag Name="QiZhi_FSZW" Level="1"/>
+	</Tags>
+	<Frags>		
+		<li Frag="HearWind" />
+	</Frags>
+	<ShadowSize>
+		<x>1</x>
+		<y>1.2</y>
+	</ShadowSize>
+	<ColliderKind>Slow</ColliderKind>
+	<Collider>
+		<!--(0Empty 1Base) 2EmptyCenter 4EmptyWorkspace-->
+		<Data>
+		[3],
+		</Data>
+		<OffsetGroup>
+			<li><x>0</x><y>0.67</y></li>
+			<li><x>0</x><y>0.78</y></li>
+			<li><x>0</x><y>0.67</y></li>
+			<li><x>0</x><y>0.78</y></li>
+		</OffsetGroup>
+	</Collider>
+	
+	<Building>
+		<Orientation>F,B,R</Orientation>
+		<BeMade>
+			<WorkToMake>100</WorkToMake>
+			<Quality>0</Quality>
+			<StuffCategories>
+				<Stuff name = "MetalBlock"/>
+				<Stuff name = "RockBlock"/>
+				<Stuff name = "WoodBlock"/>
+			</StuffCategories>
+			<CostStuffCount>2</CostStuffCount>
+		</BeMade>
+		<SnowRenderData>
+			<x>2.75</x>
+			<y>3.55</y>
+			<z>1</z>
+		</SnowRenderData>		
+	</Building>
+	<Element>
+		<Kind>None</Kind>
+		<Value>300</Value>
+		<Radius>3</Radius>
+		<Failing>1</Failing>
+		<FailRadius>2</FailRadius>
+	</Element>
+	<Ling>
+		<AddionLing>1200</AddionLing>
+		<AddionRadius>5</AddionRadius>
+		<AddionFailing>1</AddionFailing>
+		<AddionFailRadius>4</AddionFailRadius>
+	</Ling>
+	</ThingDef>
+</List></ThingDefs>
