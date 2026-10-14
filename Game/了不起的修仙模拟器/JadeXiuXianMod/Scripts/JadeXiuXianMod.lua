@@ -20,6 +20,8 @@ function JadeXian:OnEnter()
 	self:InitCangJingGe();
 	--大衍神算修改（模块六）
 	self:ApplyMapStoryOverride();
+	--周天神算·古修踪迹（模块十一）
+	self:ApplyProphesyOverride();
 	--藏经阁一键录入（模块八）
 	self:InitBulkEntry();
 	--拍卖会 NPC 灵石封顶（模块九）
@@ -671,6 +673,22 @@ function JadeXian:AddBtn2Item(evt, thing, objs)
 	if thing == nil or thing.ThingType ~= g_emThingType.Item then
 		return;
 	end
+	--法宝：挂「强化」按钮（模块十二）
+	if JadeXian:IsFabaoItem(thing) then
+		thing:RemoveBtnData("强化");
+		thing:AddBtnData(
+			"强化",
+			JadeXian.CJG_ICON,
+			"GameMain:GetMod('JadeXian'):StrengthenFabao(bind)",
+			"强化法宝：威力 +200，回灵速度 +200",
+			nil
+		);
+		return;
+	end
+	--衣服 / 裤子 / 符咒 / 秘籍 / 法宝 不挂「翻倍」按钮
+	if JadeXian:IsNoMultiLable(thing) then
+		return;
+	end
 	thing:RemoveBtnData("翻倍");
 	thing:AddBtnData(
 		"翻倍",
@@ -681,6 +699,37 @@ function JadeXian:AddBtn2Item(evt, thing, objs)
 	);
 end
 
+--判断是否为法宝物品（FightFabao / FlyFabao / TreasureFabao）
+function JadeXian:IsFabaoItem(thing)
+	local ok, isFabao = pcall(function() return thing.IsFaBao; end);
+	if ok and isFabao == true then
+		return true;
+	end
+	return false;
+end
+
+--判断该物品是否属于「不显示翻倍按钮」的类型：
+--  衣服(Clothes)、裤子(Trousers)、符咒(Spell/SpellPaper)、秘籍(Esoterica)
+function JadeXian:IsNoMultiLable(thing)
+	local ok, lable = pcall(function()
+		local d = thing.def;
+		if d == nil or d.Item == nil then
+			return nil;
+		end
+		return d.Item.Lable;
+	end);
+	if not ok or lable == nil then
+		return false;
+	end
+	if lable == g_emItemLable.Clothes
+		or lable == g_emItemLable.Trousers
+		or lable == g_emItemLable.Spell
+		or lable == g_emItemLable.Esoterica then
+		return true;
+	end
+	return false;
+end
+
 --把堆叠数量翻倍
 function JadeXian:MultiItems(item)
 	local iCount = item.Count;
@@ -688,4 +737,110 @@ function JadeXian:MultiItems(item)
 		return;
 	end
 	item:ChangeCount(iCount * 2);
+end
+
+
+--=====================================================================
+--  模块十二：法宝强化
+--
+--  在法宝物品（FightFabao / FlyFabao / TreasureFabao）的操作面板上挂一颗「强化」按钮，
+--  点击后给法宝威力 +200、回灵速度 +200。
+--
+--  法宝属性都存于 item.Fabao（FabaoData）的 PS 字典里，键为 g_emFaBaoP 枚举：
+--    AttackPower = 1  法宝威力
+--    LingRecover = 2  回灵速度
+--    MaxLing     = 3  灵气容量
+--  读写接口：fabao:GetProperty(key) / fabao:SetProperty(key, value)。
+--=====================================================================
+JadeXian.FABAO_POWER_ADD = 200;         --每次强化增加的威力
+JadeXian.FABAO_RECOVER_ADD = 200;       --每次强化增加的回灵速度
+--法宝威力 / 回灵速度在 FabaoData.PS 字典中的键（g_emFaBaoP 枚举值）
+JadeXian.FABAO_ATTACK_POWER_KEY = 1;    --AttackPower 法宝威力
+JadeXian.FABAO_LING_RECOVER_KEY = 2;    --LingRecover 回灵速度
+
+--强化一件法宝：威力 +200、回灵速度 +200
+function JadeXian:StrengthenFabao(item)
+	if item == nil then
+		return;
+	end
+
+	--威力 / 回灵速度 +200：法宝属性存于 item.Fabao.PS，不是 item.LingPower
+	local ok, err = pcall(function()
+		local fabao = item.Fabao;
+		if fabao == nil then
+			error("无法宝数据");
+		end
+		-- 威力 +200（PS[AttackPower]）
+		local curAtk = fabao:GetProperty(JadeXian.FABAO_ATTACK_POWER_KEY);
+		fabao:SetProperty(JadeXian.FABAO_ATTACK_POWER_KEY,
+			(curAtk or 0) + JadeXian.FABAO_POWER_ADD);
+		-- 回灵速度 +200（PS[LingRecover]）
+		local curRec = fabao:GetProperty(JadeXian.FABAO_LING_RECOVER_KEY);
+		fabao:SetProperty(JadeXian.FABAO_LING_RECOVER_KEY,
+			(curRec or 0) + JadeXian.FABAO_RECOVER_ADD);
+	end);
+	if not ok then
+		print("[JadeXian] 法宝强化失败: " .. tostring(err));
+	end
+
+	--结果提示
+	if ok then
+		WorldLua:ShowMsgBox(XT("强化成功：法宝威力 +200，回灵速度 +200"), XT("确定"));
+	else
+		WorldLua:ShowMsgBox(XT("强化失败：") .. tostring(err), XT("确定"));
+	end
+end
+
+
+--=====================================================================
+--  模块十一：周天神算·古修踪迹
+--
+--  原版周天神算（Magic_Prophesy）施展成功后，只是给角色挂一个
+--  Modifier_Sys_Magic_Prophesy（持续一个月，作用是事件发生前预先提示）。
+--  这里在保留原效果的基础上，额外让「周天神算」施展成功后立即触发
+--  一次「古修传闻」秘闻（对应界面里的「古修踪迹」传闻）。
+--
+--  注意：GameEventMgr:TriggerEvent 的参数是 Settings/World/Events/EventList.txt 里的事件ID
+--
+--  做法与原 mod 覆盖 Magic_MapStory 的方式一致：在 OnEnter 里覆盖
+--  MagicHelper 中 Magic_Prophesy 的方法，晚于游戏本体的 class 脚本执行。
+--=====================================================================
+
+--「古修传闻」对应的事件 ID（EventList.txt 中 ID=97，会触发 Secret 56 古修传闻）
+JadeXian.PROPHESY_SECRET_ID = 97;
+
+--覆盖周天神算：成功施法后立即触发一次「古修传闻」
+function JadeXian:ApplyProphesyOverride()
+	local MagicHelper = GameMain:GetMod("MagicHelper");
+	local tbMagic = nil;
+	if MagicHelper ~= nil and MagicHelper.GetMagic ~= nil then
+		tbMagic = MagicHelper:GetMagic("Magic_Prophesy");
+	end
+	if tbMagic == nil then
+		print("[JadeXian] Magic_Prophesy 未就绪，周天神算修改跳过");
+		return;
+	end
+
+	--保留原版的 MagicLeave 逻辑，成功时立即触发一次传闻
+	local rawLeave = tbMagic.MagicLeave;
+	function tbMagic:MagicLeave(success)
+		--先走原版逻辑（成功提示 + 挂 Modifier_Sys_Magic_Prophesy）
+		if rawLeave ~= nil then
+			rawLeave(self, success);
+		end
+		--成功时立即触发「古修传闻」
+		if success == true then
+			JadeXian:FireProphesySecret();
+		end
+	end
+end
+
+--立即触发一次「古修传闻」
+function JadeXian:FireProphesySecret()
+	local ok, err = pcall(function()
+		GameEventMgr:TriggerEvent(JadeXian.PROPHESY_SECRET_ID);
+	end);
+	if not ok then
+		print("[JadeXian] 触发古修传闻异常: " .. tostring(err));
+	end
 end
