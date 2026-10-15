@@ -1,16 +1,11 @@
 <ThingDefs><List>
-	<ThingDef Type="Building" Name="Building_Flag2" Parent="OrnamentBase">
-	<TexPath>res\Sprs\buildingnew\building_baguaqi01a</TexPath>
-	<TexScale>0.6</TexScale>
-	<ThingName>聚灵八卦旗</ThingName>	
-	<Tags>
-		<Tag Name="QiZhi_FSZW" Level="1"/>
-	</Tags>
-	<Frags>		
-		<li Frag="HearWind" />
-	</Frags>
+	<ThingDef Type="Building" Name="Building_SmallVase" Parent="OrnamentBase">
+	<TexPath>res\Sprs\buildingnew\building_huaping03</TexPath>
+	<TexScale>1</TexScale>
+	<ThingName>聚灵花瓶</ThingName>	
+	
 	<ShadowSize>
-		<x>1</x>
+		<x>0.5</x>
 		<y>1.2</y>
 	</ShadowSize>
 	<ColliderKind>Slow</ColliderKind>
@@ -19,29 +14,29 @@
 		<Data>
 		[3],
 		</Data>
-		<OffsetGroup>
-			<li><x>0</x><y>0.67</y></li>
-			<li><x>0</x><y>0.78</y></li>
-			<li><x>0</x><y>0.67</y></li>
-			<li><x>0</x><y>0.78</y></li>
-		</OffsetGroup>
+		<Offset>
+			<y>0.5</y>
+			<x>0</x>
+		</Offset>
 	</Collider>
 	
+	<Flammability>
+		<Flammability>0</Flammability>
+	</Flammability>
 	<Building>
-		<Orientation>F,B,R</Orientation>
 		<BeMade>
-			<WorkToMake>100</WorkToMake>
+			<WorkToMake>75</WorkToMake>
 			<Quality>0</Quality>
 			<StuffCategories>
 				<Stuff name = "MetalBlock"/>
-				<Stuff name = "RockBlock"/>
 				<Stuff name = "WoodBlock"/>
+				<Stuff name = "RockBlock"/>
 			</StuffCategories>
 			<CostStuffCount>2</CostStuffCount>
 		</BeMade>
 		<SnowRenderData>
-			<x>2.75</x>
-			<y>3.55</y>
+			<x>2.85</x>
+			<y>3.35</y>
 			<z>1</z>
 		</SnowRenderData>		
 	</Building>

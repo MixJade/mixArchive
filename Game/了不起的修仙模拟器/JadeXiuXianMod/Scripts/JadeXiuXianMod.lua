@@ -680,7 +680,7 @@ function JadeXian:AddBtn2Item(evt, thing, objs)
 			"强化",
 			JadeXian.CJG_ICON,
 			"GameMain:GetMod('JadeXian'):StrengthenFabao(bind)",
-			"强化法宝：威力 +200，回灵速度 +200",
+			"强化法宝：威力 +2000，回灵速度 +2000",
 			nil
 		);
 		return;
@@ -744,7 +744,7 @@ end
 --  模块十二：法宝强化
 --
 --  在法宝物品（FightFabao / FlyFabao / TreasureFabao）的操作面板上挂一颗「强化」按钮，
---  点击后给法宝威力 +200、回灵速度 +200。
+--  点击后给法宝威力、回灵速度+2000
 --
 --  法宝属性都存于 item.Fabao（FabaoData）的 PS 字典里，键为 g_emFaBaoP 枚举：
 --    AttackPower = 1  法宝威力
@@ -752,32 +752,30 @@ end
 --    MaxLing     = 3  灵气容量
 --  读写接口：fabao:GetProperty(key) / fabao:SetProperty(key, value)。
 --=====================================================================
-JadeXian.FABAO_POWER_ADD = 200;         --每次强化增加的威力
-JadeXian.FABAO_RECOVER_ADD = 200;       --每次强化增加的回灵速度
 --法宝威力 / 回灵速度在 FabaoData.PS 字典中的键（g_emFaBaoP 枚举值）
 JadeXian.FABAO_ATTACK_POWER_KEY = 1;    --AttackPower 法宝威力
 JadeXian.FABAO_LING_RECOVER_KEY = 2;    --LingRecover 回灵速度
 
---强化一件法宝：威力 +200、回灵速度 +200
+--强化一件法宝：增加威力、回灵速度
 function JadeXian:StrengthenFabao(item)
 	if item == nil then
 		return;
 	end
 
-	--威力 / 回灵速度 +200：法宝属性存于 item.Fabao.PS，不是 item.LingPower
+	--威力 / 回灵速度：法宝属性存于 item.Fabao.PS，不是 item.LingPower
 	local ok, err = pcall(function()
 		local fabao = item.Fabao;
 		if fabao == nil then
 			error("无法宝数据");
 		end
-		-- 威力 +200（PS[AttackPower]）
+		-- 威力 +2000（PS[AttackPower]）
 		local curAtk = fabao:GetProperty(JadeXian.FABAO_ATTACK_POWER_KEY);
 		fabao:SetProperty(JadeXian.FABAO_ATTACK_POWER_KEY,
-			(curAtk or 0) + JadeXian.FABAO_POWER_ADD);
-		-- 回灵速度 +200（PS[LingRecover]）
+			(curAtk or 0) + 2000);
+		-- 回灵速度 +2000（PS[LingRecover]）
 		local curRec = fabao:GetProperty(JadeXian.FABAO_LING_RECOVER_KEY);
 		fabao:SetProperty(JadeXian.FABAO_LING_RECOVER_KEY,
-			(curRec or 0) + JadeXian.FABAO_RECOVER_ADD);
+			(curRec or 0) + 2000);
 	end);
 	if not ok then
 		print("[JadeXian] 法宝强化失败: " .. tostring(err));
@@ -785,7 +783,7 @@ function JadeXian:StrengthenFabao(item)
 
 	--结果提示
 	if ok then
-		WorldLua:ShowMsgBox(XT("强化成功：法宝威力 +200，回灵速度 +200"), XT("确定"));
+		WorldLua:ShowMsgBox(XT("强化成功：法宝威力 +2000，回灵速度 +2000"), XT("确定"));
 	else
 		WorldLua:ShowMsgBox(XT("强化失败：") .. tostring(err), XT("确定"));
 	end
@@ -795,10 +793,8 @@ end
 --=====================================================================
 --  模块十一：周天神算·古修踪迹
 --
---  原版周天神算（Magic_Prophesy）施展成功后，只是给角色挂一个
---  Modifier_Sys_Magic_Prophesy（持续一个月，作用是事件发生前预先提示）。
---  这里在保留原效果的基础上，额外让「周天神算」施展成功后立即触发
---  一次「古修传闻」秘闻（对应界面里的「古修踪迹」传闻）。
+--  原版周天神算（Magic_Prophesy）施展成功后，只是给角色挂一个Modifier_Sys_Magic_Prophesy（持续一个月，作用是事件发生前预先提示）。
+--  这里在保留原效果的基础上，额外让「周天神算」施展成功后立即触发「古修传闻」秘闻
 --
 --  注意：GameEventMgr:TriggerEvent 的参数是 Settings/World/Events/EventList.txt 里的事件ID
 --
@@ -809,7 +805,7 @@ end
 --「古修传闻」对应的事件 ID（EventList.txt 中 ID=97，会触发 Secret 56 古修传闻）
 JadeXian.PROPHESY_SECRET_ID = 97;
 
---覆盖周天神算：成功施法后立即触发一次「古修传闻」
+--覆盖周天神算：成功施法后立即触发三次「古修传闻」
 function JadeXian:ApplyProphesyOverride()
 	local MagicHelper = GameMain:GetMod("MagicHelper");
 	local tbMagic = nil;
@@ -835,9 +831,11 @@ function JadeXian:ApplyProphesyOverride()
 	end
 end
 
---立即触发一次「古修传闻」
+--立即触发「古修传闻」
 function JadeXian:FireProphesySecret()
 	local ok, err = pcall(function()
+		GameEventMgr:TriggerEvent(JadeXian.PROPHESY_SECRET_ID);
+		GameEventMgr:TriggerEvent(JadeXian.PROPHESY_SECRET_ID);
 		GameEventMgr:TriggerEvent(JadeXian.PROPHESY_SECRET_ID);
 	end);
 	if not ok then
