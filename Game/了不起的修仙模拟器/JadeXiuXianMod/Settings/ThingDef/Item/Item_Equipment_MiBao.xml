@@ -1,0 +1,31 @@
+<ThingDefs><List>
+	<ThingDef Type="Item" Name="Item_Wonder_QianKunLingJing" Parent="MiBaoBase">
+	<ThingName>乾坤灵晶</ThingName>
+	<TexPath>res\Sprs\object\object_lingjing01</TexPath>	
+	<Desc>一块奇异的晶体，其中蕴含有一股玄妙的空间之力，似乎有什么特别的妙用。</Desc>
+	<Beauty>15</Beauty>
+	<Rate>12</Rate>
+	<ElementKind>None</ElementKind>
+	
+	<IllustratedHandLabel>Curiosity</IllustratedHandLabel>
+	<Item Lable="Other">
+		<BeMade>
+			<WorkToMake>200</WorkToMake>
+			<CostItems>
+				<Item name = "Item_LingStone" count = "100"/>
+			</CostItems>
+		</BeMade>
+	</Item>
+	<ProduceMode>
+		<ProduceBuildings>
+			<li>
+				<Building>CalligraphyTable</Building>
+				<Count>1</Count>
+			</li>
+		</ProduceBuildings>
+	</ProduceMode>
+	<Element>
+		<Kind>None</Kind>
+	</Element>
+	</ThingDef>
+</List></ThingDefs>
