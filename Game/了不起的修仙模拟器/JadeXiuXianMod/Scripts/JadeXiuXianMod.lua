@@ -680,7 +680,7 @@ function JadeXian:AddBtn2Item(evt, thing, objs)
 			"强化",
 			JadeXian.CJG_ICON,
 			"GameMain:GetMod('JadeXian'):StrengthenFabao(bind)",
-			"强化法宝：威力 +2000，回灵速度 +2000",
+			"强化法宝：威力 +2000",
 			nil
 		);
 		return;
@@ -744,7 +744,7 @@ end
 --  模块十二：法宝强化
 --
 --  在法宝物品（FightFabao / FlyFabao / TreasureFabao）的操作面板上挂一颗「强化」按钮，
---  点击后给法宝威力、回灵速度+2000
+--  点击后给法宝威力+2000
 --
 --  法宝属性都存于 item.Fabao（FabaoData）的 PS 字典里，键为 g_emFaBaoP 枚举：
 --    AttackPower = 1  法宝威力
@@ -754,9 +754,8 @@ end
 --=====================================================================
 --法宝威力 / 回灵速度在 FabaoData.PS 字典中的键（g_emFaBaoP 枚举值）
 JadeXian.FABAO_ATTACK_POWER_KEY = 1;    --AttackPower 法宝威力
-JadeXian.FABAO_LING_RECOVER_KEY = 2;    --LingRecover 回灵速度
 
---强化一件法宝：增加威力、回灵速度
+--强化一件法宝
 function JadeXian:StrengthenFabao(item)
 	if item == nil then
 		return;
@@ -772,10 +771,6 @@ function JadeXian:StrengthenFabao(item)
 		local curAtk = fabao:GetProperty(JadeXian.FABAO_ATTACK_POWER_KEY);
 		fabao:SetProperty(JadeXian.FABAO_ATTACK_POWER_KEY,
 			(curAtk or 0) + 2000);
-		-- 回灵速度 +2000（PS[LingRecover]）
-		local curRec = fabao:GetProperty(JadeXian.FABAO_LING_RECOVER_KEY);
-		fabao:SetProperty(JadeXian.FABAO_LING_RECOVER_KEY,
-			(curRec or 0) + 2000);
 	end);
 	if not ok then
 		print("[JadeXian] 法宝强化失败: " .. tostring(err));
@@ -783,7 +778,7 @@ function JadeXian:StrengthenFabao(item)
 
 	--结果提示
 	if ok then
-		WorldLua:ShowMsgBox(XT("强化成功：法宝威力 +2000，回灵速度 +2000"), XT("确定"));
+		WorldLua:ShowMsgBox(XT("强化成功：法宝威力 +2000"), XT("确定"));
 	else
 		WorldLua:ShowMsgBox(XT("强化失败：") .. tostring(err), XT("确定"));
 	end

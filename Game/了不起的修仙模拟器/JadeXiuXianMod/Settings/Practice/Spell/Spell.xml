@@ -1,7 +1,7 @@
 <Spells><List>
 	<Spell Name="Spell_MindState1">
 		<DisplayName>宁心符</DisplayName>
-		<Desc>使心境提高的符咒，受天道影响出现变化</Desc>
+		<Desc>【天道强化】使心境提高的符咒</Desc>
 		<Template>Spell/main_texture_ningxin01</Template>
 		<UnLock>0</UnLock>
 		<Effects>
@@ -13,7 +13,7 @@
 	
 	<Spell Name="Spell_FabaoMake_LingInheritRateAddV">
 		<DisplayName>五方灵宝符</DisplayName>
-		<Desc>可提高炼宝品阶，受天道影响出现变化</Desc>
+		<Desc>【天道强化】可提高炼宝品阶、炼制速度</Desc>
 		<Template>Spell/main_texture_wuli01</Template>
 		<UnLock>0</UnLock>
 		<Effects>
@@ -27,7 +27,7 @@
 	
 	<Spell Name="Spell_DanMake_YieldAddP">
 		<DisplayName>万化承丹符</DisplayName>
-		<Desc>可提高炼丹产量，受天道影响出现变化</Desc>
+		<Desc>【天道强化】可提高炼丹产量、成功率</Desc>
 		<Template>Spell/main_texture_wanhua01</Template>
 		<UnLock>0</UnLock>
 		<Effects>
