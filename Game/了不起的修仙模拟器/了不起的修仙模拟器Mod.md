@@ -14,3 +14,9 @@ C:\Program Files (x86)\Steam\steamapps\workshop\content\955900
 C:\Program Files (x86)\Steam\steamapps\common\AmazingCultivationSimulator\Mods
 ```
 
+* 日志输出位置
+
+```txt
+%userprofile%\AppData\LocalLow\GSQ\Amazing Cultivation Simulator
+```
+
