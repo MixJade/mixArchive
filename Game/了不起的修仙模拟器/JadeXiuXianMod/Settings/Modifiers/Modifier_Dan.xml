@@ -17,8 +17,9 @@
 		<Display>0</Display>
 		<BaseFive>100,100,100,100,100</BaseFive>
 		<Properties>
-			<li Name="MaxAge" AddV="6000"/>
+			<li Name="MaxAge" AddV="3000"/>
 			<li Name="PotentialOfBasepracticeAddValue" AddV="10"/>
+			<li Name="NpcLingMaxValue" BAddV="10000"/>
 		</Properties>
 		<Skills>
 			<li Name="Fight" Level="20"/>
