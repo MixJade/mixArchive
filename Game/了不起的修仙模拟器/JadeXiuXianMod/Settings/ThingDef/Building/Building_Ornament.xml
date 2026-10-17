@@ -48,7 +48,7 @@
 		<FailRadius>2</FailRadius>
 	</Element>
 	<Ling>
-		<AddionLing>1200</AddionLing>
+		<AddionLing>90</AddionLing>
 		<AddionRadius>4</AddionRadius>
 		<AddionFailing>1</AddionFailing>
 		<AddionFailRadius>3</AddionFailRadius>
