@@ -10,9 +10,7 @@
 --    4. 每次进存档，各个门派都欠我 10 人情             模块二
 --    5. 周天神算施展后，触发 3 次「古修踪迹」          模块三
 --    6. 主动观察产生的思绪不再带「眼睛」标记           模块四
---
---  说明：1、2 两项是纯数据改动（物品定义 + 制作配方），不涉及脚本；
---        脚本只负责 3、4、5、6 四项逻辑改动。
+--    7. 一次观察结算三次（直接产出 3 条思绪）          模块四
 --=====================================================================
 local JadeStart = GameMain:NewMod("JadeStartMod");
 
@@ -253,13 +251,15 @@ end
 
 
 --=====================================================================
---  模块四：主动观察产生的思绪不再带「眼睛」标记
+--  模块四：主动观察优化
+--    4a. 观察产生的思绪不再带「眼睛」标记（Conflict = 0）
+--    4b. 一次观察结算三次（额外再随机产出 2 条思绪）
 --
 --  开智期动物获得思绪有两条路：
 --    被动：Step_NpcThink 随机生成，思绪片段 Conflict = 0；
 --    主动：玩家指挥「观察」某个东西，JobStudyThing.OnToilFinish 会调用
 --          HumanoidEvolutionMgr.AddThink(worker, frag, conflict: true)，
---          把这条片段的 Conflict 置成 1。
+--          把这条片段的 Conflict 置成 1。一次观察只走一次这个结算。
 --
 --  Conflict = 1 有两个副作用：
 --    ① 开智界面里这条思绪会显示一个「眼睛」图标
@@ -271,17 +271,24 @@ end
 --  表现就和被动获得的完全一致：没有标记，也不再限制重复获取。
 --  被动片段本来就是 0，统一清一遍没有副作用。
 --
---  清理时机：
---    ① 挂 JobEvent —— 发现某只动物「正在做观察作业」就记一笔，
---      等这个作业结束（CurJob 置空）时把它身上刚拿到的片段洗掉。
---       这样只影响观察得来的片段，吃丹药 / 剧情给的思绪标记不受影响；
---    ② 读档完成后全量洗一遍，兼容存档里已经带标记的旧片段。
+--  至于「一次观察结算三次」：原版只在作业的 Watch 环节结算一次，
+--  这里在观察作业成功结束时，用同样的规则（按观察目标 def.Frags 的
+--  权重随机）再补 2 次，效果等同于结算了三次。
+--
+--  触发时机：挂 JobEvent，它的参数固定是 { 作业, 状态 }：
+--    状态 0 = 作业开始，1 = 成功结束，2 = 失败 / 中断
+--  拿不到作业参数时退回老办法（看 CurJob 是否为空）。
+--
+--  读档完成后还会全量洗一遍，兼容存档里已经带标记的旧片段。
 --=====================================================================
 JadeStart.STUDY_JOB_NAME = "JobStudyThing";    --观察作业的 JobDef 名
+JadeStart.STUDY_SETTLE_TIMES = 3;              --一次观察结算几次（原版是 1）
 
 function JadeStart:InitStudyMarkRemover()
-	--记录「刚做过观察作业」的 NPC id
+	--老办法的兜底记录（事件里拿不到作业对象时用）
 	self.studyNpc = {};
+	--观察目标缓存：作业开始时记下，结束时万一个东西已被吃掉也能补结算
+	self.studyTarget = {};
 
 	local Event = GameMain:GetMod("_Event");
 	if Event == nil then
@@ -290,37 +297,181 @@ function JadeStart:InitStudyMarkRemover()
 	end
 	Event:RegisterEvent(
 		g_emEvent.JobEvent,
-		function(evt, npc, objs) JadeStart:OnJobEvent(npc); end,
+		function(evt, npc, objs) JadeStart:OnJobEvent(npc, objs); end,
 		"JadeStartMod_JobEvent"
 	);
 end
 
+--从事件参数里取「作业 + 状态」；取不到返回 nil
+--（XLua 数组下标有 0 起和 1 起两种习惯，这里都兼容）
+function JadeStart:ParseJobEvent(objs)
+	if objs == nil then
+		return nil, nil;
+	end
+	local job = nil;
+	local state = nil;
+	local ok = pcall(function()
+		if objs[0] ~= nil then
+			job, state = objs[0], objs[1];
+		else
+			job, state = objs[1], objs[2];
+		end
+	end);
+	if not ok or job == nil then
+		return nil, nil;
+	end
+	if type(state) ~= "number" then
+		state = nil;
+	end
+	return job, state;
+end
+
+function JadeStart:IsStudyJob(job)
+	if job == nil then
+		return false;
+	end
+	local ok, name = pcall(function() return job.jobdef.Name; end);
+	return ok and name == JadeStart.STUDY_JOB_NAME;
+end
+
 --作业事件：识别观察作业的开始 / 结束
-function JadeStart:OnJobEvent(npc)
+function JadeStart:OnJobEvent(npc, objs)
 	if npc == nil then
 		return;
 	end
+	local job, state = JadeStart:ParseJobEvent(objs);
+
+	if job ~= nil then
+		--只关心观察作业
+		if not JadeStart:IsStudyJob(job) then
+			return;
+		end
+		--state == 0 是作业刚开始，记下观察目标备用
+		if state == 0 then
+			JadeStart:RememberStudyTarget(npc, job);
+			return;
+		end
+		--作业结束：先把「眼睛」标记洗掉（成功失败都洗，代价可以忽略）
+		JadeStart:ClearStudyConflict(npc);
+		--成功结束（或状态未知）才补结算；失败 / 中断就不给思绪了
+		if state == nil or state == 1 then
+			JadeStart:ExtraStudySettle(npc, job);
+		end
+		return;
+	end
+
+	--兜底：事件里没带作业对象时，沿用「记录 -> 下一个事件」的老办法
 	local id = nil;
-	local job = nil;
+	local curJob = nil;
 	local ok = pcall(function()
 		id = npc.ID;
-		job = npc.JobEngine.CurJob;    --作业刚开始时是当前作业，结束时已被置空
+		curJob = npc.JobEngine.CurJob;    --作业刚开始时是当前作业，结束时已被置空
 	end);
 	if not ok or id == nil then
 		return;
 	end
-
-	--正在做观察作业：先记一笔，等作业结束时再清
-	if job ~= nil and job.jobdef ~= nil and job.jobdef.Name == JadeStart.STUDY_JOB_NAME then
+	if curJob ~= nil and JadeStart:IsStudyJob(curJob) then
 		self.studyNpc[id] = true;
 		return;
 	end
-
-	--不是观察作业（包括观察作业刚结束）：这只动物刚观察过就洗一次
 	if self.studyNpc[id] then
 		self.studyNpc[id] = nil;
 		self:ClearStudyConflict(npc);
 	end
+end
+
+--作业开始时记下观察目标（观察作业的指令里存着它：CommandStudyThing.thing）
+function JadeStart:RememberStudyTarget(npc, job)
+	local id = nil;
+	local thing = nil;
+	local ok = pcall(function()
+		id = npc.ID;
+		thing = job.CMD.thing;
+	end);
+	if ok and id ~= nil and thing ~= nil then
+		self.studyTarget[id] = thing;
+	end
+end
+
+--额外结算：按观察目标的思绪池，再随机产出 (STUDY_SETTLE_TIMES - 1) 条
+function JadeStart:ExtraStudySettle(npc, job)
+	local times = JadeStart.STUDY_SETTLE_TIMES - 1;
+	if times <= 0 then
+		return;
+	end
+	--观察目标：优先从作业的指令里取，取不到就用作业开始时缓存的那份
+	local thing = nil;
+	local id = nil;
+	pcall(function()
+		id = npc.ID;
+		thing = job.CMD.thing;
+	end);
+	if thing == nil and id ~= nil then
+		thing = self.studyTarget[id];
+	end
+	if id ~= nil then
+		self.studyTarget[id] = nil;    --用完就清，避免一直挂着对象
+	end
+	if thing == nil then
+		print("[JadeStartMod] 取不到观察目标，额外结算跳过");
+		return;
+	end
+	local mgr = CS.XiaWorld.HumanoidEvolutionMgr.Instance;
+	if mgr == nil then
+		return;
+	end
+
+	for i = 1, times do
+		local frag = JadeStart:PickFrag(thing);
+		if frag == nil then
+			return;
+		end
+		--用 conflict = true 添加：这样不会弹「获得思绪」的提示框；
+		--加完立刻把标记洗成 0，既不留眼睛，也允许下一条取到同一种思绪
+		local okAdd, errAdd = pcall(function()
+			mgr:AddThink(npc, frag, true);
+		end);
+		if not okAdd then
+			print("[JadeStartMod] 额外思绪添加失败: " .. tostring(errAdd));
+			return;
+		end
+		JadeStart:ClearStudyConflict(npc);
+	end
+end
+
+--按权重从观察目标的 def.Frags 里抽一条思绪（等价于原版的 WeightRander.Random）
+function JadeStart:PickFrag(thing)
+	local frags = nil;
+	local ok = pcall(function() frags = thing.def.Frags; end);
+	if not ok or frags == nil or frags.Count == nil or frags.Count <= 0 then
+		return nil;
+	end
+
+	local total = 0;
+	for i = 0, frags.Count - 1 do
+		local w = frags[i].Weight;
+		if w == nil or w < 1 then
+			w = 1;
+		end
+		total = total + w;
+	end
+	if total <= 0 then
+		return frags[0].Frag;
+	end
+
+	local r = math.random() * total;
+	local acc = 0;
+	for i = 0, frags.Count - 1 do
+		local w = frags[i].Weight;
+		if w == nil or w < 1 then
+			w = 1;
+		end
+		acc = acc + w;
+		if r < acc then
+			return frags[i].Frag;
+		end
+	end
+	return frags[frags.Count - 1].Frag;
 end
 
 --清理某只动物身上所有带 Conflict 标记的思绪片段
