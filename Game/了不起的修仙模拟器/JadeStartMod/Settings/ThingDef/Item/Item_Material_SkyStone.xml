@@ -1,0 +1,75 @@
+<ThingDefs><List>
+	<!-- 天柱石：在官方 Item_SkyStone 定义基础上追加「画符桌可制作」，官方原有字段原样保留 -->
+	<ThingDef Type="Item" Name="Item_SkyStone" Parent="RockBase">
+	<TexPath>res\Sprs\object\object_tianzhushi</TexPath>
+	<ThingName>天柱石</ThingName>	
+	<Desc>罕见的岩石，传说是天柱之上挖掘出的石块，蕴含磅礴的土属性灵气。</Desc>
+	<Rate>8</Rate>
+	<Beauty>18</Beauty>
+	<Item>
+		<Prices>
+			<TalkType>1</TalkType>
+			<BaseCount>1</BaseCount>
+			<li PriceTag="School">
+				<BuyPrice Value="1000" FriendPoint="1"/>
+				<SalePrice Value="500" />
+			</li>
+			<li PriceTag="Trade">
+				<BuyPrice Value="2000" />
+				<SalePrice Value="500" />
+			</li>
+			<li PriceTag="Auction">
+				<BuyPrice Value="500" />
+				<SalePrice Value="0" />
+			</li>
+		</Prices>
+		<NotFengshuiItem>0</NotFengshuiItem>
+		<PhysicalLables>
+			<li>Heavy1</li>
+			<li>GreatThing_Ling</li>
+		</PhysicalLables>
+		<BeMaterial>
+				<NamePrefix>天柱石</NamePrefix>
+				<StuffTexPath>res/mattex/mtl_xianzhu</StuffTexPath>
+				<CostMultiplier>1</CostMultiplier>
+				
+				<RateWhenBeMain>7</RateWhenBeMain>
+				<WorkSpeedCoefficientWhenBeMain>1.8</WorkSpeedCoefficientWhenBeMain>
+				
+				<BeautyWhenBeMain>18</BeautyWhenBeMain>
+				<ElementPowerWhenBeMain>11</ElementPowerWhenBeMain>
+		</BeMaterial>
+		<BeMade>
+			<WorkToMake>200</WorkToMake>
+			<CostItems>
+				<Item name="Item_LingStone" count="100"/>
+			</CostItems>
+		</BeMade>
+	</Item>
+	<ProduceMode>
+		<ProduceBuildings>
+			<li>
+				<Building>CalligraphyTable</Building>
+				<Count>1</Count>
+			</li>
+		</ProduceBuildings>
+	</ProduceMode>
+	<Ling>
+		<AddionLing>35</AddionLing>
+		<AddionRadius>3</AddionRadius>
+		<AddionFailing>0.8</AddionFailing>
+		<AddionFailRadius>1</AddionFailRadius>
+		
+		<Attenuation>0.1</Attenuation>
+		<Absorption>0.8</Absorption>
+		<Accommodate>55</Accommodate>
+	</Ling>
+	<Element>
+		<Kind>Tu</Kind>
+		<Value>8</Value>         
+		<Radius>4</Radius>
+		<Failing>0.8</Failing>
+		<FailRadius>1</FailRadius>
+	</Element>
+	</ThingDef>
+</List></ThingDefs>

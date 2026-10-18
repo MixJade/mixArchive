@@ -20,8 +20,6 @@ function JadeXian:OnEnter()
 	self:InitCangJingGe();
 	--大衍神算修改（模块六）
 	self:ApplyMapStoryOverride();
-	--周天神算·古修踪迹（模块十一）
-	self:ApplyProphesyOverride();
 	--藏经阁一键录入（模块八）
 	self:InitBulkEntry();
 	--拍卖会 NPC 灵石封顶（模块九）
@@ -781,59 +779,5 @@ function JadeXian:StrengthenFabao(item)
 		WorldLua:ShowMsgBox(XT("强化成功：法宝威力 +3000"), XT("确定"));
 	else
 		WorldLua:ShowMsgBox(XT("强化失败：") .. tostring(err), XT("确定"));
-	end
-end
-
-
---=====================================================================
---  模块十一：周天神算·古修踪迹
---
---  原版周天神算（Magic_Prophesy）施展成功后，只是给角色挂一个Modifier_Sys_Magic_Prophesy（持续一个月，作用是事件发生前预先提示）。
---  这里在保留原效果的基础上，额外让「周天神算」施展成功后立即触发「古修传闻」秘闻
---
---  注意：GameEventMgr:TriggerEvent 的参数是 Settings/World/Events/EventList.txt 里的事件ID
---
---  做法与原 mod 覆盖 Magic_MapStory 的方式一致：在 OnEnter 里覆盖
---  MagicHelper 中 Magic_Prophesy 的方法，晚于游戏本体的 class 脚本执行。
---=====================================================================
-
---「古修传闻」对应的事件 ID（EventList.txt 中 ID=97，会触发 Secret 56 古修传闻）
-JadeXian.PROPHESY_SECRET_ID = 97;
-
---覆盖周天神算：成功施法后立即触发三次「古修传闻」
-function JadeXian:ApplyProphesyOverride()
-	local MagicHelper = GameMain:GetMod("MagicHelper");
-	local tbMagic = nil;
-	if MagicHelper ~= nil and MagicHelper.GetMagic ~= nil then
-		tbMagic = MagicHelper:GetMagic("Magic_Prophesy");
-	end
-	if tbMagic == nil then
-		print("[JadeXian] Magic_Prophesy 未就绪，周天神算修改跳过");
-		return;
-	end
-
-	--保留原版的 MagicLeave 逻辑，成功时立即触发一次传闻
-	local rawLeave = tbMagic.MagicLeave;
-	function tbMagic:MagicLeave(success)
-		--先走原版逻辑（成功提示 + 挂 Modifier_Sys_Magic_Prophesy）
-		if rawLeave ~= nil then
-			rawLeave(self, success);
-		end
-		--成功时立即触发「古修传闻」
-		if success == true then
-			JadeXian:FireProphesySecret();
-		end
-	end
-end
-
---立即触发「古修传闻」
-function JadeXian:FireProphesySecret()
-	local ok, err = pcall(function()
-		GameEventMgr:TriggerEvent(JadeXian.PROPHESY_SECRET_ID);
-		GameEventMgr:TriggerEvent(JadeXian.PROPHESY_SECRET_ID);
-		GameEventMgr:TriggerEvent(JadeXian.PROPHESY_SECRET_ID);
-	end);
-	if not ok then
-		print("[JadeXian] 触发古修传闻异常: " .. tostring(err));
 	end
 end
