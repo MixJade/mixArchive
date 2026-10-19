@@ -1,22 +1,3 @@
---=====================================================================
---  JadeStartMod（新手上路）—— 主入口
---
---  功能索引：
---    1. 可在画符桌制作「乾坤灵晶」
---       → Settings/ThingDef/Item/Item_Equipment_MiBao.xml
---    2. 可在画符桌制作「天柱石」
---       → Settings/ThingDef/Item/Item_Material_SkyStone.xml
---    3. 交流第一句话就满好感（含破心防）              本文件 模块一
---    4. 每次进存档，各个门派都欠我 10 人情             本文件 模块二
---    5. 周天神算施展后，触发 3 次「古修踪迹」          本文件 模块三
---    6. 主动观察产生的思绪不再带「眼睛」标记           JadeStartMod_A2H.lua
---    7. 一次观察结算三次（直接产出 3 条思绪）          JadeStartMod_A2H.lua
---    8. 开智期动物「思考」不用等（原版 600 秒）        JadeStartMod_A2H.lua
---
---  说明：游戏会把 mod 的 Scripts 目录下所有 .lua 递归加载，
---        拆出去的文件用同一个 mod 名字取表（GameMain:GetMod），
---        所以各文件里的函数最终都挂在同一张 JadeStart 表上。
---=====================================================================
 local JadeStart = GameMain:GetMod("JadeStartMod");
 
 
@@ -32,13 +13,18 @@ function JadeStart:OnEnter()
 	self:InitA2H();
 	-- 模块二：全门派 10 人情（进存档时发放一次）
 	self.friendGiven = self:GiveSectFriendPoint();
+	-- 模块二B：全门派 +200 好感
+	self.relationGiven = self:GiveSectRelation();
 end
 
--- 兜底：OnEnter 时 TradeMgr 有时还没就绪，读档完成后补发一次；
--- friendGiven 保证整个存档会话只发一次，切换地图不会重复发放。
+-- 兜底：OnEnter 时 TradeMgr / SchoolMgr 有时还没就绪，读档完成后补发一次；
+-- 两个 given 标记保证整个存档会话只发一次，切换地图不会重复发放。
 function JadeStart:OnAfterLoad()
 	if not self.friendGiven then
 		self.friendGiven = self:GiveSectFriendPoint();
+	end
+	if not self.relationGiven then
+		self.relationGiven = self:GiveSectRelation();
 	end
 	-- 模块四 / 五：洗掉旧思绪标记 + 把正在思考的作业直接跳完
 	self:AfterLoadA2H();
@@ -247,6 +233,50 @@ function JadeStart:GiveSectFriendPoint()
 		print("[JadeStartMod] 已给所有门派各加 " .. JadeStart.SECT_FRIEND_POINT .. " 点人情");
 	end
 	return ret;
+end
+
+
+--=====================================================================
+--  模块二B：每次读档，全门派好感 +200
+--
+--  数值存在 SchoolMgr.SchoolRelation 里，范围 -1200 ~ 1200，等级换算：
+--    >= 1000 敬重 / >= 400 友好 / >= 0 中立 / >= -400 冷淡 / >= -1000 敌视 / 更低仇恨
+--
+--  注意：正面加值会被难度系数缩放，实际入账可能少于200，这里不修正，跟随游戏原生难度设定走。
+--=====================================================================
+JadeStart.SECT_RELATION_ADD = 200;    --每个门派加多少好感（名义值，可能被难度缩放）
+
+--门派ID：1~12 就是 Settings/World/Schools/Schools.txt 里的常规门派，不含武当DLC（ID=13）
+JadeStart.SCHOOL_IDS = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+--返回 true 表示确实加上了
+function JadeStart:GiveSectRelation()
+	local ok, cnt = pcall(function()
+		local SM = SchoolMgr or CS.XiaWorld.SchoolMgr.Instance;
+		if SM == nil then
+			return 0;
+		end
+		--注意：AddSchoolRelation 内部会对正数乘 RuntimeVar.Var.RealSchoolAddRelationScale
+		--（难度系数，[DefV(1f)] 默认 1），所以这里传入的 200 只是「名义值」，
+		--高难度下实际入账会按比例缩水。这是游戏原生的缩放，保持不动。
+		local per = JadeStart.SECT_RELATION_ADD;
+		local ids = JadeStart.SCHOOL_IDS;
+		for i = 1, #ids do
+			local id = ids[i];
+			--单个门派出错不影响其他门派
+			pcall(function() SM:AddSchoolRelation(id, per); end);
+		end
+		return #ids;
+	end);
+	if not ok then
+		print("[JadeStartMod] 门派好感发放异常: " .. tostring(cnt));
+		return false;
+	end
+	if cnt > 0 then
+		print("[JadeStartMod] 已给 " .. cnt .. " 个门派各加 " .. JadeStart.SECT_RELATION_ADD .. " 点好感");
+		return true;
+	end
+	return false;
 end
 
 
