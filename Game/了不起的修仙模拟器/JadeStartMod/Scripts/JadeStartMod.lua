@@ -1,18 +1,23 @@
 --=====================================================================
---  JadeStartMod（新手上路）
+--  JadeStartMod（新手上路）—— 主入口
 --
 --  功能索引：
 --    1. 可在画符桌制作「乾坤灵晶」
 --       → Settings/ThingDef/Item/Item_Equipment_MiBao.xml
 --    2. 可在画符桌制作「天柱石」
 --       → Settings/ThingDef/Item/Item_Material_SkyStone.xml
---    3. 交流第一句话就满好感（含破心防）              模块一
---    4. 每次进存档，各个门派都欠我 10 人情             模块二
---    5. 周天神算施展后，触发 3 次「古修踪迹」          模块三
---    6. 主动观察产生的思绪不再带「眼睛」标记           模块四
---    7. 一次观察结算三次（直接产出 3 条思绪）          模块四
+--    3. 交流第一句话就满好感（含破心防）              本文件 模块一
+--    4. 每次进存档，各个门派都欠我 10 人情             本文件 模块二
+--    5. 周天神算施展后，触发 3 次「古修踪迹」          本文件 模块三
+--    6. 主动观察产生的思绪不再带「眼睛」标记           JadeStartMod_A2H.lua
+--    7. 一次观察结算三次（直接产出 3 条思绪）          JadeStartMod_A2H.lua
+--    8. 开智期动物「思考」不用等（原版 600 秒）        JadeStartMod_A2H.lua
+--
+--  说明：游戏会把 mod 的 Scripts 目录下所有 .lua 递归加载，
+--        拆出去的文件用同一个 mod 名字取表（GameMain:GetMod），
+--        所以各文件里的函数最终都挂在同一张 JadeStart 表上。
 --=====================================================================
-local JadeStart = GameMain:NewMod("JadeStartMod");
+local JadeStart = GameMain:GetMod("JadeStartMod");
 
 
 --=====================================================================
@@ -23,8 +28,8 @@ function JadeStart:OnEnter()
 	self:InitFullFavour();
 	-- 模块三：周天神算 → 古修踪迹
 	self:ApplyProphesyOverride();
-	-- 模块四：主动观察的思绪去掉标记（挂「作业结束」触发点）
-	self:InitStudyMarkRemover();
+	-- 模块四 + 模块五：动物开智（观察 / 思考），见 JadeStartMod_A2H.lua
+	self:InitA2H();
 	-- 模块二：全门派 10 人情（进存档时发放一次）
 	self.friendGiven = self:GiveSectFriendPoint();
 end
@@ -35,8 +40,59 @@ function JadeStart:OnAfterLoad()
 	if not self.friendGiven then
 		self.friendGiven = self:GiveSectFriendPoint();
 	end
-	-- 模块四：把存档里已经带上「眼睛」标记的旧思绪统一洗一遍
-	self:ClearAllStudyConflict();
+	-- 模块四 / 五：洗掉旧思绪标记 + 把正在思考的作业直接跳完
+	self:AfterLoadA2H();
+end
+
+function JadeStart:OnStep(dt)
+	-- 模块五：上一帧没跳完的思考作业，下一帧再试一次（只是重试，不计时）
+	if self.thinkJobs ~= nil and next(self.thinkJobs) ~= nil then
+		self:RetryThinkJobs();
+	end
+end
+
+
+--=====================================================================
+--  公共工具：作业事件参数解析
+--
+--  JobEvent 的参数固定是 { 作业, 状态 }：
+--    状态 0 = 作业开始，1 = 成功结束，2 = 失败 / 中断
+--  （XLua 数组下标有 0 起和 1 起两种习惯，这里都兼容）
+--=====================================================================
+
+--从事件参数里取「作业 + 状态」；取不到返回 nil
+function JadeStart:ParseJobEvent(objs)
+	if objs == nil then
+		return nil, nil;
+	end
+	local job = nil;
+	local state = nil;
+	local ok = pcall(function()
+		if objs[0] ~= nil then
+			job, state = objs[0], objs[1];
+		else
+			job, state = objs[1], objs[2];
+		end
+	end);
+	if not ok or job == nil then
+		return nil, nil;
+	end
+	if type(state) ~= "number" then
+		state = nil;
+	end
+	return job, state;
+end
+
+--取作业的 JobDef 名（取不到返回 nil）
+function JadeStart:GetJobName(job)
+	if job == nil then
+		return nil;
+	end
+	local ok, name = pcall(function() return job.jobdef.Name; end);
+	if not ok then
+		return nil;
+	end
+	return name;
 end
 
 
@@ -246,280 +302,5 @@ function JadeStart:FireProphesySecret()
 	end);
 	if not ok then
 		print("[JadeStartMod] 触发古修踪迹异常: " .. tostring(err));
-	end
-end
-
-
---=====================================================================
---  模块四：主动观察优化
---    4a. 观察产生的思绪不再带「眼睛」标记（Conflict = 0）
---    4b. 一次观察结算三次（额外再随机产出 2 条思绪）
---
---  开智期动物获得思绪有两条路：
---    被动：Step_NpcThink 随机生成，思绪片段 Conflict = 0；
---    主动：玩家指挥「观察」某个东西，JobStudyThing.OnToilFinish 会调用
---          HumanoidEvolutionMgr.AddThink(worker, frag, conflict: true)，
---          把这条片段的 Conflict 置成 1。一次观察只走一次这个结算。
---
---  Conflict = 1 有两个副作用：
---    ① 开智界面里这条思绪会显示一个「眼睛」图标
---       （UI 代码：m_eye.visible = think.Conflict > 0）；
---    ② _CheckThinkConflict 会拦掉同名的片段，
---       导致同一种思绪靠观察只能拿到一条。
---
---  所以只要把主动观察产生的片段 Conflict 改回 0，
---  表现就和被动获得的完全一致：没有标记，也不再限制重复获取。
---  被动片段本来就是 0，统一清一遍没有副作用。
---
---  至于「一次观察结算三次」：原版只在作业的 Watch 环节结算一次，
---  这里在观察作业成功结束时，用同样的规则（按观察目标 def.Frags 的
---  权重随机）再补 2 次，效果等同于结算了三次。
---
---  触发时机：挂 JobEvent，它的参数固定是 { 作业, 状态 }：
---    状态 0 = 作业开始，1 = 成功结束，2 = 失败 / 中断
---  拿不到作业参数时退回老办法（看 CurJob 是否为空）。
---
---  读档完成后还会全量洗一遍，兼容存档里已经带标记的旧片段。
---=====================================================================
-JadeStart.STUDY_JOB_NAME = "JobStudyThing";    --观察作业的 JobDef 名
-JadeStart.STUDY_SETTLE_TIMES = 3;              --一次观察结算几次（原版是 1）
-
-function JadeStart:InitStudyMarkRemover()
-	--老办法的兜底记录（事件里拿不到作业对象时用）
-	self.studyNpc = {};
-	--观察目标缓存：作业开始时记下，结束时万一个东西已被吃掉也能补结算
-	self.studyTarget = {};
-
-	local Event = GameMain:GetMod("_Event");
-	if Event == nil then
-		print("[JadeStartMod] _Event 未就绪，观察标记清理跳过");
-		return;
-	end
-	Event:RegisterEvent(
-		g_emEvent.JobEvent,
-		function(evt, npc, objs) JadeStart:OnJobEvent(npc, objs); end,
-		"JadeStartMod_JobEvent"
-	);
-end
-
---从事件参数里取「作业 + 状态」；取不到返回 nil
---（XLua 数组下标有 0 起和 1 起两种习惯，这里都兼容）
-function JadeStart:ParseJobEvent(objs)
-	if objs == nil then
-		return nil, nil;
-	end
-	local job = nil;
-	local state = nil;
-	local ok = pcall(function()
-		if objs[0] ~= nil then
-			job, state = objs[0], objs[1];
-		else
-			job, state = objs[1], objs[2];
-		end
-	end);
-	if not ok or job == nil then
-		return nil, nil;
-	end
-	if type(state) ~= "number" then
-		state = nil;
-	end
-	return job, state;
-end
-
-function JadeStart:IsStudyJob(job)
-	if job == nil then
-		return false;
-	end
-	local ok, name = pcall(function() return job.jobdef.Name; end);
-	return ok and name == JadeStart.STUDY_JOB_NAME;
-end
-
---作业事件：识别观察作业的开始 / 结束
-function JadeStart:OnJobEvent(npc, objs)
-	if npc == nil then
-		return;
-	end
-	local job, state = JadeStart:ParseJobEvent(objs);
-
-	if job ~= nil then
-		--只关心观察作业
-		if not JadeStart:IsStudyJob(job) then
-			return;
-		end
-		--state == 0 是作业刚开始，记下观察目标备用
-		if state == 0 then
-			JadeStart:RememberStudyTarget(npc, job);
-			return;
-		end
-		--作业结束：先把「眼睛」标记洗掉（成功失败都洗，代价可以忽略）
-		JadeStart:ClearStudyConflict(npc);
-		--成功结束（或状态未知）才补结算；失败 / 中断就不给思绪了
-		if state == nil or state == 1 then
-			JadeStart:ExtraStudySettle(npc, job);
-		end
-		return;
-	end
-
-	--兜底：事件里没带作业对象时，沿用「记录 -> 下一个事件」的老办法
-	local id = nil;
-	local curJob = nil;
-	local ok = pcall(function()
-		id = npc.ID;
-		curJob = npc.JobEngine.CurJob;    --作业刚开始时是当前作业，结束时已被置空
-	end);
-	if not ok or id == nil then
-		return;
-	end
-	if curJob ~= nil and JadeStart:IsStudyJob(curJob) then
-		self.studyNpc[id] = true;
-		return;
-	end
-	if self.studyNpc[id] then
-		self.studyNpc[id] = nil;
-		self:ClearStudyConflict(npc);
-	end
-end
-
---作业开始时记下观察目标（观察作业的指令里存着它：CommandStudyThing.thing）
-function JadeStart:RememberStudyTarget(npc, job)
-	local id = nil;
-	local thing = nil;
-	local ok = pcall(function()
-		id = npc.ID;
-		thing = job.CMD.thing;
-	end);
-	if ok and id ~= nil and thing ~= nil then
-		self.studyTarget[id] = thing;
-	end
-end
-
---额外结算：按观察目标的思绪池，再随机产出 (STUDY_SETTLE_TIMES - 1) 条
-function JadeStart:ExtraStudySettle(npc, job)
-	local times = JadeStart.STUDY_SETTLE_TIMES - 1;
-	if times <= 0 then
-		return;
-	end
-	--观察目标：优先从作业的指令里取，取不到就用作业开始时缓存的那份
-	local thing = nil;
-	local id = nil;
-	pcall(function()
-		id = npc.ID;
-		thing = job.CMD.thing;
-	end);
-	if thing == nil and id ~= nil then
-		thing = self.studyTarget[id];
-	end
-	if id ~= nil then
-		self.studyTarget[id] = nil;    --用完就清，避免一直挂着对象
-	end
-	if thing == nil then
-		print("[JadeStartMod] 取不到观察目标，额外结算跳过");
-		return;
-	end
-	local mgr = CS.XiaWorld.HumanoidEvolutionMgr.Instance;
-	if mgr == nil then
-		return;
-	end
-
-	for i = 1, times do
-		local frag = JadeStart:PickFrag(thing);
-		if frag == nil then
-			return;
-		end
-		--用 conflict = true 添加：这样不会弹「获得思绪」的提示框；
-		--加完立刻把标记洗成 0，既不留眼睛，也允许下一条取到同一种思绪
-		local okAdd, errAdd = pcall(function()
-			mgr:AddThink(npc, frag, true);
-		end);
-		if not okAdd then
-			print("[JadeStartMod] 额外思绪添加失败: " .. tostring(errAdd));
-			return;
-		end
-		JadeStart:ClearStudyConflict(npc);
-	end
-end
-
---按权重从观察目标的 def.Frags 里抽一条思绪（等价于原版的 WeightRander.Random）
-function JadeStart:PickFrag(thing)
-	local frags = nil;
-	local ok = pcall(function() frags = thing.def.Frags; end);
-	if not ok or frags == nil or frags.Count == nil or frags.Count <= 0 then
-		return nil;
-	end
-
-	local total = 0;
-	for i = 0, frags.Count - 1 do
-		local w = frags[i].Weight;
-		if w == nil or w < 1 then
-			w = 1;
-		end
-		total = total + w;
-	end
-	if total <= 0 then
-		return frags[0].Frag;
-	end
-
-	local r = math.random() * total;
-	local acc = 0;
-	for i = 0, frags.Count - 1 do
-		local w = frags[i].Weight;
-		if w == nil or w < 1 then
-			w = 1;
-		end
-		acc = acc + w;
-		if r < acc then
-			return frags[i].Frag;
-		end
-	end
-	return frags[frags.Count - 1].Frag;
-end
-
---清理某只动物身上所有带 Conflict 标记的思绪片段
---（JobEvent 触发很频繁，这里不再套闭包/pcall，保持最轻）
-function JadeStart:ClearStudyConflict(npc)
-	if npc == nil then
-		return;
-	end
-	local a2h = npc.A2H;    --只有开智期动物才有这个字段，其它单位是 nil
-	if a2h == nil then
-		return;
-	end
-	JadeStart:ClearConflictList(a2h.thinkFrags);
-	JadeStart:ClearConflictList(a2h.thinkFragCaches);
-end
-
---把一个 List<ThinkFrag> 里所有 Conflict > 0 的片段清零
-function JadeStart:ClearConflictList(list)
-	if list == nil then
-		return;
-	end
-	for i = 0, list.Count - 1 do
-		local frag = list[i];
-		if frag ~= nil and frag.Conflict ~= nil and frag.Conflict > 0 then
-			frag.Conflict = 0;
-		end
-	end
-end
-
---全量清理（读档后调用一次）
-function JadeStart:ClearAllStudyConflict()
-	local ok, err = pcall(function()
-		local npcList = CS.XiaWorld.ThingMgr.Instance.NpcList;
-		if npcList == nil then
-			return;
-		end
-		for i = 0, npcList.Count - 1 do
-			local npc = npcList[i];
-			if npc ~= nil then
-				local a2h = npc.A2H;
-				if a2h ~= nil then
-					JadeStart:ClearConflictList(a2h.thinkFrags);
-					JadeStart:ClearConflictList(a2h.thinkFragCaches);
-				end
-			end
-		end
-	end);
-	if not ok then
-		print("[JadeStartMod] 清理观察标记异常: " .. tostring(err));
 	end
 end
