@@ -1,0 +1,46 @@
+<ThingDefs><List>
+	<!-- 新手礼包：画符桌可制作，打开后获得新手补给一整套
+	     外观直接复用游戏本体资源 res\Sprs\object\object_XIAObaoxiang01（小宝箱）
+	     配方挂载方式参考 ProduceMode 写法（同本体 DLC 黄精粉 / 武当拂尘） -->
+	<ThingDef Type="Item" Name="Item_JadeStart_NewbieGift" Parent="MaterialBase">
+		<ThingName>新手礼包</ThingName>
+		<MaxStack>1</MaxStack>
+		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
+		<Desc>一只系着红绳的小宝箱，是给初入仙途之人的见面礼。里面装着乾坤灵晶、天柱石、烛龙的天鳞、阴阳二行神阵阵图、混沌的龙玉、阴阳之结晶、梧桐神木与星髓。</Desc>
+		<Beauty>3</Beauty>
+		<Rate>9</Rate>
+		<ElementKind>None</ElementKind>
+		<Flammability>
+			<Flammability>0</Flammability>
+			<FlameSpawnThingDef></FlameSpawnThingDef>
+			<FlameSpawnChance>0</FlameSpawnChance>
+		</Flammability>
+
+		<IllustratedHandLabel>WOther</IllustratedHandLabel>
+		<Item Lable="Other">
+			<NotRandom>1</NotRandom>
+			<FabaoSuffix>包,礼</FabaoSuffix>
+			<BeMade>
+				<WorkToMake>200</WorkToMake>
+				<CostItems>
+					<Item name = "Item_LingStone" count = "100"/>
+				</CostItems>
+			</BeMade>
+		</Item>
+
+		<!-- 挂到画符桌的配方列表 -->
+		<ProduceMode>
+			<ProduceBuildings>
+				<li>
+					<Building>CalligraphyTable</Building>
+					<Count>1</Count>
+				</li>
+			</ProduceBuildings>
+		</ProduceMode>
+
+		<StoryBnts>
+			<li Name="打开" Desc="拆开这份新手礼包" Appoint="3" Story="Story_Item_JadeStart_NewbieGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+		</StoryBnts>
+	</ThingDef>
+
+</List></ThingDefs>
