@@ -26,6 +26,12 @@
 			<li Name="Qi" Level="20"/>
 			<li Name="SocialContact" Level="20"/>
 			<li Name="Art" Level="20"/>
+			<li Name="Fabao" LevelOver="60"/>
+			<li Name="FightSkill" LevelOver="60"/>
+			<li Name="Barrier" LevelOver="60"/>
+			<li Name="Zhen" LevelOver="60"/>
+			<li Name="Medicine" LevelOver="60"/>
+			<li Name="Manual" LevelOver="60"/>
 		</Skills>
 	</Modifier>
 </List></ModifierDefs>

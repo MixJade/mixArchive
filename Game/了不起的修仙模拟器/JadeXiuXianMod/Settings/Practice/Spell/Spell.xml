@@ -10,10 +10,9 @@
 			<li Name="HappyConsumeConstant" AddP="-3"/>
 		</Effects>
 	</Spell>
-	
 	<Spell Name="Spell_FabaoMake_LingInheritRateAddV">
 		<DisplayName>五方灵宝符</DisplayName>
-		<Desc>【天道强化】可提高炼宝品阶、炼制速度</Desc>
+		<Desc>【天道强化】可提高炼宝品阶、炼制速度；可提高炼丹产量、成功率</Desc>
 		<Template>Spell/main_texture_wuli01</Template>
 		<UnLock>0</UnLock>
 		<Effects>
@@ -22,18 +21,26 @@
 			<li Name="FabaoMake_LingInheritRateAddV" AddV="15"/>
 			<li Name="FabaoMake_QualityAddV" AddV="10"/>
 			<li Name="FabaoMake_TwelveRateChance" AddV="20"/>
-		</Effects>
-	</Spell>
-	
-	<Spell Name="Spell_DanMake_YieldAddP">
-		<DisplayName>万化承丹符</DisplayName>
-		<Desc>【天道强化】可提高炼丹产量、成功率</Desc>
-		<Template>Spell/main_texture_wanhua01</Template>
-		<UnLock>0</UnLock>
-		<Effects>
 			<li Name="DanMake_SpeedAddV" AddV="10"/>
 			<li Name="DanMake_YieldAddP" AddV="2"/>
 			<li Name="DanMake_SuccessRateAddV" AddV="15"/>
+		</Effects>
+	</Spell>
+	<Spell Name="Spell_GlobalEfficiency">
+		<DisplayName>神勤符</DisplayName>
+		<Desc>【天道强化】使手脚灵敏，工作效率提高。</Desc>
+		<Template>Spell/main_texture_shenqin01</Template>
+		<UnLock>0</UnLock>
+		<Effects>
+			<li Name="GlobalEfficiency" AddP="40"/>
+			<li Name="MoveSpeed" AddP="3"/>
+			<li Name="MadeQualityAddValue" AddV="2"/>
+			<li Name="IntelligenceSkillEXPConstant" AddP="15"/>
+			<li Name="FatigueConsumeConstant" AddP="-3"/>
+			<li Name="FatigueRecoveryConstant" AddP="3"/>
+			<li Name="HappyConsumeConstant" AddP="-3"/>
+			<li Name="BaseEmotionAddV" AddV="100"/>
+			<li Name="RecoveryPower" AddP="3"/>
 		</Effects>
 	</Spell>
 </List>	</Spells>
