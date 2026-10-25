@@ -8,6 +8,9 @@
 			<li Name="MindStateBaseValue" AddV="80"/>
 			<li Name="BaseEmotionAddV" AddV="30"/>
 			<li Name="HappyConsumeConstant" AddP="-3"/>
+			<li Name="WorldMapFlySpeedAddP" AddV="10"/>
+			<li Name="VisionRadius" AddP="3"/>
+			<li Name="ExperienceFindSpeedAddV" AddV="5"/>
 		</Effects>
 	</Spell>
 	<Spell Name="Spell_FabaoMake_LingInheritRateAddV">
@@ -41,6 +44,8 @@
 			<li Name="HappyConsumeConstant" AddP="-3"/>
 			<li Name="BaseEmotionAddV" AddV="100"/>
 			<li Name="RecoveryPower" AddP="3"/>
+			<li Name="NutritionConsumeConstant" AddP="-0.5"/>
+			<li Name="WaterConsumeConstant" AddP="-0.5"/>
 		</Effects>
 	</Spell>
 </List>	</Spells>
