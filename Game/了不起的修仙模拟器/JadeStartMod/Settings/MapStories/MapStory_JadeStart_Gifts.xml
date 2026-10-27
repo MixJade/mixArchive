@@ -18,7 +18,7 @@
 				me:DropAwardItem("Item_BossZhuLong_Eye", 2);
 				me:DropAwardItem("Item_ParasolWood", 1);
 				me:DropAwardItem("Item_StarEssence", 1);
-				me:DropAwardItem("Item_YaoLeather1", 1);
+				me:DropAwardItem("Item_YaoLeather1", 180);
 				me:DropAwardItem("Item_Dan_FiveBaseFromLife", 1);
 				story:RemoveBindItem();
 				]]>
