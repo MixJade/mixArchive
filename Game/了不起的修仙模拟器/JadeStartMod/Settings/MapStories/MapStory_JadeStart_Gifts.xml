@@ -1,0 +1,87 @@
+<Stories><List>
+	<!-- 1. 新手礼包：固定发放物品 -->
+	<Story Name="Story_Item_JadeStart_NewbieGift" Parent="BaseFillingStory">
+		<DisplayName>新手礼包</DisplayName>
+		<Desc>拆开这份初入仙途的见面礼。</Desc>
+		<Kind>None</Kind>
+		<Selections>
+			<li>
+				<Display>打开</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]解开红绳拆开新手礼包，箱中静静躺着以下宝物："));
+				me:DropAwardItem("Item_Wonder_QianKunLingJing", 1);
+				me:DropAwardItem("Item_SkyStone", 1);
+				me:DropAwardItem("Item_BossZhuLong_TianLin", 1);
+				me:DropAwardItem("Item_MiBao_YinYangZhenTu", 1);
+				me:DropAwardItem("Item_BossZhuLong_LongYu", 1);
+				me:DropAwardItem("Item_BossZhuLong_Eye", 2);
+				me:DropAwardItem("Item_ParasolWood", 1);
+				me:DropAwardItem("Item_StarEssence", 1);
+				me:DropAwardItem("Item_YaoLeather1", 1);
+				me:DropAwardItem("Item_Dan_FiveBaseFromLife", 1);
+				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+		</Selections>
+	</Story>
+
+	<!-- 2. 古修秘匣：触发 3 次「古修踪迹」
+	     GameEventMgr:TriggerEvent(97) = 事件 97「上古修行者」/ EventSecret / 参数 56，
+	     生成秘闻「古修传闻」→ 故事 Secrets_DaNengChuShi（地图上显示为「古修踪迹」）。
+	     要改次数就改下面循环里的 3。 -->
+	<Story Name="Story_Item_JadeStart_AncientGift" Parent="BaseFillingStory">
+		<DisplayName>古修秘匣</DisplayName>
+		<Desc>撬开这只古旧的机关匣。</Desc>
+		<Kind>None</Kind>
+		<Selections>
+			<li>
+				<Display>打开</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]撬开锈死的锁扣，匣中封存的古修神念散逸而出，隐约指向几处上古修行者的踪迹……"));
+				local ok, err = pcall(function()
+					local Evt = GameEventMgr or CS.XiaWorld.GameEventMgr.Instance;
+					for i = 1, 3 do
+						Evt:TriggerEvent(97);
+					end
+				end);
+				if not ok then
+					print("[JadeStartMod] 古修秘匣触发失败: " .. tostring(err));
+				end
+				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+		</Selections>
+	</Story>
+
+	<!-- 3. 招贤礼包：召来凡人（逻辑在 Scripts/JadeStart_GiftMortal.lua） -->
+	<Story Name="Story_Item_JadeStart_ReincVisitor" Parent="BaseFillingStory">
+		<DisplayName>招贤礼包</DisplayName>
+		<Desc>拆开这份系着红绳的礼包。</Desc>
+		<Kind>None</Kind>
+		<Selections>
+			<li>
+				<Display>打开</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]解开红绳打开礼包，箱底一缕气运散作清风，飘向山门之外……"));
+				local ok, err = pcall(function()
+					GameMain:GetMod("JadeStartMod"):SpawnBlessedMortal(me);
+				end);
+				if ok then
+					me:AddMsg(XT("不多时，山门外来了一群凡人，说是流落至此，愿在山门求一处安身之所。"));
+				else
+					print("[JadeStartMod] 招贤礼包召唤失败: " .. tostring(err));
+					me:AddMsg(XT("可山门外始终不见人影，那缕气运也渐渐淡了。"));
+				end
+				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+		</Selections>
+	</Story>
+
+</List></Stories>

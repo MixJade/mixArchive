@@ -7,8 +7,6 @@ local JadeStart = GameMain:GetMod("JadeStartMod");
 function JadeStart:OnEnter()
 	-- 模块一：交流满好感（挂「选中 NPC」+「交流新台词」两个触发点）
 	self:InitFullFavour();
-	-- 模块三：周天神算 → 古修踪迹
-	self:ApplyProphesyOverride();
 	-- 模块四 + 模块五：动物开智（观察 / 思考），见 JadeStartMod_A2H.lua
 	self:InitA2H();
 	-- 模块二：全门派 10 人情（进存档时发放一次）
@@ -277,60 +275,4 @@ function JadeStart:GiveSectRelation()
 		return true;
 	end
 	return false;
-end
-
-
---=====================================================================
---  模块三：周天神算·古修踪迹
---
---  原版周天神算（Magic_Prophesy）施展成功后，只是给角色挂一个
---  Modifier_Sys_Magic_Prophesy（持续一个月，作用是事件发生前预先提示）。
---  这里在保留原效果的基础上，成功时立即再触发 3 次「古修踪迹」。
---
---  GameEventMgr:TriggerEvent 的参数是 Settings/World/Events/EventList.txt
---  里的事件 ID：97 =「上古修行者」，对应秘闻 56「古修传闻」。
---
---  做法：在 OnEnter 里覆盖 MagicHelper 中 Magic_Prophesy 的 MagicLeave，
---  晚于游戏本体 Scripts/Magic/class/Magic_Prophesy.lua 执行。
---=====================================================================
-JadeStart.PROPHESY_SECRET_ID = 97;    --「古修踪迹」事件 ID
-
-function JadeStart:ApplyProphesyOverride()
-	local MagicHelper = GameMain:GetMod("MagicHelper");
-	local tbMagic = nil;
-	if MagicHelper ~= nil and MagicHelper.GetMagic ~= nil then
-		tbMagic = MagicHelper:GetMagic("Magic_Prophesy");
-	end
-	if tbMagic == nil then
-		print("[JadeStartMod] Magic_Prophesy 未就绪，周天神算修改跳过");
-		return;
-	end
-	--防止重复包装（会把原版逻辑叠好几层）
-	if tbMagic.JadeStartHooked then
-		return;
-	end
-	tbMagic.JadeStartHooked = true;
-
-	--保留原版 MagicLeave（成功提示 + 挂 Modifier），成功时再补 3 次古修踪迹
-	local rawLeave = tbMagic.MagicLeave;
-	function tbMagic:MagicLeave(success)
-		if rawLeave ~= nil then
-			rawLeave(self, success);
-		end
-		if success == true then
-			JadeStart:FireProphesySecret();
-		end
-	end
-end
-
---立即触发 3 次「古修踪迹」
-function JadeStart:FireProphesySecret()
-	local ok, err = pcall(function()
-		for i = 1, 3 do
-			GameEventMgr:TriggerEvent(JadeStart.PROPHESY_SECRET_ID);
-		end
-	end);
-	if not ok then
-		print("[JadeStartMod] 触发古修踪迹异常: " .. tostring(err));
-	end
 end

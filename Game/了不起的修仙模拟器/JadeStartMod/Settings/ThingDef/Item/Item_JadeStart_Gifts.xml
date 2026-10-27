@@ -1,0 +1,125 @@
+<ThingDefs><List>
+	<!-- 1. 新手礼包 -->
+	<ThingDef Type="Item" Name="Item_JadeStart_NewbieGift" Parent="MaterialBase">
+		<ThingName>新手礼包</ThingName>
+		<MaxStack>1</MaxStack>
+		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
+		<Desc>一只系着红绳的小宝箱，是给初入仙途之人的见面礼。里面装着乾坤灵晶、天柱石、烛龙的天鳞、阴阳二行神阵阵图、混沌的龙玉、阴阳之结晶、梧桐神木、星髓、妖兽的韧皮与五毒五炁元神丹。</Desc>
+		<Beauty>3</Beauty>
+		<Rate>9</Rate>
+		<ElementKind>None</ElementKind>
+		<Flammability>
+			<Flammability>0</Flammability>
+			<FlameSpawnThingDef></FlameSpawnThingDef>
+			<FlameSpawnChance>0</FlameSpawnChance>
+		</Flammability>
+
+		<IllustratedHandLabel>WOther</IllustratedHandLabel>
+		<Item Lable="Other">
+			<NotRandom>1</NotRandom>
+			<FabaoSuffix>包,礼</FabaoSuffix>
+			<BeMade>
+				<WorkToMake>200</WorkToMake>
+				<CostItems>
+					<Item name = "Item_LingStone" count = "100"/>
+				</CostItems>
+			</BeMade>
+		</Item>
+
+		<ProduceMode>
+			<ProduceBuildings>
+				<li>
+					<Building>CalligraphyTable</Building>
+					<Count>1</Count>
+				</li>
+			</ProduceBuildings>
+		</ProduceMode>
+
+		<StoryBnts>
+			<li Name="打开" Desc="拆开这份新手礼包" Appoint="3" Story="Story_Item_JadeStart_NewbieGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+		</StoryBnts>
+	</ThingDef>
+
+	<!-- 2. 古修秘匣 -->
+	<ThingDef Type="Item" Name="Item_JadeStart_AncientGift" Parent="MaterialBase">
+		<ThingName>古修秘匣</ThingName>
+		<MaxStack>1</MaxStack>
+		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
+		<Desc>一只纹饰古拙的小匣，锁扣早已锈死，只能用蛮力撬开。匣中并无实物，只封存着上古修行者留下的一缕神念，打开便能循着它找到古修的踪迹。</Desc>
+		<Beauty>3</Beauty>
+		<Rate>9</Rate>
+		<ElementKind>None</ElementKind>
+		<Flammability>
+			<Flammability>0</Flammability>
+			<FlameSpawnThingDef></FlameSpawnThingDef>
+			<FlameSpawnChance>0</FlameSpawnChance>
+		</Flammability>
+
+		<IllustratedHandLabel>WOther</IllustratedHandLabel>
+		<Item Lable="Other">
+			<NotRandom>1</NotRandom>
+			<FabaoSuffix>匣,秘</FabaoSuffix>
+			<BeMade>
+				<WorkToMake>200</WorkToMake>
+				<CostItems>
+					<Item name = "Item_LingStone" count = "100"/>
+				</CostItems>
+			</BeMade>
+		</Item>
+
+		<ProduceMode>
+			<ProduceBuildings>
+				<li>
+					<Building>CalligraphyTable</Building>
+					<Count>1</Count>
+				</li>
+			</ProduceBuildings>
+		</ProduceMode>
+
+		<StoryBnts>
+			<li Name="打开" Desc="撬开秘匣，循古修踪迹" Appoint="3" Story="Story_Item_JadeStart_AncientGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+		</StoryBnts>
+	</ThingDef>
+
+	<!-- 3. 招贤礼包 -->
+	<ThingDef Type="Item" Name="Item_JadeStart_ReincVisitor" Parent="MaterialBase">
+		<ThingName>招贤礼包</ThingName>
+		<MaxStack>1</MaxStack>
+		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
+		<Desc>一只系着红绳的小宝箱，箱中不装宝物，只压着一缕不知从何而来的气运。打开它，便会有一群天资不凡的凡人循着这份气运寻上山门，愿在山门安身立命。</Desc>
+		<Beauty>3</Beauty>
+		<Rate>9</Rate>
+		<ElementKind>None</ElementKind>
+		<Flammability>
+			<Flammability>0</Flammability>
+			<FlameSpawnThingDef></FlameSpawnThingDef>
+			<FlameSpawnChance>0</FlameSpawnChance>
+		</Flammability>
+
+		<IllustratedHandLabel>WOther</IllustratedHandLabel>
+		<Item Lable="Other">
+			<NotRandom>1</NotRandom>
+			<FabaoSuffix>礼,包</FabaoSuffix>
+			<BeMade>
+				<WorkToMake>200</WorkToMake>
+				<CostItems>
+					<Item name = "Item_LingStone" count = "100"/>
+				</CostItems>
+			</BeMade>
+		</Item>
+
+		<ProduceMode>
+			<ProduceBuildings>
+				<li>
+					<Building>CalligraphyTable</Building>
+					<Count>1</Count>
+				</li>
+			</ProduceBuildings>
+		</ProduceMode>
+
+		<StoryBnts>
+			<li Name="打开" Desc="召来十名天资不凡的凡人" Appoint="3" Story="Story_Item_JadeStart_ReincVisitor" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+		</StoryBnts>
+	</ThingDef>
+
+</List></ThingDefs>
