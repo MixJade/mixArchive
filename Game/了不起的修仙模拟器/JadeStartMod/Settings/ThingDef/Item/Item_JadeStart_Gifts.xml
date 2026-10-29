@@ -86,7 +86,7 @@
 		<ThingName>招贤礼包</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，箱中不装宝物，只压着一缕不知从何而来的气运。打开它，便会有一群天资不凡的凡人循着这份气运寻上山门，愿在山门安身立命。</Desc>
+		<Desc>一只系着红绳的小宝箱，箱中不装宝物，只压着一缕不知从何而来的气运。打开它，不多时便会有三十名凡人循着这份气运寻上山门，愿在山门安身立命。</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
@@ -118,7 +118,7 @@
 		</ProduceMode>
 
 		<StoryBnts>
-			<li Name="打开" Desc="召来十名天资不凡的凡人" Appoint="3" Story="Story_Item_JadeStart_ReincVisitor" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+			<li Name="打开" Desc="召来三十名凡人拜山门" Appoint="3" Story="Story_Item_JadeStart_ReincVisitor" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
 		</StoryBnts>
 	</ThingDef>
 

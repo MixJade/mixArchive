@@ -11,13 +11,13 @@
 				<![CDATA[
 				me:AddMsg(XT("[NAME]解开红绳拆开新手礼包，箱中静静躺着以下宝物："));
 				me:DropAwardItem("Item_Wonder_QianKunLingJing", 1);
-				me:DropAwardItem("Item_SkyStone", 1);
+				me:DropAwardItem("Item_SkyStone", 64);
 				me:DropAwardItem("Item_BossZhuLong_TianLin", 1);
 				me:DropAwardItem("Item_MiBao_YinYangZhenTu", 1);
 				me:DropAwardItem("Item_BossZhuLong_LongYu", 1);
 				me:DropAwardItem("Item_BossZhuLong_Eye", 2);
-				me:DropAwardItem("Item_ParasolWood", 1);
-				me:DropAwardItem("Item_StarEssence", 1);
+				me:DropAwardItem("Item_ParasolWood", 64);
+				me:DropAwardItem("Item_StarEssence", 64);
 				me:DropAwardItem("Item_YaoLeather1", 180);
 				me:DropAwardItem("Item_Dan_FiveBaseFromLife", 1);
 				story:RemoveBindItem();
@@ -57,10 +57,10 @@
 		</Selections>
 	</Story>
 
-	<!-- 3. 招贤礼包：召来凡人（逻辑在 Scripts/JadeStart_GiftMortal.lua） -->
+	<!-- 3. 招贤礼包：召来30名凡人拜山门 -->
 	<Story Name="Story_Item_JadeStart_ReincVisitor" Parent="BaseFillingStory">
 		<DisplayName>招贤礼包</DisplayName>
-		<Desc>拆开这份系着红绳的礼包。</Desc>
+		<Desc>拆开这份系着红绳的礼包，召来三十名凡人叩问山门。</Desc>
 		<Kind>None</Kind>
 		<Selections>
 			<li>
@@ -68,15 +68,9 @@
 				<OKResult>
 				<![CDATA[
 				me:AddMsg(XT("[NAME]解开红绳打开礼包，箱底一缕气运散作清风，飘向山门之外……"));
-				local ok, err = pcall(function()
-					GameMain:GetMod("JadeStartMod"):SpawnBlessedMortal(me);
-				end);
-				if ok then
-					me:AddMsg(XT("不多时，山门外来了一群凡人，说是流落至此，愿在山门求一处安身之所。"));
-				else
-					print("[JadeStartMod] 招贤礼包召唤失败: " .. tostring(err));
-					me:AddMsg(XT("可山门外始终不见人影，那缕气运也渐渐淡了。"));
-				end
+				--参数说明：个数 / 品质等级（实际无效）(1-10) / 滞后时间(天) / 五维附加值 / 种族
+				me:AddJoiners(30, 9, 0, 9, 9, 9, 9, 9, "Human");
+				me:AddMsg(XT("不多时，山门外来了三十名凡人，说是流落至此，愿在山门求一处安身之所。"));
 				story:RemoveBindItem();
 				]]>
 				</OKResult>
