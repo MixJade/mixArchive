@@ -20,6 +20,9 @@
 				me:DropAwardItem("Item_StarEssence", 64);
 				me:DropAwardItem("Item_YaoLeather1", 180);
 				me:DropAwardItem("Item_Dan_FiveBaseFromLife", 1);
+				me:DropEsoteric("Esoterica_MiBao_5");
+				me:DropEsoteric("Esoterica_MiBao_8");
+				me:DropEsoteric("Esoterica_MiBao_9");
 				story:RemoveBindItem();
 				]]>
 				</OKResult>
