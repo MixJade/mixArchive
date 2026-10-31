@@ -16,6 +16,10 @@
 				me:DropAwardItem("Item_MiBao_YinYangZhenTu", 1);
 				me:DropAwardItem("Item_BossZhuLong_LongYu", 1);
 				me:DropAwardItem("Item_BossZhuLong_Eye", 2);
+				me:DropAwardItem("Item_BossZhuLong_HeiLin", 5);
+				me:DropAwardItem("Item_BossZhuLong_BaiLin", 5);
+				me:DropAwardItem("Item_BossLong_Jing", 2);
+				me:DropAwardItem("Item_BossLong_Zhua", 2);
 				me:DropAwardItem("Item_ParasolWood", 64);
 				me:DropAwardItem("Item_StarEssence", 64);
 				me:DropAwardItem("Item_YaoLeather1", 180);

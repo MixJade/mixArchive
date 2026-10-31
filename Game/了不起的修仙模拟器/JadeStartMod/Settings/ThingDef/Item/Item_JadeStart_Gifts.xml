@@ -4,7 +4,7 @@
 		<ThingName>新手礼包</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，是给初入仙途之人的见面礼。里面装着乾坤灵晶、天柱石、烛龙的天鳞、阴阳二行阵图、混沌的龙玉、阴阳之结晶、梧桐神木、星髓、妖兽的韧皮与五毒五炁元神丹，以及三册秘宝配方。</Desc>
+		<Desc>一只系着红绳的小宝箱，是给初入仙途之人的见面礼。里面装着乾坤灵晶、天柱石、烛龙的天鳞、漆黑的大鳞、洁白的大鳞、蛟龙的崩天筋、蛟龙的罗刹爪、阴阳二行阵图、混沌的龙玉、阴阳之结晶、梧桐神木、星髓、妖兽的韧皮与五毒五炁元神丹，以及三册秘宝配方。</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
