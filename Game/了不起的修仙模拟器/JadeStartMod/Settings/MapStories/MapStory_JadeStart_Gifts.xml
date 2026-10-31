@@ -81,7 +81,7 @@
 		</Selections>
 	</Story>
 
-	<!-- 4. 参悟礼包：直接加 30 亿参悟经验 -->
+	<!-- 4. 参悟礼包：直接加 80 亿参悟经验 -->
 	<Story Name="Story_Item_JadeStart_TreeExpGift" Parent="BaseFillingStory">
 		<DisplayName>参悟礼包</DisplayName>
 		<Desc>拆开这份封着前人心得的礼包。</Desc>
@@ -92,8 +92,8 @@
 				<OKResult>
 				<![CDATA[
 				me:AddMsg(XT("[NAME]拆开礼包，一枚无名玉简落入掌心，玉简一触即碎，化作无数感悟涌入识海……"));
-				--第二个参数 true = 不走心情/悟性系数，原样加 30 亿
-				me:AddTreeExp(3000000000, true);
+				--第二个参数 true = 不走心情/悟性系数，原样加 80 亿
+				me:AddTreeExp(8000000000, true);
 				me:AddMsg(XT("良久，[NAME]睁开双眼，胸中已是豁然贯通。"));
 				story:RemoveBindItem();
 				]]>

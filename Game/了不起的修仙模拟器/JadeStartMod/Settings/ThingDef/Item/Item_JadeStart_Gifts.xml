@@ -127,7 +127,7 @@
 		<ThingName>参悟礼包</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，箱中封着前人毕生的修行心得。打开它，便有三十亿点参悟经验涌入打开者的识海——不过这份心得只对道法修行者有用，其余法门的人拆开只会觉得空无一物。</Desc>
+		<Desc>一只系着红绳的小宝箱，箱中封着前人毕生的修行心得。打开它，便有八十亿点参悟经验涌入打开者的识海——不过这份心得只对道法修行者有用，其余法门的人拆开只会觉得空无一物。</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
@@ -159,7 +159,7 @@
 		</ProduceMode>
 
 		<StoryBnts>
-			<li Name="打开" Desc="得三十亿参悟经验" Appoint="3" Story="Story_Item_JadeStart_TreeExpGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+			<li Name="打开" Desc="得八十亿参悟经验" Appoint="3" Story="Story_Item_JadeStart_TreeExpGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
 		</StoryBnts>
 	</ThingDef>
 
