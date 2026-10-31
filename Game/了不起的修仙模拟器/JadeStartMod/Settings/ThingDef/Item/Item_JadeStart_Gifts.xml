@@ -122,4 +122,86 @@
 		</StoryBnts>
 	</ThingDef>
 
+	<!-- 4. 参悟礼包 -->
+	<ThingDef Type="Item" Name="Item_JadeStart_TreeExpGift" Parent="MaterialBase">
+		<ThingName>参悟礼包</ThingName>
+		<MaxStack>1</MaxStack>
+		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
+		<Desc>一只系着红绳的小宝箱，箱中封着前人毕生的修行心得。打开它，便有三十亿点参悟经验涌入打开者的识海——不过这份心得只对道法修行者有用，其余法门的人拆开只会觉得空无一物。</Desc>
+		<Beauty>3</Beauty>
+		<Rate>9</Rate>
+		<ElementKind>None</ElementKind>
+		<Flammability>
+			<Flammability>0</Flammability>
+			<FlameSpawnThingDef></FlameSpawnThingDef>
+			<FlameSpawnChance>0</FlameSpawnChance>
+		</Flammability>
+
+		<IllustratedHandLabel>WOther</IllustratedHandLabel>
+		<Item Lable="Other">
+			<NotRandom>1</NotRandom>
+			<FabaoSuffix>礼,包</FabaoSuffix>
+			<BeMade>
+				<WorkToMake>200</WorkToMake>
+				<CostItems>
+					<Item name = "Item_LingStone" count = "100"/>
+				</CostItems>
+			</BeMade>
+		</Item>
+
+		<ProduceMode>
+			<ProduceBuildings>
+				<li>
+					<Building>CalligraphyTable</Building>
+					<Count>1</Count>
+				</li>
+			</ProduceBuildings>
+		</ProduceMode>
+
+		<StoryBnts>
+			<li Name="打开" Desc="得三十亿参悟经验" Appoint="3" Story="Story_Item_JadeStart_TreeExpGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+		</StoryBnts>
+	</ThingDef>
+
+	<!-- 5. 线索礼包 -->
+	<ThingDef Type="Item" Name="Item_JadeStart_ClueGift" Parent="MaterialBase">
+		<ThingName>线索礼包</ThingName>
+		<MaxStack>1</MaxStack>
+		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
+		<Desc>一只系着红绳的小宝箱，箱中装的不是宝物，而是一叠来路不明的旧案卷宗。打开它，江湖秘闻中「神秘身影」「灭门之谜」「外传-上古信息」的线索便会一并到手，往后不必再逐一寻访各派人物打听。</Desc>
+		<Beauty>3</Beauty>
+		<Rate>9</Rate>
+		<ElementKind>None</ElementKind>
+		<Flammability>
+			<Flammability>0</Flammability>
+			<FlameSpawnThingDef></FlameSpawnThingDef>
+			<FlameSpawnChance>0</FlameSpawnChance>
+		</Flammability>
+
+		<IllustratedHandLabel>WOther</IllustratedHandLabel>
+		<Item Lable="Other">
+			<NotRandom>1</NotRandom>
+			<FabaoSuffix>礼,包</FabaoSuffix>
+			<BeMade>
+				<WorkToMake>200</WorkToMake>
+				<CostItems>
+					<Item name = "Item_LingStone" count = "100"/>
+				</CostItems>
+			</BeMade>
+		</Item>
+
+		<ProduceMode>
+			<ProduceBuildings>
+				<li>
+					<Building>CalligraphyTable</Building>
+					<Count>1</Count>
+				</li>
+			</ProduceBuildings>
+		</ProduceMode>
+
+		<StoryBnts>
+			<li Name="打开" Desc="获灭门旧案全部线索（含外传）" Appoint="3" Story="Story_Item_JadeStart_ClueGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+		</StoryBnts>
+	</ThingDef>
+
 </List></ThingDefs>

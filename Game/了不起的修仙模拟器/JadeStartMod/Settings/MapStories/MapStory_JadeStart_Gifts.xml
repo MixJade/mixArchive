@@ -81,4 +81,62 @@
 		</Selections>
 	</Story>
 
+	<!-- 4. 参悟礼包：直接加 30 亿参悟经验 -->
+	<Story Name="Story_Item_JadeStart_TreeExpGift" Parent="BaseFillingStory">
+		<DisplayName>参悟礼包</DisplayName>
+		<Desc>拆开这份封着前人心得的礼包。</Desc>
+		<Kind>None</Kind>
+		<Selections>
+			<li>
+				<Display>打开</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]拆开礼包，一枚无名玉简落入掌心，玉简一触即碎，化作无数感悟涌入识海……"));
+				--第二个参数 true = 不走心情/悟性系数，原样加 30 亿
+				me:AddTreeExp(3000000000, true);
+				me:AddMsg(XT("良久，[NAME]睁开双眼，胸中已是豁然贯通。"));
+				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+		</Selections>
+	</Story>
+
+	<!-- 5. 线索礼包：一次解锁「神秘身影」「灭门之谜」的全部线索，外加外传「上古信息」
+	     线索 ID 出自 Settings/Jianghu/Secret/Clue/Clue.txt：
+	       神秘身影（秘闻 1）＝ 1~5
+	       灭门之谜（秘闻 2）＝ 6~29
+	       外传：上古信息      ＝ 43
+	     UnLockClue(线索ID, 是否弹提示框)，提示框一次只报一条，所以这里传 false，改用 AddMsg 汇总。 -->
+	<Story Name="Story_Item_JadeStart_ClueGift" Parent="BaseFillingStory">
+		<DisplayName>线索礼包</DisplayName>
+		<Desc>拆开这份装着旧案卷宗的礼包。</Desc>
+		<Kind>None</Kind>
+		<Selections>
+			<li>
+				<Display>打开</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]解开礼包，里头是一叠发黄的卷宗，字迹杂乱，却处处指向同一段旧事……"));
+				local ok, err = pcall(function()
+					local JH = CS.XiaWorld.JianghuMgr.Instance;
+					for id = 1, 29 do
+						JH:UnLockClue(id, false);
+					end
+					JH:UnLockClue(43, false);
+				end);
+				if ok then
+					me:AddMsg(XT("卷宗阅罢，江湖秘闻中「神秘身影」「灭门之谜」「外传-上古信息」的线索尽数在握。"));
+					me:AddMsg(XT("（外传说明）打开「江湖」界面的「秘闻」，进「外传：上古信息」，把「上古信息」这条线索选进「动机」栏，其余两栏随手挑几条已得的线索填上即可解开。"));
+				else
+					print("[JadeStartMod] 线索解锁失败: " .. tostring(err));
+					me:AddMsg(XT("可惜卷宗字迹含糊难辨，终究没能理出个头绪。"));
+				end
+				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+		</Selections>
+	</Story>
+
 </List></Stories>
