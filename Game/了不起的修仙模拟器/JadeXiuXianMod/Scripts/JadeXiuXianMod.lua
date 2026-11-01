@@ -444,7 +444,11 @@ function JadeXian:InitBulkEntry()
 	end
 	Event:RegisterEvent(
 		g_emEvent.SelectBuilding,
-		function(evt, thing, objs) JadeXian:OnSelectBuilding(thing); end,
+		function(evt, thing, objs)
+			JadeXian:OnSelectBuilding(thing);
+			--同一事件里顺带分发护山剑阵的「清理垃圾」（模块十三），避免重复注册
+			JadeXian:OnSelectSwordPillar(thing);
+		end,
 		"JadeXian_BulkEntry"
 	);
 end
@@ -697,7 +701,8 @@ function JadeXian:AddBtn2Item(evt, thing, objs)
 	);
 end
 
---判断是否为法宝物品（FightFabao / FlyFabao / TreasureFabao）
+--判断是否为法宝物品（FightFabao 战斗法宝 / TreasureFabao 宝物）
+--g_emItemLable 里没有 FlyFabao，法宝就是 14/15 两类
 function JadeXian:IsFabaoItem(thing)
 	local ok, isFabao = pcall(function() return thing.IsFaBao; end);
 	if ok and isFabao == true then
@@ -780,4 +785,247 @@ function JadeXian:StrengthenFabao(item)
 	else
 		WorldLua:ShowMsgBox(XT("强化失败：") .. tostring(err), XT("确定"));
 	end
+end
+
+
+--=====================================================================
+--  模块十三：护山剑阵 —— 一键清理垃圾
+--
+--  在建筑「护山剑阵」（def 名 Building_BigSwordPillar）的面板上挂一颗
+--  「清理垃圾」按钮（做法与模块八的藏经阁一键录入一致），点一下就把地图上
+--  下列分类里「品阶 < 6」的物品全部销毁，每销毁 1 个返还 500 灵石：
+--      武器 Weapon / 衣服 Clothes / 裤子 Trousers /
+--      法宝 FightFabao + TreasureFabao / 工具 Tool / 垃圾 Garbage
+--
+--  品阶取自 Thing.Rate（int）。依据有两条：
+--    ① Reward/GameThing.txt 的「最小品阶 / 最大品阶」两列，内核生成的
+--       随机物品参数就是 (lable, minrate, maxrate, Q)，min/maxrate 即品阶；
+--    ② 内核脚本里判断献祭要求时写的正是 `thing.Rate < ei.rate`
+--       （提示文案为「%d阶以上」），元灵补天诀提品阶也是直接 `target.Rate = 12`。
+--  而 Thing.Quality（float，配合 GameDefine.GetQualityDesc 显示成
+--  「糟糕/普通/一般/优秀/精美/华丽」）是另一套「品质」数值，本功能不使用。
+--
+--  安全性（宁可漏杀，不能误杀）：
+--   * 只处理地图上的物品（ThingMgr:GetThingList），别人背包/手里的不动；
+--   * FreeCount <= 0（整堆都被作业锁住）的物品跳过；
+--   * 逐件 pcall 销毁，单件出错不影响其余物品，最后在弹窗里报告失败数；
+--   * 遍历前先做快照：GetThingList 返回的是 ThingMgr 内部列表，
+--     边遍历边 RemoveThing 会让下标错位（同一坑模块八已经踩过）。
+--
+--  灵石：用 Item_LingStone 落地生成，needcarry=true → 外门弟子会自动搬进仓库，
+--  与地母石碑给灵石（Map:DropItems("Item_LingStone", ...)）是同一套做法；
+--  数量分块落地，避免单堆超过堆叠上限。
+--=====================================================================
+JadeXian.SWORD_PILLAR     = "Building_BigSwordPillar";   --护山剑阵的 def 名
+JadeXian.TRASH_MAX_RATE   = 6;      --只销毁「品阶 < 6」的物品（6 阶本身保留）
+JadeXian.TRASH_PRICE      = 500;    --每销毁 1 个返还多少灵石
+JadeXian.TRASH_DROP_CHUNK = 5000;   --一次最多落地多少灵石（避免单堆超上限）
+JadeXian.LING_STONE_DEF   = "Item_LingStone";   --灵石的物品 def 名
+
+--分类顺序即弹窗里的展示顺序
+JadeXian.TRASH_CATS = { "武器", "衣服", "裤子", "法宝", "工具", "垃圾" };
+
+--按物品小类（g_emItemLable）判定分类；法宝另有 IsFaBao 兜底
+--返回 1~6 对应 TRASH_CATS 下标，不属于要清理的分类时返回 nil
+function JadeXian:GetTrashCategory(lable, isFabao)
+	local L = g_emItemLable;
+	if L == nil then
+		return isFabao == true and 4 or nil;
+	end
+	if lable ~= nil then
+		if lable == L.Weapon then
+			return 1;
+		elseif lable == L.Clothes then
+			return 2;
+		elseif lable == L.Trousers then
+			return 3;
+		elseif lable == L.FightFabao or lable == L.TreasureFabao then
+			return 4;
+		elseif lable == L.Tool then
+			return 5;
+		elseif lable == L.Garbage then
+			return 6;
+		end
+	end
+	if isFabao == true then
+		return 4;
+	end
+	return nil;
+end
+
+--建筑信息面板弹出时调用（由模块八的 SelectBuilding 事件统一分发）
+--每次都先删后加，重复挂也无害
+function JadeXian:OnSelectSwordPillar(thing)
+	if thing == nil or thing.def == nil then
+		return;
+	end
+	if thing.def.Name ~= JadeXian.SWORD_PILLAR then
+		return;
+	end
+	local ok, err = pcall(function()
+		thing:RemoveBtnData("清理垃圾");
+		thing:AddBtnData(
+			"清理垃圾",
+			"res/Sprs/ui/icon_hand",
+			"GameMain:GetMod('JadeXian'):CleanTrashClick(bind)",
+			"销毁地图上品阶低于6的武器/衣服/裤子/法宝/工具/垃圾，每销毁一个获得500灵石（整堆被锁定的物品保留）",
+			nil
+		);
+	end);
+	if not ok then
+		print("[JadeXian] 护山剑阵按钮构建失败: " .. tostring(err));
+	end
+end
+
+--按钮入口：点一下直接干活
+function JadeXian:CleanTrashClick(t)
+	if t == nil then
+		return;
+	end
+	local ok, err = pcall(function() JadeXian:CleanTrash(t); end);
+	if not ok then
+		print("[JadeXian] 清理垃圾异常: " .. tostring(err));
+		WorldLua:ShowMsgBox(XT("清理垃圾失败：") .. tostring(err), XT("确定"));
+	end
+end
+
+--判断物品是否「在别人身上」（背包 / 手上）；是则不动它
+function JadeXian:IsItemHold(item)
+	local ok, hold = pcall(function()
+		local bag = item.InWhoseBag;
+		if bag ~= nil then
+			local s = tostring(bag);
+			if s ~= "0" and s ~= "null" then
+				return true;
+			end
+		end
+		local hand = item.InWhoseHand;
+		if hand ~= nil then
+			local s = tostring(hand);
+			if s ~= "0" and s ~= "null" then
+				return true;
+			end
+		end
+		return false;
+	end);
+	if not ok then
+		return false;      --取不到就当作没在身上，交给后面的保护条件兜底
+	end
+	return hold == true;
+end
+
+--主逻辑：扫描 → 销毁 → 返灵石 → 弹窗汇总
+function JadeXian:CleanTrash(t)
+	local ThingMgr = CS.XiaWorld.ThingMgr.Instance;
+	if ThingMgr == nil then
+		return;
+	end
+	local list = ThingMgr:GetThingList(g_emThingType.Item);
+	if list == nil or list.Count < 1 then
+		WorldLua:ShowMsgBox(XT("地图上没有可清理的物品"), XT("确定"));
+		return;
+	end
+
+	local maxRate = JadeXian.TRASH_MAX_RATE;
+
+	--① 快照：先把候选物品及其分类/数量读出来
+	local targets = {};
+	for i = 0, list.Count - 1 do
+		local it = list[i];
+		if it ~= nil then
+			local ok, cat, cnt = pcall(function()
+				if it.Key == 0 or it.IsValid == false then
+					return nil;
+				end
+				if (it.FreeCount or 0) <= 0 then
+					return nil;      --整堆都被作业锁住
+				end
+				if JadeXian:IsItemHold(it) then
+					return nil;      --在别人背包或手上
+				end
+				local lable = nil;
+				if it.def ~= nil and it.def.Item ~= nil then
+					lable = it.def.Item.Lable;
+				end
+				local isFabao = JadeXian:IsFabaoItem(it);
+				local c = JadeXian:GetTrashCategory(lable, isFabao);
+				if c == nil then
+					return nil;      --不是要清理的分类
+				end
+				local r = it.Rate or 0;
+				if r >= maxRate then
+					return nil;      --品阶够高，保留
+				end
+				return c, (it.Count or 1);
+			end);
+			if ok and cat ~= nil then
+				targets[#targets + 1] = { thing = it, cat = cat, count = cnt or 1 };
+			end
+		end
+	end
+
+	if #targets == 0 then
+		WorldLua:ShowMsgBox(
+			XT("地图上没有品阶低于" .. maxRate .. "的武器/衣服/裤子/法宝/工具/垃圾"),
+			XT("确定")
+		);
+		return;
+	end
+
+	--② 逐件销毁并按分类计数（stats[分类] = 销毁件数）
+	local stats = {};
+	for i = 1, #JadeXian.TRASH_CATS do
+		stats[i] = 0;
+	end
+	local totalUnit, failCount = 0, 0;
+	for _, rec in ipairs(targets) do
+		local okd = pcall(function() ThingMgr:RemoveThing(rec.thing, false, false); end);
+		if okd then
+			stats[rec.cat] = stats[rec.cat] + rec.count;
+			totalUnit = totalUnit + rec.count;
+		else
+			failCount = failCount + 1;
+		end
+	end
+
+	--③ 返还灵石：分块落地，交给外门弟子搬进仓库
+	local money = totalUnit * JadeXian.TRASH_PRICE;
+	print("[JadeXian] 护山剑阵清理：" .. totalUnit .. " 件，灵石 " .. money
+		.. "，失败 " .. failCount);
+	local dropErr = nil;
+	if money > 0 then
+		local okd, derr = pcall(function()
+			local left = money;
+			while left > 0 do
+				local n = left;
+				if n > JadeXian.TRASH_DROP_CHUNK then
+					n = JadeXian.TRASH_DROP_CHUNK;
+				end
+				Map:DropItems(JadeXian.LING_STONE_DEF, nil, n, t.Key, false, true);
+				left = left - n;
+			end
+		end);
+		if not okd then
+			dropErr = derr;
+		end
+	end
+
+	--④ 弹窗汇总：只报各分类的数量
+	local lines = {};
+	lines[#lines + 1] = "护山剑阵清理完成";
+	lines[#lines + 1] = "共销毁 " .. totalUnit .. " 件物品，获得灵石 " .. money .. " 枚";
+	lines[#lines + 1] = "（只销毁品阶低于" .. maxRate .. "的物品）";
+	for i = 1, #JadeXian.TRASH_CATS do
+		if stats[i] > 0 then
+			lines[#lines + 1] = JadeXian.TRASH_CATS[i] .. "：" .. stats[i] .. " 件";
+		end
+	end
+	if failCount > 0 then
+		lines[#lines + 1] = "";
+		lines[#lines + 1] = "（有 " .. failCount .. " 件销毁失败，已跳过）";
+	end
+	if dropErr ~= nil then
+		lines[#lines + 1] = "灵石生成失败：" .. tostring(dropErr);
+	end
+	WorldLua:ShowMsgBox(XT(table.concat(lines, "\n")), XT("确定"));
 end
