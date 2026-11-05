@@ -26,6 +26,8 @@ function JadeXian:OnEnter()
 	self:ApplyAuctionGoldCap();
 	--物品堆叠翻倍（模块十）
 	self:InitMultiItem();
+	--门派交易我方物品升值10万倍（模块十四）
+	self:InitSchoolTradeFree();
 end
 
 function JadeXian:AddBtn2Npcs(evt, thing, objs)
@@ -432,7 +434,6 @@ end
 --=====================================================================
 --  模块八：藏经阁一键录入
 --=====================================================================
-JadeXian.CJG_BUILDING = "Building_BookShelf_CangJing";   --藏经阁书架的 def 名
 JadeXian.CJG_ICON = "res/Sprs/ui/icon_luru01";
 
 --注册「选中建筑」事件（_Event 模块一个 table 只能挂一个事件，这里用独立 key，不影响模块一）
@@ -458,7 +459,7 @@ function JadeXian:OnSelectBuilding(thing)
 	if thing == nil or thing.def == nil then
 		return;
 	end
-	if thing.def.Name ~= JadeXian.CJG_BUILDING then
+	if thing.def.Name ~= "Building_BookShelf_CangJing" then
 		return;
 	end
 	local ok, err = pcall(function()
@@ -748,15 +749,7 @@ end
 --
 --  在法宝物品（FightFabao / FlyFabao / TreasureFabao）的操作面板上挂一颗「强化」按钮，
 --  点击后给法宝威力+3000
---
---  法宝属性都存于 item.Fabao（FabaoData）的 PS 字典里，键为 g_emFaBaoP 枚举：
---    AttackPower = 1  法宝威力
---    LingRecover = 2  回灵速度
---    MaxLing     = 3  灵气容量
---  读写接口：fabao:GetProperty(key) / fabao:SetProperty(key, value)。
 --=====================================================================
---法宝威力 / 回灵速度在 FabaoData.PS 字典中的键（g_emFaBaoP 枚举值）
-JadeXian.FABAO_ATTACK_POWER_KEY = 1;    --AttackPower 法宝威力
 
 --强化一件法宝
 function JadeXian:StrengthenFabao(item)
@@ -770,9 +763,9 @@ function JadeXian:StrengthenFabao(item)
 		if fabao == nil then
 			error("无法宝数据");
 		end
-		-- 威力 +3000（PS[AttackPower]）
-		local curAtk = fabao:GetProperty(JadeXian.FABAO_ATTACK_POWER_KEY);
-		fabao:SetProperty(JadeXian.FABAO_ATTACK_POWER_KEY,
+		-- 威力 +3000（法宝威力PS[AttackPower]键为1）
+		local curAtk = fabao:GetProperty(1);
+		fabao:SetProperty(1,
 			(curAtk or 0) + 3000);
 	end);
 	if not ok then
@@ -793,7 +786,7 @@ end
 --
 --  在建筑「护山剑阵」（def 名 Building_BigSwordPillar）的面板上挂一颗
 --  「清理垃圾」按钮（做法与模块八的藏经阁一键录入一致），点一下就把地图上
---  下列分类里「品阶 < 6」的物品全部销毁，每销毁 1 个返还 500 灵石：
+--  下列分类里「品阶 < 6」的物品全部销毁，每销毁 1 个返还 50 灵石：
 --      武器 Weapon / 衣服 Clothes / 裤子 Trousers /
 --      法宝 FightFabao + TreasureFabao / 工具 Tool / 垃圾 Garbage
 --
@@ -838,7 +831,7 @@ function JadeXian:OnSelectSwordPillar(thing)
 		"清理垃圾",
 		"res/Sprs/ui/icon_hand",
 		"GameMain:GetMod('JadeXian'):CleanTrash(bind)",
-		"销毁地图上品阶低于6的武器/衣服/裤子/法宝/工具/垃圾，每销毁一个获得500灵石（整堆被锁定的物品保留）",
+		"销毁地图上品阶低于6的武器/衣服/裤子/法宝/工具/垃圾，每销毁一个获得50灵石（整堆被锁定的物品保留）",
 		nil
 	);
 end
@@ -878,7 +871,7 @@ function JadeXian:CleanTrash(t)
 	end
 
 	--③ 返还灵石：分块落地，交给外门弟子搬进仓库
-	local money = total * 500;
+	local money = total * 50;
 	Map:DropItems("Item_LingStone", nil, money, t.Key, false, true);
 	print("[JadeXian] 护山剑阵清理：" .. total .. " 件，灵石 " .. money);
 
@@ -893,4 +886,23 @@ function JadeXian:CleanTrash(t)
 		end
 	end
 	WorldLua:ShowMsgBox(XT(table.concat(lines, "\n")), XT("确定"));
+end
+
+
+--=====================================================================
+--  模块十四：门派交易 —— 我方物品升值 10 万倍
+--
+--  门派交易时，我方物品价值按关系等级乘 0（仇恨） ~ 1.2 （尊敬）
+--  这里统一改成 10 万，保证「最小我方出价 × 系数 ≥ 最贵要价」
+--=====================================================================
+function JadeXian:InitSchoolTradeFree()
+	local d = CS.XiaWorld.GameDefine.SchoolRelationSaleSale;
+	local R = g_emSchoolRelationRank or CS.XiaWorld.g_emSchoolRelationRank;
+	local keys = { R.Hatred, R.Hostility, R.Cold, R.Neutral, R.Friendly, R.Respect };
+	--xLua 动态绑定不导出索引器（set_Item 是 nil），只能用 Remove + Add 改值
+	for i = 1, #keys do
+		d:Remove(keys[i]);
+		d:Add(keys[i], 100000);
+	end
+	print("[JadeXian] 门派交易：我方物品升值 10 万倍");
 end
