@@ -11,6 +11,11 @@
 --        玩家点「查看结果」时由 C# 现场编译执行、不缓存。因此在运行期把这段
 --        字符串里的「读取手段」替换成固定值，就能让任何选择都按最优分支结算，
 --        磁盘上的配置文件一个字节都不用改。
+--
+--  模块 (4) 我方弟子救灾双倍效果：
+--        密事里的救灾进度来自 tbTable:InnerDisaster(me)，该函数按
+--        me:GetGLevel()（功法逻辑等级）返回 100/250/400/600。本模块把它
+--        包一层、返回值 ×2（配置项 M.DISASTER_TIMES），不碰故事文本。
 --=====================================================================
 
 --防止同一个文件被执行两次
@@ -28,6 +33,7 @@ M.FORCE_BEST      = true;     --(1) 无视所选手段，恒按最优手段结�
 M.IGNORE_ATTR     = true;     --(2) 取消代理事件内的属性门槛
 M.EXTRA_REWARD    = true;     --(3) 结算后追加保底收益（信仰人口 / 影响力 / 吸引力）
 M.EXTRA_FORCE     = "normal"; --(3) 强度："slight" = 轻微，"normal" = 标准
+M.DISASTER_TIMES     = 2;     --(4) 我方弟子救灾结算几次（默认 3 次 = 进度×3）
 
 --每个代理事件对应的「最优手段」（= 该事件里唯一有实际收益的那条分支）
 M.BEST_WAY = {
@@ -120,6 +126,9 @@ function M:Apply()
 		end
 		if M.FORCE_BEST or M.EXTRA_REWARD then
 			M:PatchStories();
+		end
+		if M.DISASTER_TIMES and M.DISASTER_TIMES > 1 then
+			M:ApplyDisasterTimes();
 		end
 	end);
 	if not ok then
@@ -308,6 +317,28 @@ function M:PatchAgencyStory(name, def, best)
 		return 1, extraAdd;
 	end
 	return 0, 0;
+end
+
+
+--================== (4) 我方弟子救灾双倍效果 ===================
+function M:ApplyDisasterTimes()
+	local H = GameMain:GetMod("MapStoryHelper");
+	if H == nil or H.InnerDisaster == nil then
+		self:Log("MapStoryHelper 未就绪，救灾结算次数修改跳过");
+		return;
+	end
+	if self.aid_times_hooked then
+		return;                          --只包一次，避免 ×3 再 ×3
+	end
+	self.aid_times_hooked = true;
+
+	local times = M.DISASTER_TIMES;
+	local orig = H.InnerDisaster;
+	H.InnerDisaster = function(self, me)
+		local base = orig(self, me) or 100;
+		return base * times;
+	end;
+	self:Log("救灾结算次数已改为 " .. times .. " 次");
 end
 
 
