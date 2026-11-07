@@ -143,12 +143,12 @@
 		</Selections>
 	</Story>
 
-	<!-- 6. 破镜礼包：打开者处于瓶颈中（IsTouchNeck）则直接突破（NeckBroken）
+	<!-- 6. 破境礼包：打开者处于瓶颈中（IsTouchNeck）则直接突破（NeckBroken）
 	     没在瓶颈里就不消耗礼包，只提示一句，避免白开。
 	     NeckBroken 是 NpcLuaHelper 上的无参接口，内部自己判断瓶颈/兽形态，
 	     调用后若抛错会跳过 RemoveBindItem，礼包同样不会被吃掉。 -->
 	<Story Name="Story_Item_JadeStart_BreakNeckGift" Parent="BaseFillingStory">
-		<DisplayName>破镜礼包</DisplayName>
+		<DisplayName>破境礼包</DisplayName>
 		<Desc>拆开这份礼包，助瓶颈中的人破境。</Desc>
 		<Kind>None</Kind>
 		<Selections>
@@ -168,9 +168,44 @@
 					end
 				end);
 				if not ok then
-					print("[JadeStartMod] 破镜礼包开启失败: " .. tostring(err));
+					print("[JadeStartMod] 破境礼包开启失败: " .. tostring(err));
 					me:AddMsg(XT("清光忽地一滞，终究没能冲开什么。礼包未损，可稍后再试。"));
 				end
+				]]>
+				</OKResult>
+			</li>
+		</Selections>
+	</Story>
+
+	<!-- 7. 五色四剑礼包：天地五方旗五面 + 诛仙四剑四柄，全部按秘宝灵胎形态发放
+	     物品 ID 出自 Settings/ThingDef/Item/Item_Equipment_MiBao.xml：
+	       真武皂雕旗=Item_MiBao_ShuiFabao   素色云界旗=Item_MiBao_JinFabao
+	       戊己杏黄旗=Item_MiBao_TuFabao     离地焰光旗=Item_MiBao_HuoFabao
+	       青莲宝色旗=Item_MiBao_MuFabao
+	       诛仙剑=Item_MiBao_ZhuXianJian     戮仙剑=Item_MiBao_LuXianJian
+	       绝仙剑=Item_MiBao_JueXianJian     陷仙剑=Item_MiBao_XianXianJian -->
+	<Story Name="Story_Item_JadeStart_WuSeSiJianGift" Parent="BaseFillingStory">
+		<DisplayName>五色四剑礼包</DisplayName>
+		<Desc>拆开这份礼包，五方旗与诛仙四剑的灵胎尽入囊中。</Desc>
+		<Kind>None</Kind>
+		<Selections>
+			<li>
+				<Display>打开</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]解开红绳，箱中九道灵光各据一方，隐隐已是一座大阵……"));
+				-- 天地五方旗
+				me:DropAwardItem("Item_MiBao_ShuiFabao", 1);	-- 真武皂雕旗
+				me:DropAwardItem("Item_MiBao_JinFabao", 1);		-- 素色云界旗
+				me:DropAwardItem("Item_MiBao_TuFabao", 1);		-- 戊己杏黄旗
+				me:DropAwardItem("Item_MiBao_HuoFabao", 1);		-- 离地焰光旗
+				me:DropAwardItem("Item_MiBao_MuFabao", 1);		-- 青莲宝色旗
+				-- 诛仙四剑
+				me:DropAwardItem("Item_MiBao_ZhuXianJian", 1);	-- 诛仙剑
+				me:DropAwardItem("Item_MiBao_LuXianJian", 1);	-- 戮仙剑
+				me:DropAwardItem("Item_MiBao_JueXianJian", 1);	-- 绝仙剑
+				me:DropAwardItem("Item_MiBao_XianXianJian", 1);	-- 陷仙剑
+				story:RemoveBindItem();
 				]]>
 				</OKResult>
 			</li>
