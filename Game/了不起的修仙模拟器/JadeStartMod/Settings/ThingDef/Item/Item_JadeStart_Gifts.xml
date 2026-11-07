@@ -204,4 +204,45 @@
 		</StoryBnts>
 	</ThingDef>
 
+	<!-- 6. 破镜礼包：打开时若打开者正处瓶颈之中，则立即突破 -->
+	<ThingDef Type="Item" Name="Item_JadeStart_BreakNeckGift" Parent="MaterialBase">
+		<ThingName>破镜礼包</ThingName>
+		<MaxStack>1</MaxStack>
+		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
+		<Desc>一只系着红绳的小宝箱，箱中不装宝物，只封着一线破境之机。打开它，若打开者此刻正卡在瓶颈上，便能立时冲开关隘。【警告】仅在遇bug突破不了时使用。</Desc>
+		<Beauty>3</Beauty>
+		<Rate>9</Rate>
+		<ElementKind>None</ElementKind>
+		<Flammability>
+			<Flammability>0</Flammability>
+			<FlameSpawnThingDef></FlameSpawnThingDef>
+			<FlameSpawnChance>0</FlameSpawnChance>
+		</Flammability>
+
+		<IllustratedHandLabel>WOther</IllustratedHandLabel>
+		<Item Lable="Other">
+			<NotRandom>1</NotRandom>
+			<FabaoSuffix>礼,包</FabaoSuffix>
+			<BeMade>
+				<WorkToMake>200</WorkToMake>
+				<CostItems>
+					<Item name = "Item_LingStone" count = "100"/>
+				</CostItems>
+			</BeMade>
+		</Item>
+
+		<ProduceMode>
+			<ProduceBuildings>
+				<li>
+					<Building>CalligraphyTable</Building>
+					<Count>1</Count>
+				</li>
+			</ProduceBuildings>
+		</ProduceMode>
+
+		<StoryBnts>
+			<li Name="打开" Desc="瓶颈之中打开，立时破境" Appoint="3" Story="Story_Item_JadeStart_BreakNeckGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+		</StoryBnts>
+	</ThingDef>
+
 </List></ThingDefs>

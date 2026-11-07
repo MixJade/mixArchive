@@ -143,4 +143,38 @@
 		</Selections>
 	</Story>
 
+	<!-- 6. 破镜礼包：打开者处于瓶颈中（IsTouchNeck）则直接突破（NeckBroken）
+	     没在瓶颈里就不消耗礼包，只提示一句，避免白开。
+	     NeckBroken 是 NpcLuaHelper 上的无参接口，内部自己判断瓶颈/兽形态，
+	     调用后若抛错会跳过 RemoveBindItem，礼包同样不会被吃掉。 -->
+	<Story Name="Story_Item_JadeStart_BreakNeckGift" Parent="BaseFillingStory">
+		<DisplayName>破镜礼包</DisplayName>
+		<Desc>拆开这份礼包，助瓶颈中的人破境。</Desc>
+		<Kind>None</Kind>
+		<Selections>
+			<li>
+				<Display>打开</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]解开红绳，礼包中一缕清光绕身一周……"));
+				local ok, err = pcall(function()
+					if me:IsTouchNeck() then
+						-- 先破境，成功了再收走礼包
+						me:NeckBroken();
+						story:RemoveBindItem();
+						me:AddMsg(XT("那缕清光直透眉心，周身气机轰然贯通——瓶颈应声而破，[NAME]睁眼时只觉云开月明，一身修为已再上层楼。"));
+					else
+						me:AddMsg(XT("清光却无处着力，随即散去：此刻并未卡在瓶颈上，礼包又自行封了回去。"));
+					end
+				end);
+				if not ok then
+					print("[JadeStartMod] 破镜礼包开启失败: " .. tostring(err));
+					me:AddMsg(XT("清光忽地一滞，终究没能冲开什么。礼包未损，可稍后再试。"));
+				end
+				]]>
+				</OKResult>
+			</li>
+		</Selections>
+	</Story>
+
 </List></Stories>
