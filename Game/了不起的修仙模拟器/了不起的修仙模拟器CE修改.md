@@ -42,6 +42,10 @@
 
 比如朱果树的【煞】属性是18.30%，那么搜索【浮点数】+【-18.30】（煞属性是负数，相应的灵属性是正数）
 
+---
+
+# 直接改游戏源文件
+
 ## 神修心斋修改
 
 > **心斋并不直接改「心绪」这个数字，它往角色身上叠一个最多 100 层的修饰器，每层把「情绪放大系数」压 0.9%，而心绪 = 各情绪绝对值之和 × 系数。**
@@ -52,3 +56,54 @@
 "游戏目录\Settings\Modifiers\GodPractice\Modifier_GodPractice.xml"
 ```
 
+## 上古之兽的卵：不破壳 / 不孵化
+
+原版这三颗卵的孵化逻辑都写在 lua 类里，所以改源文件就能彻底关掉。
+
+| 卵 | 建筑 ID | 类名 | 脚本文件 |
+|---|---|---|---|
+| 阴之卵 | `Building_Zhulong_yingdan` | `Zhulongyingluan` | `Scripts\Thing\class\Zhulongyingluan.lua` |
+| 阳之卵 | `Building_Zhulong_yangdan` | `Zhulongyangluan` | `Scripts\Thing\class\zhulongyangluan.lua` |
+| 凶凤之卵 | `Building_Xiongfeng_dan` | `Fenghuangdan` | `Scripts\Thing\class\Fenghuangdan.lua` |
+
+### 一、烛龙「阴之卵」「阳之卵」不再破壳
+
+**改法**：两个文件的 `FuHua` 第一行都加一句无条件返回。
+
+`Zhulongyingluan.lua` 第 68 行附近、`zhulongyangluan.lua` 第 72 行附近：
+
+```lua
+function tbThing:FuHua()
+	if true then return; end --自用：卵永不破壳
+	if self.it.FengShui == g_emFengshuiRank.Best then --大吉不会孵化
+```
+
+（阳卵那行下面原本是「大凶不会孵化」的注释，不用管，加在最前面即可。）
+
+### 二、凶凤之卵不再孵化
+
+原版机制（`Fenghuangdan.lua`，`OnStep` 每帧跑一次），文件头三个常量：
+
+```lua
+local TIME = 29400;      --生存时间
+local LING = 500;        --保底回灵速度/s
+local ADDLING = 50;      --每秒增益速度
+local MAXADDLING = 30000;--最大增益值
+```
+
+游戏中**1 天 = 600 秒。29400 秒 = 49 个游戏日）** 或 `LingV <= 10` → 卵消失，原地变成 `Building_Xiongfeng_danbroken`（灵气干涸的凶凤之卵）。
+
+
+第 46 行，让复活判定永不成立：
+
+```lua
+	if it.LingV >= it.MaxLing then
+```
+
+改成：
+
+```lua
+	if false then --自用：灵气满也不复活
+```
+
+（想更干净也可以把第 46～55 行整块 `if ... end` 删掉，效果一样。）
