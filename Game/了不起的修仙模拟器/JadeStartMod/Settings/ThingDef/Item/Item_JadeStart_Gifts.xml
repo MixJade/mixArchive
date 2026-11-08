@@ -286,4 +286,45 @@
 		</StoryBnts>
 	</ThingDef>
 
+	<!-- 8. 古兽礼包：一次点出蛟龙、凶凤、烛龙三处踪迹 -->
+	<ThingDef Type="Item" Name="Item_JadeStart_BeastGift" Parent="MaterialBase">
+		<ThingName>古兽礼包</ThingName>
+		<MaxStack>1</MaxStack>
+		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
+		<Desc>一只系着红绳的小宝箱，箱中不装宝物，箱底只压着三缕干涸的古兽残息——蛟龙、凶凤、烛龙各一缕。打开它，三缕残息各自飘散，江湖上随即传出三处古兽出没的踪迹。</Desc>
+		<Beauty>3</Beauty>
+		<Rate>9</Rate>
+		<ElementKind>None</ElementKind>
+		<Flammability>
+			<Flammability>0</Flammability>
+			<FlameSpawnThingDef></FlameSpawnThingDef>
+			<FlameSpawnChance>0</FlameSpawnChance>
+		</Flammability>
+
+		<IllustratedHandLabel>WOther</IllustratedHandLabel>
+		<Item Lable="Other">
+			<NotRandom>1</NotRandom>
+			<FabaoSuffix>礼,包</FabaoSuffix>
+			<BeMade>
+				<WorkToMake>200</WorkToMake>
+				<CostItems>
+					<Item name = "Item_LingStone" count = "100"/>
+				</CostItems>
+			</BeMade>
+		</Item>
+
+		<ProduceMode>
+			<ProduceBuildings>
+				<li>
+					<Building>CalligraphyTable</Building>
+					<Count>1</Count>
+				</li>
+			</ProduceBuildings>
+		</ProduceMode>
+
+		<StoryBnts>
+			<li Name="打开" Desc="点出蛟龙、凶凤、烛龙三处踪迹" Appoint="3" Story="Story_Item_JadeStart_BeastGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+		</StoryBnts>
+	</ThingDef>
+
 </List></ThingDefs>

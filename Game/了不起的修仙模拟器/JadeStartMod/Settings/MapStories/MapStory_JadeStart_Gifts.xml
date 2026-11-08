@@ -211,5 +211,41 @@
 			</li>
 		</Selections>
 	</Story>
+	<!-- 8. 古兽礼包：一次点出蛟龙、凶凤、烛龙三处踪迹
+	     秘闻 ID 出自 Settings/Secrets/Secrets.txt：
+	       53 = 蛟龙踪迹（Secrets_BossLong）
+	       54 = 凶凤踪迹（Secrets_BossFeng）
+	       55 = 阴阳之息（Secrets_BossZhuLong，就是烛龙那条，游戏里显示名叫「阴阳之息」）
+	     AddSecret 会给秘闻随机挑一处地点；已经有的就不重复点，免得多出重复踪迹。 -->
+	<Story Name="Story_Item_JadeStart_BeastGift" Parent="BaseFillingStory">
+		<DisplayName>古兽礼包</DisplayName>
+		<Desc>拆开这份礼包，三缕古兽残息各自飘散。</Desc>
+		<Kind>None</Kind>
+		<Selections>
+			<li>
+				<Display>打开</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]解开红绳，箱底三缕残息一触即散，各自投向远方……"));
+				local ok, err = pcall(function()
+					local ids = { 53, 54, 55 };
+					for i = 1, #ids do
+						if me:HasSecret(ids[i]) == false then
+							me:AddSecret(ids[i]);
+						end
+					end
+				end);
+				if ok then
+					me:AddMsg(XT("不多时，江湖上便传出三处异样的消息：蛟龙、凶凤与那团阴阳之息，各有一处踪迹可循。"));
+				else
+					print("[JadeStartMod] 古兽礼包触发失败: " .. tostring(err));
+					me:AddMsg(XT("残息散尽，却没能指向任何去处。"));
+				end
+				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+		</Selections>
+	</Story>
 
 </List></Stories>
