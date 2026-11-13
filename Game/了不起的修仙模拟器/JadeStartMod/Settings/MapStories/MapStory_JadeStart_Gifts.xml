@@ -10,7 +10,6 @@
 				<OKResult>
 				<![CDATA[
 				me:AddMsg(XT("[NAME]解开红绳拆开新手礼包，箱中静静躺着以下宝物："));
-				me:DropAwardItem("Item_Wonder_QianKunLingJing", 1);
 				me:DropAwardItem("Item_SkyStone", 64);
 				me:DropAwardItem("Item_BossZhuLong_TianLin", 1);
 				me:DropAwardItem("Item_MiBao_YinYangZhenTu", 1);
@@ -24,9 +23,6 @@
 				me:DropAwardItem("Item_StarEssence", 64);
 				me:DropAwardItem("Item_YaoLeather1", 180);
 				me:DropAwardItem("Item_Dan_FiveBaseFromLife", 1);
-				me:DropEsoteric("Esoterica_MiBao_5");
-				me:DropEsoteric("Esoterica_MiBao_8");
-				me:DropEsoteric("Esoterica_MiBao_9");
 				story:RemoveBindItem();
 				]]>
 				</OKResult>
@@ -34,17 +30,14 @@
 		</Selections>
 	</Story>
 
-	<!-- 2. 古修秘匣：触发 3 次「古修踪迹」
-	     GameEventMgr:TriggerEvent(97) = 事件 97「上古修行者」/ EventSecret / 参数 56，
-	     生成秘闻「古修传闻」→ 故事 Secrets_DaNengChuShi（地图上显示为「古修踪迹」）。
-	     要改次数就改下面循环里的 3。 -->
+	<!-- 2. 上古秘匣：开匣时二选一 -->
 	<Story Name="Story_Item_JadeStart_AncientGift" Parent="BaseFillingStory">
-		<DisplayName>古修秘匣</DisplayName>
-		<Desc>撬开这只古旧的机关匣。</Desc>
+		<DisplayName>上古秘匣</DisplayName>
+		<Desc>匣盖撬开一线，两脉残息在匣中翻涌不定，只待择一路放出。</Desc>
 		<Kind>None</Kind>
 		<Selections>
 			<li>
-				<Display>打开</Display>
+				<Display>获取三位古修踪迹</Display>
 				<OKResult>
 				<![CDATA[
 				me:AddMsg(XT("[NAME]撬开锈死的锁扣，匣中封存的古修神念散逸而出，隐约指向几处上古修行者的踪迹……"));
@@ -55,9 +48,40 @@
 					end
 				end);
 				if not ok then
-					print("[JadeStartMod] 古修秘匣触发失败: " .. tostring(err));
+					print("[JadeStartMod] 上古秘匣·古修触发失败: " .. tostring(err));
 				end
 				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+			<li>
+				<Display>放出三种古兽气息</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]撬开锈死的锁扣，匣底三缕残息一触即散，各自投向远方……"));
+				local ok, err = pcall(function()
+					local ids = { 53, 54, 55 };
+					for i = 1, #ids do
+						if me:HasSecret(ids[i]) == false then
+							me:AddSecret(ids[i]);
+						end
+					end
+				end);
+				if ok then
+					me:AddMsg(XT("不多时，江湖上便传出三处异样的消息：蛟龙、凶凤与那团阴阳之息，各有一处踪迹可循。"));
+				else
+					print("[JadeStartMod] 上古秘匣·古兽触发失败: " .. tostring(err));
+					me:AddMsg(XT("残息散尽，却没能指向任何去处。"));
+				end
+				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+			<li>
+				<Display>暂且合上</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]想了想，把匣盖重新合上——此刻还不是放出这些残息的时候。"));
 				]]>
 				</OKResult>
 			</li>
@@ -85,14 +109,14 @@
 		</Selections>
 	</Story>
 
-	<!-- 4. 参悟礼包：直接加 80 亿参悟经验 -->
+	<!-- 4. 悟道礼包：三选一——静心参悟（80 亿参悟经验）/ 冲击瓶颈 / 暂且合上 -->
 	<Story Name="Story_Item_JadeStart_TreeExpGift" Parent="BaseFillingStory">
-		<DisplayName>参悟礼包</DisplayName>
-		<Desc>拆开这份封着前人心得的礼包。</Desc>
+		<DisplayName>悟道礼包</DisplayName>
+		<Desc>礼包里封着前人的修行心得，另有一线破境之机，只容择一路取用。</Desc>
 		<Kind>None</Kind>
 		<Selections>
 			<li>
-				<Display>打开</Display>
+				<Display>静心参悟</Display>
 				<OKResult>
 				<![CDATA[
 				me:AddMsg(XT("[NAME]拆开礼包，一枚无名玉简落入掌心，玉简一触即碎，化作无数感悟涌入识海……"));
@@ -100,6 +124,36 @@
 				me:AddTreeExp(8000000000, true);
 				me:AddMsg(XT("良久，[NAME]睁开双眼，胸中已是豁然贯通。"));
 				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+			<li>
+				<Display>冲击瓶颈</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]拆开礼包，一缕清光绕身一周……"));
+				local ok, err = pcall(function()
+					if me:IsTouchNeck() then
+						-- 先破境，成功了再收走礼包
+						me:NeckBroken();
+						story:RemoveBindItem();
+						me:AddMsg(XT("那缕清光直透眉心，周身气机轰然贯通——瓶颈应声而破，[NAME]睁眼时只觉云开月明，一身修为已再上层楼。"));
+					else
+						me:AddMsg(XT("清光却无处着力，随即散去：此刻并未卡在瓶颈上，礼包又自行封了回去。"));
+					end
+				end);
+				if not ok then
+					print("[JadeStartMod] 悟道礼包·冲击瓶颈失败: " .. tostring(err));
+					me:AddMsg(XT("清光忽地一滞，终究没能冲开什么。礼包未损，可稍后再试。"));
+				end
+				]]>
+				</OKResult>
+			</li>
+			<li>
+				<Display>暂且合上</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]想了想，把礼包重新系好——这份心得与气机，还是留到更需要的时候再拆。"));
 				]]>
 				</OKResult>
 			</li>
@@ -143,54 +197,24 @@
 		</Selections>
 	</Story>
 
-	<!-- 6. 破境礼包：打开者处于瓶颈中（IsTouchNeck）则直接突破（NeckBroken）
-	     没在瓶颈里就不消耗礼包，只提示一句，避免白开。
-	     NeckBroken 是 NpcLuaHelper 上的无参接口，内部自己判断瓶颈/兽形态，
-	     调用后若抛错会跳过 RemoveBindItem，礼包同样不会被吃掉。 -->
-	<Story Name="Story_Item_JadeStart_BreakNeckGift" Parent="BaseFillingStory">
-		<DisplayName>破境礼包</DisplayName>
-		<Desc>拆开这份礼包，助瓶颈中的人破境。</Desc>
-		<Kind>None</Kind>
-		<Selections>
-			<li>
-				<Display>打开</Display>
-				<OKResult>
-				<![CDATA[
-				me:AddMsg(XT("[NAME]解开红绳，礼包中一缕清光绕身一周……"));
-				local ok, err = pcall(function()
-					if me:IsTouchNeck() then
-						-- 先破境，成功了再收走礼包
-						me:NeckBroken();
-						story:RemoveBindItem();
-						me:AddMsg(XT("那缕清光直透眉心，周身气机轰然贯通——瓶颈应声而破，[NAME]睁眼时只觉云开月明，一身修为已再上层楼。"));
-					else
-						me:AddMsg(XT("清光却无处着力，随即散去：此刻并未卡在瓶颈上，礼包又自行封了回去。"));
-					end
-				end);
-				if not ok then
-					print("[JadeStartMod] 破境礼包开启失败: " .. tostring(err));
-					me:AddMsg(XT("清光忽地一滞，终究没能冲开什么。礼包未损，可稍后再试。"));
-				end
-				]]>
-				</OKResult>
-			</li>
-		</Selections>
-	</Story>
-
-	<!-- 7. 五色四剑礼包：天地五方旗五面 + 诛仙四剑四柄，全部按秘宝灵胎形态发放
-	     物品 ID 出自 Settings/ThingDef/Item/Item_Equipment_MiBao.xml：
+	<!-- 6. 秘宝礼包：三路传承择一路 —— 九件秘宝灵胎 / 乾坤灵晶与三册秘宝配方 / 神修功法
+	     秘宝 ID 出自 Settings/ThingDef/Item/Item_Equipment_MiBao.xml：
 	       真武皂雕旗=Item_MiBao_ShuiFabao   素色云界旗=Item_MiBao_JinFabao
 	       戊己杏黄旗=Item_MiBao_TuFabao     离地焰光旗=Item_MiBao_HuoFabao
 	       青莲宝色旗=Item_MiBao_MuFabao
 	       诛仙剑=Item_MiBao_ZhuXianJian     戮仙剑=Item_MiBao_LuXianJian
-	       绝仙剑=Item_MiBao_JueXianJian     陷仙剑=Item_MiBao_XianXianJian -->
+	       绝仙剑=Item_MiBao_JueXianJian     陷仙剑=Item_MiBao_XianXianJian
+	     三册秘宝配方出自 Settings/Esoterica/Esoterica_MiBao.xml：
+	       Esoterica_MiBao_5=百毒真经残卷  Esoterica_MiBao_8=修罗血河宝录残卷  Esoterica_MiBao_9=星河遗录
+	     神修功法出自 Settings/Practice/Gong/God/God_Gong_3.xml：
+	       God_Gong_3 = 幽冥十方太乙救苦经（已解锁过就不再消耗礼包） -->
 	<Story Name="Story_Item_JadeStart_WuSeSiJianGift" Parent="BaseFillingStory">
-		<DisplayName>五色四剑礼包</DisplayName>
-		<Desc>拆开这份礼包，五方旗与诛仙四剑的灵胎尽入囊中。</Desc>
+		<DisplayName>秘宝礼包</DisplayName>
+		<Desc>箱中压着三路上古传承，只容择一路取出。</Desc>
 		<Kind>None</Kind>
 		<Selections>
 			<li>
-				<Display>打开</Display>
+				<Display>取出天地五方旗+诛仙四剑</Display>
 				<OKResult>
 				<![CDATA[
 				me:AddMsg(XT("[NAME]解开红绳，箱中九道灵光各据一方，隐隐已是一座大阵……"));
@@ -209,39 +233,46 @@
 				]]>
 				</OKResult>
 			</li>
-		</Selections>
-	</Story>
-	<!-- 8. 古兽礼包：一次点出蛟龙、凶凤、烛龙三处踪迹
-	     秘闻 ID 出自 Settings/Secrets/Secrets.txt：
-	       53 = 蛟龙踪迹（Secrets_BossLong）
-	       54 = 凶凤踪迹（Secrets_BossFeng）
-	       55 = 阴阳之息（Secrets_BossZhuLong，就是烛龙那条，游戏里显示名叫「阴阳之息」）
-	     AddSecret 会给秘闻随机挑一处地点；已经有的就不重复点，免得多出重复踪迹。 -->
-	<Story Name="Story_Item_JadeStart_BeastGift" Parent="BaseFillingStory">
-		<DisplayName>古兽礼包</DisplayName>
-		<Desc>拆开这份礼包，三缕古兽残息各自飘散。</Desc>
-		<Kind>None</Kind>
-		<Selections>
 			<li>
-				<Display>打开</Display>
+				<Display>取出乾坤灵晶与三册秘宝配方</Display>
 				<OKResult>
 				<![CDATA[
-				me:AddMsg(XT("[NAME]解开红绳，箱底三缕残息一触即散，各自投向远方……"));
+				me:AddMsg(XT("[NAME]解开红绳，箱底一枚灵晶幽幽生辉，旁边压着三册残卷……"));
+				me:DropAwardItem("Item_Wonder_QianKunLingJing", 1);
+				me:DropEsoteric("Esoterica_MiBao_5");	-- 百毒真经残卷
+				me:DropEsoteric("Esoterica_MiBao_8");	-- 修罗血河宝录残卷
+				me:DropEsoteric("Esoterica_MiBao_9");	-- 星河遗录
+				me:AddMsg(XT("灵晶落在掌心，三册残卷上的字迹随之亮起——皆是秘宝的炼制之法。"));
+				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+			<li>
+				<Display>取出《幽冥十方太乙救苦经》</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]解开红绳，箱底一卷幽光沉沉的书册浮起，封皮上几个古字微微发亮——《幽冥十方太乙救苦经》。"));
 				local ok, err = pcall(function()
-					local ids = { 53, 54, 55 };
-					for i = 1, #ids do
-						if me:HasSecret(ids[i]) == false then
-							me:AddSecret(ids[i]);
-						end
+					if world:IsGongUnLocked("God_Gong_3") == false then
+						me:UnLockGong("God_Gong_3");
+						story:RemoveBindItem();
+						me:AddMsg(XT("书页无风自翻，一行行古字化作流光没入[NAME]眉心——幽冥十方，太乙救苦。。"));
+					else
+						me:AddMsg(XT("书册入手便自行散了：这门《幽冥十方太乙救苦经》早已得手。礼包未曾拆损，可另择一路。"));
 					end
 				end);
-				if ok then
-					me:AddMsg(XT("不多时，江湖上便传出三处异样的消息：蛟龙、凶凤与那团阴阳之息，各有一处踪迹可循。"));
-				else
-					print("[JadeStartMod] 古兽礼包触发失败: " .. tostring(err));
-					me:AddMsg(XT("残息散尽，却没能指向任何去处。"));
+				if not ok then
+					print("[JadeStartMod] 秘宝礼包·神修功法失败: " .. tostring(err));
+					me:AddMsg(XT("书册忽然一沉，又落回箱底。礼包未损，可稍后再试。"));
 				end
-				story:RemoveBindItem();
+				]]>
+				</OKResult>
+			</li>
+			<li>
+				<Display>暂且合上</Display>
+				<OKResult>
+				<![CDATA[
+				me:AddMsg(XT("[NAME]想了想，把红绳重新系好——三路传承，还是留到想清楚的时候再取。"));
 				]]>
 				</OKResult>
 			</li>

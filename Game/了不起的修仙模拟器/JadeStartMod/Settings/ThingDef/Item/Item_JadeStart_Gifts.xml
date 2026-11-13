@@ -4,7 +4,7 @@
 		<ThingName>新手礼包</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，是给初入仙途之人的见面礼。里面装着乾坤灵晶、天柱石、烛龙的天鳞、漆黑的大鳞、洁白的大鳞、蛟龙的崩天筋、蛟龙的罗刹爪、阴阳二行阵图、混沌的龙玉、阴阳之结晶、梧桐神木、星髓、妖兽的韧皮与五毒五炁元神丹，以及三册秘宝配方。</Desc>
+		<Desc>给初入仙途之人的见面礼。里面装着天柱石、烛龙的天鳞、漆黑的大鳞、洁白的大鳞、蛟龙的崩天筋、蛟龙的罗刹爪、阴阳二行阵图、混沌的龙玉、阴阳之结晶、梧桐神木、星髓、妖兽的韧皮与五毒五炁元神丹。</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
@@ -40,12 +40,12 @@
 		</StoryBnts>
 	</ThingDef>
 
-	<!-- 2. 古修秘匣 -->
+	<!-- 2. 上古秘匣 -->
 	<ThingDef Type="Item" Name="Item_JadeStart_AncientGift" Parent="MaterialBase">
-		<ThingName>古修秘匣</ThingName>
+		<ThingName>上古秘匣</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只纹饰古拙的小匣，锁扣早已锈死，只能用蛮力撬开。匣中并无实物，只封存着上古修行者留下的一缕神念，打开便能循着它找到古修的踪迹。</Desc>
+		<Desc>来自上古的风闻：三条古修踪迹传闻；或蛟龙、凶凤、烛龙的消息。</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
@@ -77,7 +77,7 @@
 		</ProduceMode>
 
 		<StoryBnts>
-			<li Name="打开" Desc="撬开秘匣，循古修踪迹" Appoint="3" Story="Story_Item_JadeStart_AncientGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+			<li Name="开匣" Desc="择一路放出匣中残息" Appoint="3" Story="Story_Item_JadeStart_AncientGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
 		</StoryBnts>
 	</ThingDef>
 
@@ -86,7 +86,7 @@
 		<ThingName>招贤礼包</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，箱中不装宝物，只压着一缕不知从何而来的气运。打开它，不多时便会有三十名凡人循着这份气运寻上山门，愿在山门安身立命。</Desc>
+		<Desc>一缕不知从何而来的气运。打开它，便会有三十名凡人循着这份气运寻上山门。</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
@@ -122,12 +122,12 @@
 		</StoryBnts>
 	</ThingDef>
 
-	<!-- 4. 参悟礼包 -->
+	<!-- 4. 悟道礼包 -->
 	<ThingDef Type="Item" Name="Item_JadeStart_TreeExpGift" Parent="MaterialBase">
-		<ThingName>参悟礼包</ThingName>
+		<ThingName>悟道礼包</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，箱中封着前人毕生的修行心得。打开它，便有八十亿点参悟经验涌入打开者的识海——不过这份心得只对道法修行者有用，其余法门的人拆开只会觉得空无一物。</Desc>
+		<Desc>箱中封着前人毕生的修行心得，拆开时可选：八十亿点参悟经验；或突破瓶颈。</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
@@ -159,7 +159,7 @@
 		</ProduceMode>
 
 		<StoryBnts>
-			<li Name="打开" Desc="得八十亿参悟经验" Appoint="3" Story="Story_Item_JadeStart_TreeExpGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+			<li Name="打开" Desc="参悟前人心得，或借机冲击瓶颈" Appoint="3" Story="Story_Item_JadeStart_TreeExpGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
 		</StoryBnts>
 	</ThingDef>
 
@@ -168,7 +168,7 @@
 		<ThingName>线索礼包</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，箱中装的不是宝物，而是一叠来路不明的旧案卷宗。打开它，江湖秘闻中「神秘身影」「灭门之谜」「外传-上古信息」的线索便会一并到手，往后不必再逐一寻访各派人物打听。</Desc>
+		<Desc>一叠来路不明的旧案卷宗。打开它，江湖秘闻中「神秘身影」「灭门之谜」「外传-上古信息」的线索便会一并到手，往后不必再逐一寻访各派人物打听。</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
@@ -204,53 +204,12 @@
 		</StoryBnts>
 	</ThingDef>
 
-	<!-- 6. 破境礼包：打开时若打开者正处瓶颈之中，则立即突破 -->
-	<ThingDef Type="Item" Name="Item_JadeStart_BreakNeckGift" Parent="MaterialBase">
-		<ThingName>破境礼包</ThingName>
-		<MaxStack>1</MaxStack>
-		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，箱中不装宝物，只封着一线破境之机。打开它，若打开者此刻正卡在瓶颈上，便能立时冲开关隘。</Desc>
-		<Beauty>3</Beauty>
-		<Rate>9</Rate>
-		<ElementKind>None</ElementKind>
-		<Flammability>
-			<Flammability>0</Flammability>
-			<FlameSpawnThingDef></FlameSpawnThingDef>
-			<FlameSpawnChance>0</FlameSpawnChance>
-		</Flammability>
-
-		<IllustratedHandLabel>WOther</IllustratedHandLabel>
-		<Item Lable="Other">
-			<NotRandom>1</NotRandom>
-			<FabaoSuffix>礼,包</FabaoSuffix>
-			<BeMade>
-				<WorkToMake>200</WorkToMake>
-				<CostItems>
-					<Item name = "Item_LingStone" count = "100"/>
-				</CostItems>
-			</BeMade>
-		</Item>
-
-		<ProduceMode>
-			<ProduceBuildings>
-				<li>
-					<Building>CalligraphyTable</Building>
-					<Count>1</Count>
-				</li>
-			</ProduceBuildings>
-		</ProduceMode>
-
-		<StoryBnts>
-			<li Name="打开" Desc="瓶颈之中打开，立时破境" Appoint="3" Story="Story_Item_JadeStart_BreakNeckGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
-		</StoryBnts>
-	</ThingDef>
-
-	<!-- 7. 五色四剑礼包：一次发放天地五方旗五面 + 诛仙四剑四柄的秘宝灵胎 -->
+	<!-- 6. 秘宝礼包 -->
 	<ThingDef Type="Item" Name="Item_JadeStart_WuSeSiJianGift" Parent="MaterialBase">
-		<ThingName>五色四剑礼包</ThingName>
+		<ThingName>秘宝礼包</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，封条上绘着五方阵纹。箱中九道灵光各据一方——五色旗面隐现，四柄古剑杀气森然，皆是尚未开灵的秘宝灵胎。拆开它，天地五方旗与诛仙四剑便尽归一人之手。</Desc>
+		<Desc>箱中压着三路上古传承：一是五旗四剑；二是乾坤灵晶加三册秘宝残卷；三是《幽冥十方太乙救苦经》</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
@@ -282,48 +241,7 @@
 		</ProduceMode>
 
 		<StoryBnts>
-			<li Name="打开" Desc="得五方旗与诛仙四剑的秘宝灵胎" Appoint="3" Story="Story_Item_JadeStart_WuSeSiJianGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
-		</StoryBnts>
-	</ThingDef>
-
-	<!-- 8. 古兽礼包：一次点出蛟龙、凶凤、烛龙三处踪迹 -->
-	<ThingDef Type="Item" Name="Item_JadeStart_BeastGift" Parent="MaterialBase">
-		<ThingName>古兽礼包</ThingName>
-		<MaxStack>1</MaxStack>
-		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一只系着红绳的小宝箱，箱中不装宝物，箱底只压着三缕干涸的古兽残息——蛟龙、凶凤、烛龙各一缕。打开它，三缕残息各自飘散，江湖上随即传出三处古兽出没的踪迹。</Desc>
-		<Beauty>3</Beauty>
-		<Rate>9</Rate>
-		<ElementKind>None</ElementKind>
-		<Flammability>
-			<Flammability>0</Flammability>
-			<FlameSpawnThingDef></FlameSpawnThingDef>
-			<FlameSpawnChance>0</FlameSpawnChance>
-		</Flammability>
-
-		<IllustratedHandLabel>WOther</IllustratedHandLabel>
-		<Item Lable="Other">
-			<NotRandom>1</NotRandom>
-			<FabaoSuffix>礼,包</FabaoSuffix>
-			<BeMade>
-				<WorkToMake>200</WorkToMake>
-				<CostItems>
-					<Item name = "Item_LingStone" count = "100"/>
-				</CostItems>
-			</BeMade>
-		</Item>
-
-		<ProduceMode>
-			<ProduceBuildings>
-				<li>
-					<Building>CalligraphyTable</Building>
-					<Count>1</Count>
-				</li>
-			</ProduceBuildings>
-		</ProduceMode>
-
-		<StoryBnts>
-			<li Name="打开" Desc="点出蛟龙、凶凤、烛龙三处踪迹" Appoint="3" Story="Story_Item_JadeStart_BeastGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+			<li Name="打开" Desc="秘宝灵胎 / 乾坤灵晶与三册配方 / 神修功法，三选一" Appoint="3" Story="Story_Item_JadeStart_WuSeSiJianGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
 		</StoryBnts>
 	</ThingDef>
 
