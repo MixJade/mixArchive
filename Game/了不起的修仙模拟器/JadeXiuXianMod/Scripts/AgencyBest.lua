@@ -1,21 +1,8 @@
 --=====================================================================
---  代理事件恒为最优解（独立 mod 脚本）
---  丢进 mod 的 Scripts 目录即可 —— 游戏会自动加载 Scripts 下的所有 lua。
---  本文件自己用 GameMain:NewMod 注册成独立 mod，不依赖 JadeXiuXianMod.lua。
---
---  原理：代理事件的结算代码写在 Settings/MapStories/*.xml 的
---        <OKResult><![CDATA[ ... ]]></OKResult> 里，形如
---            local solve = cRegion.RegionPolicy.Way;
---            if solve == enumSolve.Social then A elseif solve == enumSolve.Fight then B ...
---        这些代码被读成 MapStoryDef.Selections[i].OKResult（public string），
---        玩家点「查看结果」时由 C# 现场编译执行、不缓存。因此在运行期把这段
---        字符串里的「读取手段」替换成固定值，就能让任何选择都按最优分支结算，
---        磁盘上的配置文件一个字节都不用改。
---
---  模块 (4) 我方弟子救灾双倍效果：
---        密事里的救灾进度来自 tbTable:InnerDisaster(me)，该函数按
---        me:GetGLevel()（功法逻辑等级）返回 100/250/400/600。本模块把它
---        包一层、返回值 ×2（配置项 M.DISASTER_TIMES），不碰故事文本。
+--  代理事件恒为最优解
+-- 1. 代理事件无视所选手段，恒按最优手段结算
+-- 2. 结算后追加保底收益（信仰人口 / 影响力 / 吸引力）
+-- 3. 我方弟子救灾固定收益1600
 --=====================================================================
 
 --防止同一个文件被执行两次
@@ -27,17 +14,11 @@ local M = GameMain:NewMod("JadeXianAgencyBest");
 JadeXianAgencyBest = M;
 
 
---============================== 配 置 ==============================
-
-M.FORCE_BEST      = true;     --(1) 无视所选手段，恒按最优手段结算
-M.IGNORE_ATTR     = true;     --(2) 取消代理事件内的属性门槛
-M.EXTRA_REWARD    = true;     --(3) 结算后追加保底收益（信仰人口 / 影响力 / 吸引力）
-M.EXTRA_FORCE     = "normal"; --(3) 强度："slight" = 轻微，"normal" = 标准
-M.DISASTER_TIMES     = 2;     --(4) 我方弟子救灾结算几次（默认 3 次 = 进度×3）
+--============================== 参 数 ==============================
 
 --每个代理事件对应的「最优手段」（= 该事件里唯一有实际收益的那条分支）
 M.BEST_WAY = {
-	--布施事件（MapStory_Policy.xml）
+	--布施事件（Settings/MapStories/MapStory_Policy.xml）
 	OutSpread_Give1 = "Charm",
 	OutSpread_Give2 = "Food",
 	OutSpread_Give3 = "Rock",
@@ -76,9 +57,9 @@ M.BEST_WAY = {
 	OutSpread_Disp5 = "Intelligence",
 	--神迹事件
 	OutSpread_God1 = "Member",
-	--神树采集事件（MapStory_Policy2.xml）
+	--神树采集事件（Settings/MapStories/MapStory_Policy2.xml）
 	OutSpread_TreeEXP = "Member",
-	--赈灾事件（MapStory_Disasters.xml）
+	--赈灾事件（Settings/MapStories/MapStory_Disasters.xml）
 	Place_Drought = "Food",
 	Place_Flood = "Rock",
 	Place_Siberia = "Charm",
@@ -86,11 +67,17 @@ M.BEST_WAY = {
 };
 
 --内部常量
-M.MARK_BEST  = "[JadeXian:BEST]";     --(1) 换手段的幂等标记
-M.MARK_EXTRA = "[JadeXian:EXTRA]";    --(3) 追加收益的幂等标记
-M.PATTERN    = "local%s+solve%s*=%s*cRegion%.RegionPolicy%.Way%s*;";
-M.ENUM       = "CS.XiaWorld.OutspreadMgr.Region.SolveWay.";
-M.WAY_FLAG   = "RegionPolicy.Way";    --"这是要选手段的代理事件"的判据
+local MARK_EXTRA = "[JadeXian:EXTRA]";  --(3) 追加收益的幂等标记，删了会每次读档叠收益
+local PATTERN    = "local%s+solve%s*=%s*cRegion%.RegionPolicy%.Way%s*;";
+local ENUM       = "CS.XiaWorld.OutspreadMgr.Region.SolveWay.";
+local WAY_FLAG   = "RegionPolicy.Way";  --"这是要选手段的代理事件"的判据
+
+--(3) 追加到每个代理事件末尾的保底收益：信仰人口 / 影响力 / 吸引力
+--    要改成轻微效果，把下面两个 Increase* 换成 SlightlyIncrease*
+local EXTRA_CODE = "\n--" .. MARK_EXTRA .. " 结算追加：信仰人口 / 影响力 / 吸引力\n"
+	.. "tbTable:IncreasePop(WorldLua, cRegion);\n"
+	.. "tbTable:AddInfluence(WorldLua, cRegion);\n"
+	.. "tbTable:IncreaseAttra(WorldLua, cRegion);\n";
 
 
 --============================= 小工具 ==============================
@@ -99,37 +86,19 @@ function M:Log(s)
 	print("[JadeXian][代理] " .. tostring(s));
 end
 
-function M:IsNull(v)
+local function isNull(v)
 	return v == nil or tostring(v) == "null";
 end
 
 
 --======================== 游戏生命周期回调 ========================
 
---进世界时调用（故事表若还没就绪，Apply 内部会自行跳过）
-function M:OnEnter()
-	self:Apply();
-end
-
 --读档、进入世界、切换地图后都会调用
 function M:OnAfterLoad()
-	self:Apply();
-end
-
-
---============================== 主逻辑 ==============================
-
-function M:Apply()
 	local ok, err = pcall(function()
-		if M.IGNORE_ATTR then
-			M.ApplyAgencyAttrFree(M);
-		end
-		if M.FORCE_BEST or M.EXTRA_REWARD then
-			M:PatchStories();
-		end
-		if M.DISASTER_TIMES and M.DISASTER_TIMES > 1 then
-			M:ApplyDisasterTimes();
-		end
+		M:ApplyAgencyAttrFree();   --(2) 解除属性门槛
+		M:PatchStories();          --(1)(3) 换最优手段 + 追加保底收益
+		M:ApplyDisasterTimes();    --(4) 救灾固定收益
 	end);
 	if not ok then
 		M:Log("!! 应用异常: " .. tostring(err));
@@ -141,220 +110,133 @@ end
 
 function M:PatchStories()
 	local Mgr = CS.XiaWorld.MapStoryMgr.Instance;
-	if M:IsNull(Mgr) then
+	if isNull(Mgr) then
 		return;                      --还没进世界（主菜单阶段），此时没有故事表
 	end
-	--m_mapStories 是 private static 字段，先开放私有成员访问
-	pcall(function() xlua.private_accessible(CS.XiaWorld.MapStoryMgr) end);
 
-	local map = nil;
-	local okS, vS = pcall(function() return CS.XiaWorld.MapStoryMgr.m_mapStories end);
-	if okS and not M:IsNull(vS) then
-		map = vS;
-	end
-	if map == nil then
-		local okI, vI = pcall(function() return Mgr.m_mapStories end);
-		if okI and not M:IsNull(vI) then
-			map = vI;
-		end
-	end
-	if map == nil then
-		return;
+	--m_mapStories 是 private static 字段：必须先开放私有访问，
+	--且只能用「类.字段」取，用实例取是拿不到的（实测，见文件头）
+	xlua.private_accessible(CS.XiaWorld.MapStoryMgr);
+	local map = CS.XiaWorld.MapStoryMgr.m_mapStories;
+	if isNull(map) or map.Count < 1 then
+		return;                      --启动阶段表是空的，读档 / 换地图后会重新填充
 	end
 
-	--故事表还没就绪（启动阶段是空的，读档 / 换地图时会重新填充）
-	local okC, cnt = pcall(function() return map.Count end);
-	if (not okC) or type(cnt) ~= "number" or cnt < 1 then
-		return;
-	end
-
-	local fresh, extra, fail, missing = 0, 0, 0, 0;
-	local seen = {};
-	local function handle(name, def, best)
-		if def == nil or seen[name] then
-			return;
-		end
-		seen[name] = true;
-		local r, ex, why = M:PatchAgencyStory(name, def, best);
-		extra = extra + (ex or 0);
-		if r == 1 then
-			fresh = fresh + 1;
-		elseif r == -1 then
-			fail = fail + 1;
-			M:Log("!! 改写 " .. tostring(name) .. " 出错： " .. tostring(why));
-		end
-	end
-
-	--① 按「最优手段表」逐条改写（名字可靠，优先走 public 的 GetStoryDef）
-	for name, best in pairs(M.BEST_WAY) do
-		local def = nil;
-		local okG, d1 = pcall(function() return Mgr:GetStoryDef(name) end);
-		if okG and not M:IsNull(d1) then
-			def = d1;
-		end
-		if def == nil then
-			local ok2, d2 = pcall(function() return map[name] end);
-			if ok2 and not M:IsNull(d2) then
-				def = d2;
+	--单遍扫完整张表：BEST_WAY 里有的换手段 + 追加收益，没有的只追加收益。
+	--字典 key 就是 Story Name（同 TryGetValue 用的那个字符串），pairs 能直接拿
+	local fresh, extra, fail = 0, 0, 0;
+	for k, def in pairs(map) do
+		local name = tostring(k);
+		if not isNull(def) then
+			local r, add, why = M:PatchStory(name, def, M.BEST_WAY[name]);
+			if r < 0 then
+				fail = fail + 1;
+				M:Log("!! 改写 " .. name .. " 出错：" .. tostring(why));
+			elseif r > 0 then
+				fresh = fresh + 1;
+				extra = extra + (add or 0);
 			end
 		end
-		if def == nil then
-			missing = missing + 1;
-		else
-			handle(name, def, best);
-		end
 	end
 
-	--② 整表扫一遍，给「最优手段表」之外的代理事件也追加保底收益
-	if M.EXTRA_REWARD then
-		local okEach = pcall(function()
-			for k, def in pairs(map) do
-				if def ~= nil then
-					handle(tostring(k), def, nil);
-				end
-			end
-		end);
-		if not okEach then              --pairs 不可用时退化为 Keys 枚举
-			pcall(function()
-				local e = map.Keys:GetEnumerator();
-				while e:MoveNext() do
-					local nm = tostring(e.Current);
-					local okG, d = pcall(function() return Mgr:GetStoryDef(nm) end);
-					if okG and not M:IsNull(d) then
-						handle(nm, d, nil);
-					end
-				end
-			end);
-		end
-	end
-
-	self.count = (self.count or 0) + fresh;
-	if fresh > 0 or extra > 0 or fail > 0 or missing > 0 then
-		self:Log("代理事件改写：" .. fresh .. " 条 / 追加收益 " .. extra .. " 段 / 出错 " .. fail
-			.. " / 未找到 " .. missing .. "（累计 " .. self.count .. " 条）");
+	if fresh > 0 or extra > 0 or fail > 0 then
+		M:Log("代理事件改写：" .. fresh .. " 条 / 追加收益 " .. extra .. " 段 / 出错 " .. fail);
 	end
 end
 
 
---(3) 结算后追加的保底收益代码：信仰人口 / 影响力 / 吸引力
-function M:ExtraCode()
-	local pop = "IncreasePop";       --信仰人口（把当地不信者转成本门信众）
-	local att = "IncreaseAttra";     --吸引力
-	if M.EXTRA_FORCE == "slight" then
-		pop = "SlightlyIncreasePop";
-		att = "SlightlyIncreaseAttra";
-	end
-	return "\n--" .. M.MARK_EXTRA .. " 结算追加：信仰人口 / 影响力 / 吸引力\n"
-		.. "tbTable:" .. pop .. "(WorldLua, cRegion);\n"
-		.. "tbTable:AddInfluence(WorldLua, cRegion);\n"
-		.. "tbTable:" .. att .. "(WorldLua, cRegion);\n";
-end
-
---改写单条故事。返回：r, extra, why
---    r =  1  本次改了手段（或追加了收益）
---         0  无需改动（已经改过）
---        -1  处理中抛异常（why 说明原因，本条保持原样）
---         3  不是"要选手段"的代理事件，直接跳过（不计数）
---    extra = 本次新追加收益的段数
-function M:PatchAgencyStory(name, def, best)
-	if def == nil then
-		return 3, 0;
-	end
+--改写单条故事。返回：r, added, why
+--    r > 0   本次有改动（数值 = 改动了几个选项）
+--    r = 0   无需改动：已经改过，或不是"要选手段"的代理事件
+--    r < 0   处理中抛异常（why 说明原因，本条保持原样）
+--    added   本次新追加收益的选项数
+--
+--  幂等性来源（重要，别乱改）：
+--    * 手段替换后原文里的 RegionPolicy.Way 消失，下一轮 WAY_FLAG 判断直接跳过
+--    * 收益追加没有这个特征，所以必须靠 MARK_EXTRA 标记拦住，否则每次
+--      OnAfterLoad（读档 / 切地图）都会再追加一段，收益无限叠
+function M:PatchStory(name, def, best)
 	local sels = def.Selections;
-	if sels == nil then
-		return 3, 0;
+	if isNull(sels) then
+		return 0, 0;
 	end
 
-	--替换文本：注意 "--" 注释符 + 结尾换行，缺一不可
-	--（没有 "--" 就是语法错误；没有 "\n" 会把同一行后面的代码注释掉）
-	local repl = "local solve = " .. M.ENUM .. tostring(best) .. ";  --" .. M.MARK_BEST
-		.. "代理事件恒按最优手段结算\n";
-	local extra = M:ExtraCode();
+	--替换文本：行尾 "--" 注释符 + 换行缺一不可
+	--（没有 "--" 就是语法错误；没有换行会把同一行后面的代码注释掉）
+	--best 为 nil（不在 BEST_WAY 里）时 repl 也是 nil，只加收益不换手段
+	local repl = best and ("local solve = " .. ENUM .. tostring(best) .. ";  --[JadeXian:BEST]恒按最优\n");
 
-	local changed, extraAdd, eligible = 0, 0, 0;
+	local changed, added, hit, pat = 0, 0, 0, 0;
+
 	local ok, err = pcall(function()
-		local n = sels.Count;
-		for i = 0, n - 1 do
+		for i = 0, sels.Count - 1 do
 			local sel = sels[i];
-			if sel ~= nil then
-				local code = sel.OKResult;
-				--只碰"要选手段"的代理事件（结算代码里引用了 RegionPolicy.Way）
-				if type(code) == "string" and string.find(code, M.WAY_FLAG, 1, true) ~= nil then
-					eligible = eligible + 1;
-					local newCode = code;
+			local code = sel and sel.OKResult;
+			--只碰"要选手段"的代理事件（结算代码里引用了 RegionPolicy.Way）
+			if type(code) == "string" and string.find(code, WAY_FLAG, 1, true) ~= nil then
+				hit = hit + 1;
+				local new = code;
 
-					--(1) 把"读取玩家所选手段"换成固定最优手段
-					if M.FORCE_BEST and best ~= nil
-						and string.find(newCode, M.PATTERN) ~= nil
-						and string.find(newCode, M.MARK_BEST, 1, true) == nil then
-						newCode = string.gsub(newCode, M.PATTERN, repl);
-					end
+				--(1) 把"读取玩家所选手段"换成固定最优手段；不匹配时 gsub 原样返回
+				if repl ~= nil then
+					local nm, n = string.gsub(new, PATTERN, repl);
+					new = nm;
+					pat = pat + n;
+				end
 
-					--(3) 末尾追加保底收益
-					if M.EXTRA_REWARD and string.find(newCode, M.MARK_EXTRA, 1, true) == nil then
-						newCode = newCode .. extra;
-					end
+				--(3) 末尾追加保底收益
+				if string.find(new, MARK_EXTRA, 1, true) == nil then
+					new = new .. EXTRA_CODE;
+					added = added + 1;
+				end
 
-					if newCode ~= code then
-						sel.OKResult = newCode;
-						changed = changed + 1;
-						if string.find(newCode, M.MARK_EXTRA, 1, true) ~= nil then
-							extraAdd = extraAdd + 1;
-						end
-					end
+				if new ~= code then
+					sel.OKResult = new;
+					changed = changed + 1;
 				end
 			end
 		end
 	end);
 
 	if not ok then
-		return -1, 0, "异常:" .. tostring(err);
+		return -1, 0, err;
 	end
-	if eligible == 0 then
-		return 3, 0;                 --不是这类事件，不参与统计
-	end
-	if changed > 0 then
-		return 1, extraAdd;
-	end
-	return 0, 0;
+	return changed, added;
 end
 
 
---================== (4) 我方弟子救灾双倍效果 ===================
+--==================== (4) 我方弟子救灾固定收益 ====================
 function M:ApplyDisasterTimes()
+	if self.disasterHooked then
+		return;                          --只包一次，避免反复套娃
+	end
 	local H = GameMain:GetMod("MapStoryHelper");
 	if H == nil or H.InnerDisaster == nil then
-		self:Log("MapStoryHelper 未就绪，救灾结算次数修改跳过");
+		M:Log("MapStoryHelper 未就绪，救灾增益跳过");
 		return;
 	end
-	if self.aid_times_hooked then
-		return;                          --只包一次，避免 ×3 再 ×3
-	end
-	self.aid_times_hooked = true;
+	self.disasterHooked = true;
 
-	local times = M.DISASTER_TIMES;
-	local orig = H.InnerDisaster;
-	H.InnerDisaster = function(self, me)
-		local base = orig(self, me) or 100;
-		return base * times;
-	end;
-	self:Log("救灾结算次数已改为 " .. times .. " 次");
+	H.InnerDisaster = function() return 1600; end;
+	M:Log("我方弟子救灾收益固定 = 1600");
 end
 
 
 --=================== (2) 取消事件里的属性门槛 ====================
-
 function M:ApplyAgencyAttrFree()
+	if self.attrFreeHooked then
+		return;
+	end
 	local H = GameMain:GetMod("MapStoryHelper");
 	if H == nil or H.MPL == nil or H.SPL == nil then
-		self:Log("MapStoryHelper 未就绪，属性门槛解除跳过");
+		M:Log("MapStoryHelper 未就绪，属性门槛跳过");
 		return;
 	end
-	if self.attr_free_hooked then
-		return;
-	end
-	self.attr_free_hooked = true;
-	H.MPL = function(self, k) return -1; end;    --MainPropertyLevel
-	H.SPL = function(self, k) return -1; end;    --SidePropertyLevel
-	self:Log("代理事件属性门槛已解除");
+	self.attrFreeHooked = true;
+
+	--xml 里是 tbTable:MPL(1) / tbTable:SPL(1) 冒号调用，原值返回等级门槛，
+	--改成恒 -1 后 unionData.Charm > -1 恒成立，门槛即失效
+	H.MPL = function() return -1; end;    --MainPropertyLevel
+	H.SPL = function() return -1; end;    --SidePropertyLevel
+	M:Log("代理事件属性门槛已解除");
 end
