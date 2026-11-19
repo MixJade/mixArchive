@@ -168,7 +168,7 @@
 		<ThingName>线索礼包</ThingName>
 		<MaxStack>1</MaxStack>
 		<TexPath>res\Sprs\object\object_XIAObaoxiang01</TexPath>
-		<Desc>一叠来路不明的旧案卷宗。打开它，江湖秘闻中「神秘身影」「灭门之谜」「外传-上古信息」的线索便会一并到手，往后不必再逐一寻访各派人物打听。</Desc>
+		<Desc>获得天下所有秘密</Desc>
 		<Beauty>3</Beauty>
 		<Rate>9</Rate>
 		<ElementKind>None</ElementKind>
@@ -200,7 +200,7 @@
 		</ProduceMode>
 
 		<StoryBnts>
-			<li Name="打开" Desc="获灭门旧案全部线索（含外传）" Appoint="3" Story="Story_Item_JadeStart_ClueGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
+			<li Name="打开" Desc="获得天下所有秘密" Appoint="3" Story="Story_Item_JadeStart_ClueGift" Cost="5" Icon="res/Sprs/ui/icon_hand"/>
 		</StoryBnts>
 	</ThingDef>
 

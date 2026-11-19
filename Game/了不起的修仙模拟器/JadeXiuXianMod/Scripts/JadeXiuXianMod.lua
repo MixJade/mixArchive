@@ -831,7 +831,7 @@ function JadeXian:OnSelectSwordPillar(thing)
 		"清理垃圾",
 		"res/Sprs/ui/icon_hand",
 		"GameMain:GetMod('JadeXian'):CleanTrash(bind)",
-		"销毁地图上品阶低于6的武器/衣服/裤子/法宝/工具/垃圾，每销毁一个获得50灵石（整堆被锁定的物品保留）",
+		"销毁地图上品阶低于7的武器/衣服/裤子/法宝/工具/垃圾，每销毁一个获得50灵石（整堆被锁定的物品保留）",
 		nil
 	);
 end
@@ -846,7 +846,7 @@ function JadeXian:CleanTrash(t)
 	for i = 0, list.Count - 1 do
 		local it = list[i];
 		local cat = JadeXian:GetTrashCategory(it);
-		if cat ~= nil and it.Rate < 6
+		if cat ~= nil and it.Rate < 7
 			and it.FreeCount > 0
 			and it.InWhoseBag == 0 and it.InWhoseHand == 0 then
 			targets[#targets + 1] = { thing = it, cat = cat, count = it.Count };
@@ -855,7 +855,7 @@ function JadeXian:CleanTrash(t)
 
 	if #targets == 0 then
 		WorldLua:ShowMsgBox(
-			XT("地图上没有品阶低于6的武器/衣服/裤子/法宝/工具/垃圾"),
+			XT("地图上没有品阶低于7的武器/衣服/裤子/法宝/工具/垃圾"),
 			XT("确定")
 		);
 		return;
